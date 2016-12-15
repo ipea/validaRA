@@ -1,18 +1,22 @@
 Package: validaRA
 Type: Package
-Title: FunÃ§Ãµes para validaÃ§Ã£o de qualidade de Registros Administrativos
+Title: Funções para validação de qualidade de Registros Administrativos
 Version: 0.1.0
-Author@R:as.person(c(
-  "Lucas Mation <lucas.mation@ipea.gov.br> [aut,cre]",
-  "Gustavo Coelho <gustavo.coelho@ipea.gov.br> [aut]"
-  ))
-Description: FunÃ§Ãµes para facilitar a checagem da qualidade e unicidade de registros administrativos. Incluindo: 
-    - valida_documento : ValidaÃ§Ã£o de dÃ­gitos verificadores (CPF, CNPJ, PIS-NIT-NIS-PASEP)
-    - mapeia_duplicidades : usuario declara identificadores supostamente Ãºnicos, pacote diagnostica duplicidades
-    - relatorio_de_qualidade : relatÃ³rio de Rmarkdown descrevendo taxas de documentos vÃ¡lidos, duplicidades, tabelas de frequencia de variÃ¡veis categÃ³ricas 
+Authors@R: as.person(c(
+    "Lucas Mation <lucas.mation@ipea.gov.br> [aut,cre]",
+    "Gustavo Coelho <gustavo.coelho@ipea.gov.br> [aut]"
+    ))
+Description: Funções para facilitar a checagem da qualidade e unicidade de
+    registros administrativos. Incluindo: - valida_documento : Validação de dígitos
+    verificadores (CPF, CNPJ, PIS-NIT-NIS-PASEP) - mapeia_duplicidades : usuario
+    declara identificadores supostamente únicos, pacote diagnostica duplicidades -
+    relatorio_de_qualidade : relatório de Rmarkdown descrevendo taxas de documentos
+    válidos, duplicidades, tabelas de frequencia de variáveis categóricas
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
-LazyData: true
+LazyData: LazyData: true
 URL: https://github.com/ipea/validaRA
 BugReports: http://github.com/hadley/dplyr/issues/issues
+Suggests:
+    testthat
+RoxygenNote: 5.0.1
