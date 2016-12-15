@@ -3,6 +3,7 @@ verifica_digito_cpf <- function(entrada, digito){
   digito_verificador <- entrada[digito]
   vetor_de_validacao <- c(digito:2, rep(0, 12 - digito))
   resultado <- (sum(entrada * vetor_de_validacao)*10) %% 11
+  if(resultado == 10) resultado <- 0
   if(digito_verificador == resultado){
     saida <- TRUE
   }else{
@@ -11,11 +12,8 @@ verifica_digito_cpf <- function(entrada, digito){
   saida
 }
 
-valida_cpf <- function(entrada, saida){
+valida_cpf <- function(entrada){
   if(is.integer(entrada) | is.numeric(entrada)){
-    if(length(entrada) == 11){
-      entrada <- paste(entrada, collapse = "")
-    }
     entrada <- as.character(entrada)
   }
   entrada<- gsub("[^0-9]", "", entrada)
@@ -30,10 +28,21 @@ valida_cpf <- function(entrada, saida){
   saida
 }
 
-valida_documento <- function(entrada, saida, type = "cpf"){
+valida_documento <- function(entrada, type = "cpf"){
+  num <- length(entrada)
+  result <- rep_len(FALSE, length.out = num)
   if(type == "cpf"){
-    result<-valida_cpf(entrada, saida)
+    for(i in 1:num){
+      result[i] <- valida_cpf(entrada[i])
+    }
   }
-  eval.parent(saida <- result)
+  result
+}
+
+valida_documento_df <- function(y, data)
+{
+  arguments <- as.list(match.call())
+  y = eval(arguments$y, data)
+  valida_documento(y)
 }
 
