@@ -1,4 +1,4 @@
-context("Cpf test")
+context("Pessoa test verification")
 
 test_that("Cpf is giving with especial caracters", {
   saida <- valida_documento("529.982.247-25")
