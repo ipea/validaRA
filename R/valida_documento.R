@@ -6,6 +6,10 @@ gerar_vetor_verificacao_cnpj <- function(digito){
   c(seq(digito-8,2), 9:2, rep(0, 15-digito))
 }
 
+gerar_vetor_verificacao_pis <- function(digito){
+  c(3,2, 9:2, 0)
+}
+
 verifica_digito_pessoa <- function(entrada, digito, vetor_de_verificacao){
   entrada <- as.numeric(unlist(strsplit(entrada, "")))
   digito_verificador <- entrada[digito]
@@ -29,7 +33,7 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
     saida <- FALSE
   }else{
     saida <- verifica_digito_pessoa(entrada, primeiro_digito, vetor_de_verificacao )
-    if(saida == TRUE){
+    if(saida == TRUE & is.numeric(segundo_digito)){
       saida <- verifica_digito_pessoa(entrada, segundo_digito, vetor_de_verificacao)
     }
   }
@@ -47,6 +51,11 @@ valida_documento <- function(entrada, type = "cpf"){
   if(type == "cnpj"){
     for(i in 1:num){
       result[i] <- valida_id(entrada[i], 14, 13, 14, gerar_vetor_verificacao_cnpj )
+    }
+  }
+  if(type == "pis"){
+    for(i in 1:num){
+      result[i] <- valida_id(entrada[i], 11, 11, FALSE, gerar_vetor_verificacao_pis )
     }
   }
   result
