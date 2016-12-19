@@ -69,6 +69,21 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
   saida
 }
 
+#' Check brazilian documents.
+#' 
+#' \code{valida_doc} returns true or false if the number of document is correct.
+#' 
+#' 
+#' @param entrada Caracter or numeric of the document that will be validated.
+#' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
+#'  
+#' @return True or False.
+#'  
+#' @examples 
+#'  valida_doc("529.982.247-25", type = "cpf") 
+#'  valida_doc("60.149.443/0001-70", type = "cnpj")
+#' @export
+#'  
 valida_doc <- function(entrada, type = "cpf"){
   num <- length(entrada)
   result <- rep_len(FALSE, length.out = num)
@@ -99,6 +114,6 @@ valida_documento_df <- function(y, data)
 {
   arguments <- as.list(match.call())
   y = eval(arguments$y, data)
-  valida_documento(y)
+  valida_doc(y)
 }
 
