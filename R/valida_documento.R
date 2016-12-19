@@ -40,7 +40,7 @@ gerar_vetor_verificacao_pis <- function(digito){
 }
 
 verifica_digito_pessoa <- function(entrada, digito, vetor_de_verificacao){
-  entrada <- as.numeric(unlist(strsplit(entrada, "")))
+  entrada <- as.numeric(entrada)
   digito_verificador <- entrada[digito]
   vetor_de_validacao <- vetor_de_verificacao(digito)
   resultado <- (sum(entrada * vetor_de_validacao)*10) %% 11
@@ -58,32 +58,33 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
     entrada <- as.character(entrada)
   }
   entrada<- gsub("[^0-9]", "", entrada)
-  if(length(unlist(strsplit(entrada, ""))) != tamanho){
+  entrada_separada<- unlist(strsplit(entrada, ""))
+  if(length(entrada_separada) != tamanho){
     saida <- FALSE
   }else{
-    saida <- verifica_digito_pessoa(entrada, primeiro_digito, vetor_de_verificacao )
+    saida <- verifica_digito_pessoa(entrada_separada, primeiro_digito, vetor_de_verificacao )
     if(saida == TRUE & is.numeric(segundo_digito)){
-      saida <- verifica_digito_pessoa(entrada, segundo_digito, vetor_de_verificacao)
+      saida <- verifica_digito_pessoa(entrada_separada, segundo_digito, vetor_de_verificacao)
     }
   }
   saida
 }
 
 #' Check brazilian documents.
-#' 
+#'
 #' \code{valida_doc} returns true or false if the number of document is correct.
-#' 
-#' 
+#'
+#'
 #' @param entrada Caracter or numeric of the document that will be validated.
 #' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
-#'  
+#'
 #' @return True or False.
-#'  
-#' @examples 
-#'  valida_doc("529.982.247-25", type = "cpf") 
+#'
+#' @examples
+#'  valida_doc("529.982.247-25", type = "cpf")
 #'  valida_doc("60.149.443/0001-70", type = "cnpj")
 #' @export
-#'  
+#'
 valida_doc <- function(entrada, type = "cpf"){
   num <- length(entrada)
   result <- rep_len(FALSE, length.out = num)
