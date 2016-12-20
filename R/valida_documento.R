@@ -39,7 +39,7 @@ gerar_vetor_verificacao_pis <- function(digito){
   c(3,2, 9:2, 0)
 }
 
-verifica_digito_pessoa <- function(entrada, digito, vetor_de_verificacao){
+verifica_digito_pessoa <- function(entrada, digito, vetor_de_verificacao, log = FALSE){
   entrada <- as.numeric(entrada)
   digito_verificador <- entrada[digito]
   vetor_de_validacao <- vetor_de_verificacao(digito)
@@ -49,20 +49,25 @@ verifica_digito_pessoa <- function(entrada, digito, vetor_de_verificacao){
     saida <- TRUE
   }else{
     saida <- FALSE
+    if(log == TRUE) log_digito_errado(digito_verificador, resultado)
   }
   saida
 }
 
-valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_de_verificacao){
+valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_de_verificacao, log = FALSE){
   if(is.integer(entrada) | is.numeric(entrada)){
     entrada <- as.character(entrada)
+  }else{
+    if(grepl("[^0-9]", entrada) == TRUE){
+      entrada<- gsub("[^0-9]", "", entrada)
+    }
   }
-  entrada<- gsub("[^0-9]", "", entrada)
   entrada_separada<- unlist(strsplit(entrada, ""))
   if(length(entrada_separada) != tamanho){
+    if(log == TRUE) log_numero_caracters_invalido(length(entrada_separada))
     saida <- FALSE
   }else{
-    saida <- verifica_digito_pessoa(entrada_separada, primeiro_digito, vetor_de_verificacao )
+    saida <- verifica_digito_pessoa(entrada_separada, primeiro_digito, vetor_de_verificacao, log = log )
     if(saida == TRUE & is.numeric(segundo_digito)){
       saida <- verifica_digito_pessoa(entrada_separada, segundo_digito, vetor_de_verificacao)
     }
@@ -85,11 +90,17 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
 #'  valida_doc("60.149.443/0001-70", type = "cnpj")
 #' @export
 #'
-valida_doc <- function(entrada, type = "cpf"){
+valida_doc <- function(entrada, type = "cpf", log = FALSE, file_log = "erros.log" ){
   num <- length(entrada)
+  if(log == TRUE){
+    crialogging()
+    cria_env()
+    set_type(type)
+  }
   result <- rep_len(FALSE, length.out = num)
   if(type == "cpf"){
     for(i in 1:num){
+      set_line(i)
       result[i] <- valida_id(entrada[i], 11, 10, 11, gerar_vetor_verificacao_cpf )
     }
   }
