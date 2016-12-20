@@ -56,7 +56,8 @@ verifica_digito_pessoa <- function(entrada, digito, vetor_de_verificacao, log = 
 
 valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_de_verificacao, log = FALSE){
   if(is.integer(entrada) | is.numeric(entrada)){
-    entrada <- as.character(entrada)
+    entrada <- sprintf("%011.0f", entrada)
+    print(entrada)
   }else{
     if(grepl("[^0-9]", entrada) == TRUE){
       entrada<- gsub("[^0-9]", "", entrada)
@@ -82,8 +83,9 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
 #'
 #' @param entrada Caracter or numeric of the document that will be validated.
 #' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param log Output erros found on entrada
 #'
-#' @return True or False.
+#' @return True or False. if log is giving return a data frame.
 #'
 #' @examples
 #'  valida_doc("529.982.247-25", type = "cpf")
@@ -108,6 +110,7 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
   }
   if(type == "pis"){
     for(i in 1:num){
+      log_env$nr_line <- i
       result[i] <- valida_id(entrada[i], 11, 11, FALSE, gerar_vetor_verificacao_pis, log = log )
     }
   }
@@ -117,7 +120,7 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
     }
   }
   if(log == TRUE) result <- data.frame("dado" = entrada, "resultado" = result, "erros" = log_env$erros)
-  rm_erros()
+  rm(log_env, envir = as.environment(1))
   result
 }
 

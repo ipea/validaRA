@@ -4,21 +4,23 @@
 \alias{valida_doc}
 \title{Check brazilian documents.}
 \usage{
-valida_doc(entrada, type = "cpf")
+valida_doc(entrada, type = "cpf", log = FALSE)
 }
 \arguments{
 \item{entrada}{Caracter or numeric of the document that will be validated.}
 
 \item{type}{Caracter, it could be cpf, cnpf, pis e titulo de eleitor.}
+
+\item{log}{Output erros found on entrada}
 }
 \value{
-True or False.
+True or False. if log is giving return a data frame.
 }
 \description{
 \code{valida_doc} returns true or false if the number of document is correct.
 }
 \examples{
- valida_doc("529.982.247-25", type = "cpf") 
+ valida_doc("529.982.247-25", type = "cpf")
  valida_doc("60.149.443/0001-70", type = "cnpj")
 }
 
