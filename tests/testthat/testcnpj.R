@@ -20,6 +20,11 @@ test_that("CNPJ errado", {
   expect_equal(saida, FALSE)
 })
 
+test_that("CNPJ com tamanho errado", {
+  saida <- valida_doc(6014944300017, type = "cnpj")
+  expect_equal(saida, FALSE)
+})
+
 test_that("Conjunto de CNPJS", {
   cnpjs <- c(16784319000195, 11318414000180, 79417547000147)
   names <- c("BB", "Caixa", "Ipea")

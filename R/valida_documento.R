@@ -49,7 +49,7 @@ verifica_digito_pessoa <- function(entrada, digito, vetor_de_verificacao, log = 
     saida <- TRUE
   }else{
     saida <- FALSE
-    if(log == TRUE) log_digito_errado(digito_verificador, resultado)
+    if(log == TRUE) log_digito_errado(digito)
   }
   saida
 }
@@ -64,12 +64,12 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
   }
   entrada_separada<- unlist(strsplit(entrada, ""))
   if(length(entrada_separada) != tamanho){
-    if(log == TRUE) log_numero_caracters_invalido(length(entrada_separada))
+    if(log == TRUE)log_numero_caracters_invalido(length(entrada_separada))
     saida <- FALSE
   }else{
     saida <- verifica_digito_pessoa(entrada_separada, primeiro_digito, vetor_de_verificacao, log = log )
     if(saida == TRUE & is.numeric(segundo_digito)){
-      saida <- verifica_digito_pessoa(entrada_separada, segundo_digito, vetor_de_verificacao)
+      saida <- verifica_digito_pessoa(entrada_separada, segundo_digito, vetor_de_verificacao, log = log)
     }
   }
   saida
@@ -90,28 +90,25 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
 #'  valida_doc("60.149.443/0001-70", type = "cnpj")
 #' @export
 #'
-valida_doc <- function(entrada, type = "cpf", log = FALSE, file_log = "erros.log" ){
+valida_doc <- function(entrada, type = "cpf", log = FALSE){
   num <- length(entrada)
-  if(log == TRUE){
-    crialogging()
-    cria_env()
-    set_type(type)
-  }
   result <- rep_len(FALSE, length.out = num)
+  cria_env(num)
   if(type == "cpf"){
     for(i in 1:num){
-      set_line(i)
-      result[i] <- valida_id(entrada[i], 11, 10, 11, gerar_vetor_verificacao_cpf )
+      log_env$nr_line <- i
+      result[i] <- valida_id(entrada[i], 11, 10, 11, gerar_vetor_verificacao_cpf, log = log )
     }
   }
   if(type == "cnpj"){
     for(i in 1:num){
-      result[i] <- valida_id(entrada[i], 14, 13, 14, gerar_vetor_verificacao_cnpj )
+      log_env$nr_line <- i
+      result[i] <- valida_id(entrada[i], 14, 13, 14, gerar_vetor_verificacao_cnpj, log = log )
     }
   }
   if(type == "pis"){
     for(i in 1:num){
-      result[i] <- valida_id(entrada[i], 11, 11, FALSE, gerar_vetor_verificacao_pis )
+      result[i] <- valida_id(entrada[i], 11, 11, FALSE, gerar_vetor_verificacao_pis, log = log )
     }
   }
   if(type == "tituloeleitor"){
@@ -119,6 +116,8 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE, file_log = "erros.log
       result[i] <- verificar_titulo_eleitor(entrada[i])
     }
   }
+  if(log == TRUE) result <- data.frame("dado" = entrada, "resultado" = result, "erros" = log_env$erros)
+  rm_erros()
   result
 }
 
