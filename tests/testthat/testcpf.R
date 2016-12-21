@@ -20,6 +20,11 @@ test_that("Cpf errado", {
   expect_equal(saida, FALSE)
 })
 
+test_that("Cpf numerico com zero no inicio", {
+  saida <- valida_doc(08609070662)
+  expect_equal(saida, TRUE)
+})
+
 test_that("Vetor de cpfs", {
   cpfs <- c(31338763849, 70628182597, 45178861400)
   names <- c("Pedro", "Joao", "Augusto")
