@@ -29,13 +29,17 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
   if(is.integer(entrada) | is.numeric(entrada)){
     entrada <- sprintf("%011.0f", entrada)
   }else{
+    if(is.factor(entrada)){
+      entrada <- as.character(entrada)
+    }
     if(grepl("[^0-9]", entrada) == TRUE){
       entrada<- gsub("[^0-9]", "", entrada)
     }
   }
   entrada_separada<- unlist(strsplit(entrada, ""))
-  if(length(entrada_separada) != tamanho){
-    if(log == TRUE)log_numero_caracters_invalido(length(entrada_separada))
+  tamanho_entrada <- length(entrada_separada)
+  if(tamanho_entrada != tamanho){
+    if(log == TRUE)log_numero_caracters_invalido(tamanho_entrada)
     saida <- FALSE
   }else{
     saida <- verifica_digito_pessoa(entrada_separada, primeiro_digito, vetor_de_verificacao, log = log )
@@ -100,5 +104,16 @@ valida_documento_df <- function(y, data)
   arguments <- as.list(match.call())
   y = eval(arguments$y, data)
   valida_doc(y)
+}
+
+estatisticas_amostra <- function(columnName, df, type = "cpf"){
+  arguments <- as.list(match.call())
+  columnName <- eval(arguments$columnName, df)
+  result <- valida_doc(columnName, type = type, log = TRUE)
+  vazio <- nrow(dplyr::filter(result, grepl("Sem caracters", erros)))
+  tamanho_errado <- nrow(dplyr::filter(result, grepl("Insuficiente", erros)))
+  digito_invalido <- nrow(dplyr::filter(result, grepl("Digito", erros)))
+  estatistica <- data.frame(tamanho_errado = tamanho_errado, digito_invalido = digito_invalido, vazio = vazio )
+  estatistica
 }
 

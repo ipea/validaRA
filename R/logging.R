@@ -4,7 +4,11 @@ cria_env <- function(num){
 }
 
 log_numero_caracters_invalido <- function(nr_caracters){
-  log_env$erros[log_env$nr_line] <- sprintf('Possui %d caracters. Insuficiente', nr_caracters)
+  if(nr_caracters > 0){
+    log_env$erros[log_env$nr_line] <- sprintf('Possui %d caracters. Insuficiente', nr_caracters)
+  }else{
+    log_env$erros[log_env$nr_line] <- "Sem caracters"
+  }
 }
 
 log_digito_errado <- function(digito){
