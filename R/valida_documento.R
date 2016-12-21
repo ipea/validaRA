@@ -106,14 +106,5 @@ valida_documento_df <- function(y, data)
   valida_doc(y)
 }
 
-estatisticas_amostra <- function(columnName, df, type = "cpf"){
-  arguments <- as.list(match.call())
-  columnName <- eval(arguments$columnName, df)
-  result <- valida_doc(columnName, type = type, log = TRUE)
-  vazio <- nrow(dplyr::filter(result, grepl("Sem caracters", erros)))
-  tamanho_errado <- nrow(dplyr::filter(result, grepl("Insuficiente", erros)))
-  digito_invalido <- nrow(dplyr::filter(result, grepl("Digito", erros)))
-  estatistica <- data.frame(tamanho_errado = tamanho_errado, digito_invalido = digito_invalido, vazio = vazio )
-  estatistica
-}
+
 
