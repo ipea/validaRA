@@ -14,3 +14,7 @@ log_numero_caracters_invalido <- function(nr_caracters){
 log_digito_errado <- function(digito){
   log_env$erros[log_env$nr_line] <- sprintf('Digito %d errado', digito)
 }
+
+log_todos_caracters_iguais <- function(){
+  log_env$erros[log_env$nr_line] <- sprintf('Todos os caracters são iguais')
+}

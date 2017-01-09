@@ -5,6 +5,11 @@ test_that("CNPJ com caracters especiais", {
   expect_equal(saida, TRUE)
 })
 
+test_that("CNPJ com caracters iguais", {
+  saida <- valida_doc("11.111.111/1111-11", type = "cnpj")
+  expect_equal(saida, FALSE)
+})
+
 test_that("CNPJ somente com carcters", {
   saida <- valida_doc("60149443000170", type = "cnpj")
   expect_equal(saida, TRUE)

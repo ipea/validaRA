@@ -37,6 +37,10 @@ valida_id <- function(entrada, tamanho, primeiro_digito, segundo_digito, vetor_d
     }
   }
   entrada_separada<- unlist(strsplit(entrada, ""))
+  if(length(unique(entrada_separada)) == 1){
+    if(log == TRUE)log_todos_caracters_iguais()
+    return(FALSE)
+  }
   tamanho_entrada <- length(entrada_separada)
   if(tamanho_entrada != tamanho){
     if(log == TRUE)log_numero_caracters_invalido(tamanho_entrada)

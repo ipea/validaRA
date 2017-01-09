@@ -5,6 +5,11 @@ test_that("Cpf com caracteres especiais", {
   expect_equal(saida, TRUE)
 })
 
+test_that("Cpf com caracteres todos iguais", {
+  saida <- valida_doc("000.000.000-00")
+  expect_equal(saida, FALSE)
+})
+
 test_that("Cpf somente com caracteres", {
   saida <- valida_doc("52998224725")
   expect_equal(saida, TRUE)
