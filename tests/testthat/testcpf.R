@@ -42,3 +42,18 @@ test_that("Vetor de cpfs", {
   result <- valida_doc(df$cpf)
   expect_equal(result, c(TRUE, TRUE, TRUE))
 })
+
+test_that("Data frame de cpfs", {
+  load("data_frame_cpfs_teste.rda")
+  result <- valida_doc_df(dados,id, type = "cpf")
+  expect_equal(result, c(TRUE, TRUE, TRUE, TRUE))
+})
+
+test_that("Data frame de cpfs e log true", {
+  load("data_frame_cpfs_teste.rda")
+  load("resultado_cpf_log.rda")
+  result <- valida_doc_df(dados,id, type = "cpf", log = TRUE)
+  expect_equal(result, resultado)
+})
+
+

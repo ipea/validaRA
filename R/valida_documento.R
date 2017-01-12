@@ -103,11 +103,28 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
   result
 }
 
-valida_documento_df <- function(y, data)
+#' Check brazilian documents.
+#'
+#' \code{valida_doc} returns true or false if the number of document is correct.
+#'
+#'
+#' @param data Data frame with data to be validate.
+#' @param column Column of data that will be evaluated.
+#' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param log Output erros found on entrada
+#'
+#' @return True or False. if log is giving return a data frame.
+#'
+#' @examples
+#'  valida_doc("529.982.247-25", type = "cpf")
+#'  valida_doc("60.149.443/0001-70", type = "cnpj")
+#' @export
+#'
+valida_doc_df <- function(data, column, type = "cpf", log = FALSE)
 {
   arguments <- as.list(match.call())
-  y = eval(arguments$y, data)
-  valida_doc(y)
+  column = eval(arguments$column, data)
+  valida_doc(column, type = type, log = log)
 }
 
 
