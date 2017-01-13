@@ -1,17 +1,17 @@
 Package: validaRA
 Type: Package
-Title: Funções para validação de qualidade de Registros Administrativos
+Title: FunÃ§Ãµes para validaÃ§Ã£o de qualidade de Registros Administrativos
 Version: 0.1.0
 Authors@R: as.person(c(
     "Lucas Mation <lucas.mation@ipea.gov.br> [aut,cre]",
     "Gustavo Coelho <gustavo.coelho@ipea.gov.br> [aut]"
     ))
-Description: Funções para facilitar a checagem da qualidade e unicidade de
-    registros administrativos. Incluindo: - valida_documento : Validação de dígitos
+Description: Fun??es para facilitar a checagem da qualidade e unicidade de
+    registros administrativos. Incluindo: - valida_documento : Valida??o de d?gitos
     verificadores (CPF, CNPJ, PIS-NIT-NIS-PASEP) - mapeia_duplicidades : usuario
-    declara identificadores supostamente únicos, pacote diagnostica duplicidades -
-    relatorio_de_qualidade : relatório de Rmarkdown descrevendo taxas de documentos
-    válidos, duplicidades, tabelas de frequencia de variáveis categóricas
+    declara identificadores supostamente ?nicos, pacote diagnostica duplicidades -
+    relatorio_de_qualidade : relat?rio de Rmarkdown descrevendo taxas de documentos
+    v?lidos, duplicidades, tabelas de frequencia de vari?veis categ?ricas
 License: GPL-3
 Encoding: UTF-8
 LazyData: LazyData: true
