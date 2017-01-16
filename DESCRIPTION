@@ -1,6 +1,6 @@
 Package: validaRA
 Type: Package
-Title: Funções para validação de qualidade de Registros Administrativos
+Title: Fun??es para valida??o de qualidade de Registros Administrativos
 Version: 0.1.0
 Authors@R: as.person(c(
     "Lucas Mation <lucas.mation@ipea.gov.br> [aut,cre]",
@@ -20,3 +20,5 @@ BugReports: http://github.com/hadley/dplyr/issues/issues
 Suggests:
     testthat
 RoxygenNote: 5.0.1
+LinkingTo: Rcpp
+Imports: Rcpp

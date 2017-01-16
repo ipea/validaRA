@@ -77,7 +77,7 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
   if(type == "cpf"){
     for(i in 1:num){
       log_env$nr_line <- i
-      result[i] <- valida_id(entrada[i], 11, 10, 11, gerar_vetor_verificacao_cpf, log = log )
+      result[i] <- valida_cpf(entrada[i])
     }
   }
   if(type == "cnpj"){
