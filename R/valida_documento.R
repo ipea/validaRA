@@ -16,7 +16,11 @@
 #'
 valida_doc <- function(entrada, type = "cpf", log = FALSE){
   if(type == "cpf"){
-    result <- valida_cpf(entrada)
+    if(log == FALSE){
+      result <- valida_cpf(entrada)
+    }else{
+      result <- valida_cpf_log(entrada)
+    }
   }
   if(type == "cnpj"){
     result <- valida_cnpj(entrada)

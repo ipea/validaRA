@@ -5,6 +5,10 @@ valida_cpf <- function(x) {
     .Call('validaRA_valida_cpf', PACKAGE = 'validaRA', x)
 }
 
+valida_cpf_log <- function(x) {
+    .Call('validaRA_valida_cpf_log', PACKAGE = 'validaRA', x)
+}
+
 valida_cnpj <- function(x) {
     .Call('validaRA_valida_cnpj', PACKAGE = 'validaRA', x)
 }
