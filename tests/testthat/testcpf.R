@@ -30,6 +30,11 @@ test_that("Cpf numerico com zero no inicio", {
   expect_equal(saida, TRUE)
 })
 
+test_that("Cpf numerico com zero no inicio", {
+  saida <- valida_doc(00076930106)
+  expect_equal(saida, TRUE)
+})
+
 test_that("Cpf como factor", {
   saida <- valida_doc(as.factor("086.090.706-62"))
   expect_equal(saida, TRUE)

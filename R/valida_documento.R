@@ -15,6 +15,9 @@
 #' @export
 #'
 valida_doc <- function(entrada, type = "cpf", log = FALSE){
+  if(is.numeric(entrada) | is.double(entrada)){
+    entrada <- sprintf("%011.0f", entrada)
+  }
   if(type == "cpf"){
     if(log == FALSE){
       result <- valida_cpf(entrada)
