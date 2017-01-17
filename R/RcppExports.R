@@ -9,3 +9,7 @@ valida_cnpj <- function(x) {
     .Call('validaRA_valida_cnpj', PACKAGE = 'validaRA', x)
 }
 
+valida_pis <- function(x) {
+    .Call('validaRA_valida_pis', PACKAGE = 'validaRA', x)
+}
+
