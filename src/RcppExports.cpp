@@ -6,13 +6,13 @@
 using namespace Rcpp;
 
 // valida_cpf
-LogicalVector valida_cpf(Rcpp::CharacterVector x);
-RcppExport SEXP validaRA_valida_cpf(SEXP xSEXP) {
+LogicalVector valida_cpf(RObject t);
+RcppExport SEXP validaRA_valida_cpf(SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(valida_cpf(x));
+    Rcpp::traits::input_parameter< RObject >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_cpf(t));
     return rcpp_result_gen;
 END_RCPP
 }

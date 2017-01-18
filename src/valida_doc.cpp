@@ -16,12 +16,20 @@ std::vector<int> remove_caracters_especiais(const std::string &x){
 static const int arr_primeiro_digito[] = {10,  9, 8, 7, 6, 5, 4, 3, 2, 0, 0};
 static const int arr_segundo_digito[] =  {11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 0};
 // [[Rcpp::export]]
-LogicalVector valida_cpf(Rcpp::CharacterVector x){
+LogicalVector valida_cpf(RObject t){
+  bool caracter = false;
+  if(t.sexp_type() == STRSXP){
+    caracter = true;
+  }
+  CharacterVector x(t);
   LogicalVector r(x.size());
   for(unsigned int j = 0; j < x.size(); j++){
+    std::vector<int> y;
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
-    std::vector<int> y = remove_caracters_especiais(cpf_string);
-    if(y.size() == 10) y.insert(y.begin(), 0);
+    y = remove_caracters_especiais(cpf_string);
+    if(!caracter){
+      while (y.size() < 11){ y.insert(y.begin(), 0);};
+    }
     std::set<int> unicos(y.begin(), y.end());
 
     if(y.size() != 11 || unicos.size() == 1){
