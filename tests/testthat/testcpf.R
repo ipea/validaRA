@@ -36,8 +36,7 @@ test_that("Cpf numerico com zero no inicio", {
 })
 
 test_that("Cpf como factor", {
-  saida <- valida_doc(as.factor("086.090.706-62"))
-  expect_equal(saida, TRUE)
+  expect_error(valida_doc(as.factor("086.090.706-62")), "Arguments have to be character or numeric")
 })
 
 test_that("Vetor de cpfs", {

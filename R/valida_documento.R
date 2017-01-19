@@ -15,6 +15,9 @@
 #' @export
 #'
 valida_doc <- function(entrada, type = "cpf", log = FALSE){
+  if(!(is.character(entrada) | is.numeric(entrada))){
+    stop("Arguments have to be character or numeric")
+  }
   if(type == "cpf"){
     if(log == FALSE){
       result <- valida_cpf(entrada)

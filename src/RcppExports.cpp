@@ -17,35 +17,35 @@ BEGIN_RCPP
 END_RCPP
 }
 // valida_cpf_log
-Rcpp::DataFrame valida_cpf_log(Rcpp::CharacterVector x);
-RcppExport SEXP validaRA_valida_cpf_log(SEXP xSEXP) {
+Rcpp::DataFrame valida_cpf_log(RObject t);
+RcppExport SEXP validaRA_valida_cpf_log(SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(valida_cpf_log(x));
+    Rcpp::traits::input_parameter< RObject >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_cpf_log(t));
     return rcpp_result_gen;
 END_RCPP
 }
 // valida_cnpj
-LogicalVector valida_cnpj(Rcpp::CharacterVector x);
-RcppExport SEXP validaRA_valida_cnpj(SEXP xSEXP) {
+LogicalVector valida_cnpj(RObject t);
+RcppExport SEXP validaRA_valida_cnpj(SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(valida_cnpj(x));
+    Rcpp::traits::input_parameter< RObject >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_cnpj(t));
     return rcpp_result_gen;
 END_RCPP
 }
 // valida_pis
-LogicalVector valida_pis(Rcpp::CharacterVector x);
-RcppExport SEXP validaRA_valida_pis(SEXP xSEXP) {
+LogicalVector valida_pis(RObject t);
+RcppExport SEXP validaRA_valida_pis(SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(valida_pis(x));
+    Rcpp::traits::input_parameter< RObject >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_pis(t));
     return rcpp_result_gen;
 END_RCPP
 }

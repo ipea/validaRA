@@ -5,15 +5,15 @@ valida_cpf <- function(t) {
     .Call('validaRA_valida_cpf', PACKAGE = 'validaRA', t)
 }
 
-valida_cpf_log <- function(x) {
-    .Call('validaRA_valida_cpf_log', PACKAGE = 'validaRA', x)
+valida_cpf_log <- function(t) {
+    .Call('validaRA_valida_cpf_log', PACKAGE = 'validaRA', t)
 }
 
-valida_cnpj <- function(x) {
-    .Call('validaRA_valida_cnpj', PACKAGE = 'validaRA', x)
+valida_cnpj <- function(t) {
+    .Call('validaRA_valida_cnpj', PACKAGE = 'validaRA', t)
 }
 
-valida_pis <- function(x) {
-    .Call('validaRA_valida_pis', PACKAGE = 'validaRA', x)
+valida_pis <- function(t) {
+    .Call('validaRA_valida_pis', PACKAGE = 'validaRA', t)
 }
 
