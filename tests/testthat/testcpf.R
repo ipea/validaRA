@@ -26,7 +26,7 @@ test_that("Cpf errado", {
 })
 
 test_that("Cpf numerico com zero no inicio", {
-  saida <- valida_doc(08609070662)
+  saida <- valida_doc(00566619245)
   expect_equal(saida, TRUE)
 })
 

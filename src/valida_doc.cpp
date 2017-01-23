@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 #include<vector>
 #include<set>
+#include <algorithm>
 using namespace Rcpp;
 
 std::vector<int> remove_caracters_especiais(const std::string &x){
@@ -20,30 +21,50 @@ LogicalVector valida_cpf(Rcpp::CharacterVector x){
   LogicalVector r(x.size());
   for(unsigned int j = 0; j < x.size(); j++){
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
-    std::vector<int> y = remove_caracters_especiais(cpf_string);
-    if(y.size() == 10) y.insert(y.begin(), 0);
-    std::set<int> unicos(y.begin(), y.end());
+    int cpf_limpo[11];
+    int t = 0;
+    for(unsigned int i = 0; i < cpf_string.size(); i++){
+      if(cpf_string[i] >= 48 && cpf_string[i] <= 57 && t < 11){
+        cpf_limpo[t] = cpf_string[i] - '0';
+        t++;
+      }
+    }
+    if(t < 11){
+      for(int i = 10, q = (t-1); q >= 0; i--, q--){
+        cpf_limpo[i] = cpf_limpo[q];
+      }
+      std::fill_n(cpf_limpo, 11 - t, 0);
+      t = 11;
+    }
+    /*
+    for(int i = 0; i < 11; i++){
+      std::cout << cpf_limpo[i] << " ";
+    }
 
-    if(y.size() != 11 || unicos.size() == 1){
+    std::cout << std::endl;
+    */
+    std::set<int> unicos(cpf_limpo, cpf_limpo+11);
+
+    if(t != 11 || unicos.size() == 1){
       r[j] = false;
       continue;
     }
 
     int primeiro_digito = 0;
     int segundo_digito = 0;
-    for(unsigned int i = 0; i < y.size(); i++){
-      primeiro_digito += y[i] * arr_primeiro_digito[i];
-      segundo_digito += y[i] * arr_segundo_digito[i];
+    for(unsigned int i = 0; i < 11; i++){
+      primeiro_digito += cpf_limpo[i] * arr_primeiro_digito[i];
+      segundo_digito += cpf_limpo[i] * arr_segundo_digito[i];
     }
     primeiro_digito = (primeiro_digito * 10) % 11;
     if(primeiro_digito == 10) primeiro_digito = 0;
-    if(primeiro_digito != y[9]){
+    if(primeiro_digito != cpf_limpo[9]){
       r[j] = false;
       continue;
     }
     segundo_digito = (segundo_digito * 10) % 11;
     if(segundo_digito == 10) segundo_digito = 0;
-    if(segundo_digito != y[10]){
+    if(segundo_digito != cpf_limpo[10]){
       r[j] = false;
       continue;
     }
