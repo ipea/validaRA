@@ -72,6 +72,7 @@ LogicalVector valida_cpf(Rcpp::CharacterVector x){
   }
   return r;
 }
+
 // [[Rcpp::export]]
 Rcpp::DataFrame valida_cpf_log(Rcpp::CharacterVector x){
   LogicalVector r(x.size());
@@ -193,5 +194,44 @@ LogicalVector valida_pis(Rcpp::CharacterVector x){
     r[j] = true;
   }
   return r;
+}
+// [[Rcpp::export]]
+Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
+  LogicalVector r(x.size());
+  Rcpp::CharacterVector log(x.size());
+  for(unsigned int j = 0; j < x.size(); j++){
+    std::string cpf_string = Rcpp::as<std::string>(x[j]);
+    std::vector<int> y = remove_caracters_especiais(cpf_string);
+    if(y.size() == 10) y.insert(y.begin(), 0);
+    std::set<int> unicos(y.begin(), y.end());
+
+    if(y.size() != 11){
+      r[j] = false;
+      log[j] = "Numero de caracters invalido";
+      continue;
+    }
+    if(unicos.size() == 1){
+      r[j] = false;
+      log[j] = "Caracters iguais";
+      continue;
+    }
+
+    int primeiro_digito = 0;
+    for(unsigned int i = 0; i < y.size(); i++){
+      primeiro_digito += y[i] * digito_pis[i];
+    }
+    primeiro_digito = (primeiro_digito * 10) % 11;
+    if(primeiro_digito == 10) primeiro_digito = 0;
+    if(primeiro_digito != y[10]){
+      r[j] = false;
+      log[j] = "Digito errado";
+      continue;
+    }
+    r[j] = true;
+  }
+  Rcpp::DataFrame resultado =   Rcpp::DataFrame::create(Rcpp::Named("dado")=x,
+                                                        Rcpp::Named("resultado")=r,
+                                                        Rcpp::Named("erros")=log);
+  return resultado;
 }
 

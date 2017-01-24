@@ -2,5 +2,7 @@
 
 useDynLib(validaRA)
 importFrom(Rcpp, sourceCpp)
+export(relatorioDOC)
+export(trata_cpf)
 export(valida_doc)
 export(valida_doc_df)

@@ -49,3 +49,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// valida_pis_log
+Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x);
+RcppExport SEXP validaRA_valida_pis_log(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_pis_log(x));
+    return rcpp_result_gen;
+END_RCPP
+}

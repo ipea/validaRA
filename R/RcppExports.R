@@ -17,3 +17,7 @@ valida_pis <- function(x) {
     .Call('validaRA_valida_pis', PACKAGE = 'validaRA', x)
 }
 
+valida_pis_log <- function(x) {
+    .Call('validaRA_valida_pis_log', PACKAGE = 'validaRA', x)
+}
+
