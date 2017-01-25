@@ -224,7 +224,7 @@ Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
     if(primeiro_digito == 10) primeiro_digito = 0;
     if(primeiro_digito != y[10]){
       r[j] = false;
-      log[j] = "Digito errado";
+      log[j] = "Primero digito errado";
       continue;
     }
     r[j] = true;

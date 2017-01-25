@@ -72,20 +72,37 @@ valida_doc_df <- function(data, column, type = "cpf", log = FALSE)
 #'
 #' @export
 #'
-relatorioDOC <- function(data, columns, types)
-{
+relatorioDOC <- function(base = NULL,data = NULL, columns, types){
   if(length(columns) != length(types)){
     stop("Columns and types have to be of the same size.")
   }
-  dados <- data.frame()
-  for(i in 1:length(columns)){
-    column <- as.name(columns[i])
-    column = eval(column, data)
-    t <- valida_doc(column, type = types[i], log = TRUE)
-    colnames(t)[1] <- types[i]
-    ifelse(i == 1, dados <- t, dados <- cbind(dados, t) )
-  }
-  dados
+  require(data.table)
+  #ifelse(is.null(data) & !is.null(base) , data <- fread(base), stop("You did not pass data to the function"))
+  estatistica <- diagnostica_RA(data, nomes_colunas = columns, types = types)
+  estatistica
+
+}
+
+#' Check brazilian documents.
+#'
+#' \code{graficoDOC} returns true or false if the number of document is correct.
+#'
+#'
+#' @param data Data frame with data to be validate.
+#' @param columns Column of data that will be evaluated.
+#' @param types Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
+#'
+#' @return True or False. if log is giving return a data frame.
+#'
+#' @export
+#'
+graficoDOC <- function(base = NULL,data = NULL, columns, types, filename){
+    if(file.exists(filename)){
+      warning("The file already exists so it will overwrite")
+    }
+    resultado <- relatorioDOC(base = base,data = data, columns = columns, types = types)
+    render("R/resultado.Rmd",output_file = basename(filename), output_dir = dirname(filename))
+
 }
 
 
