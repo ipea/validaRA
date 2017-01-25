@@ -15,12 +15,15 @@ library(ggplot2)
 
 A base de dados foi validada utilizano-se o pacote ValidaRA e foram encontrados os
 seguintes resultados para a validação:
-```{r tab1,results='asis', message= FALSE}
+
+```{r tab1}
+
 for(tipo in unique(resultado$tipo)){
+  tipo
   tabela <- transpose(resultado[resultado$tipo == tipo,c("validos","invalidos")])
   tabela["Resultado"] <- c("TRUE","FALSE") 
   colnames(tabela)[1] <- "Valor"
-  ggplot(tabela, aes(x="", y= Valor, fill = Resultado)) + geom_bar(width = 1, stat = "identity") +   coord_polar(theta = "y") 
+  print(ggplot(tabela, aes(x="", y= Valor, fill = Resultado)) + geom_bar(width = 1, stat = "identity") +   coord_polar(theta = "y") )
 }
 ```
 
