@@ -12,14 +12,25 @@ library(scales)
 library(tidyr)
 library(pander)
 ```
-## Resultado
+## Resultados
 
 A base de dados foi validada utilizando-se o pacote ValidaRA. A tabela abaixo apresenta a quantidade
 de dados válidos e inválidos por tipo de documento:
 
 
 ```{r tab2}
-pander(resultado, split.table = 80)
+kable(resultado, col.names = c("Tipo","Validos","Invalidos","Missing","Tam Invalido","Zeros","Iguais(1-9)","1º Digito","2º Digito"))
 
 ```
 
+\begingroup\footnotesize
+Tam Invalido: o tamanho do dado informado era maior do que o necessário(excluindo-se os caracters especiais)
+
+Zeros: Todos os dígitos eram iguais a zero.
+
+Iguais(1-9): Todos os dígitos do documento eram iguais.
+
+1º Digito: primeiro digito do documento sendo verificado não conferiu com o o digito informado.
+
+2º Digito: primeiro digito do documento sendo verificado não conferiu com o o digito informado.
+\endgroup

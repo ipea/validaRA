@@ -106,14 +106,17 @@ relatorioDOC <- function(base = NULL,data = NULL, columns, types){
 #'
 #' @export
 #'
-graficoDOC <- function(base = NULL,data = NULL, columns, types, filename){
+graficoDOC <- function(base = NULL,data = NULL, columns, types, filename, tipo_relatorio = "tabela"){
     require(rmarkdown)
     if(file.exists(filename)){
       warning("The file already exists so it will overwrite")
     }
     resultado <- relatorioDOC(base = base,data = data, columns = columns, types = types)
-    render("R/resultado.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
-
+    if(tipo_relatorio == "tabela"){
+      render("R/resultado.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
+    }else{
+      render("R/resultadoGrafico.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
+    }
 }
 
 

@@ -106,7 +106,11 @@ Rcpp::DataFrame valida_cpf_log(Rcpp::CharacterVector x){
 
     if(unicos.size() == 1){
       r[j] = false;
-      log[j] = "Caracters iguais";
+      if(cpf_limpo[0] == 0){
+        log[j] = "Zeros";
+      }else{
+        log[j] = "Caracters iguais";
+      }
       continue;
     }
 
@@ -265,7 +269,11 @@ Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
 
     if(unicos.size() == 1){
       r[j] = false;
-      log[j] = "Caracters iguais";
+      if(pis_limpo[0] == 0){
+        log[j] = "Zeros";
+      }else{
+        log[j] = "Caracters iguais";
+      }
       continue;
     }
 
