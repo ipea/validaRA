@@ -27,3 +27,12 @@ test_that("PIS is givin a data frame column", {
   result <- valida_doc(df$pis, type = "pis")
   expect_equal(result, c(TRUE, TRUE, TRUE))
 })
+
+test_that("PIS using log", {
+  pis <- c(45993824692, 12345678918, 16345860949)
+  names <- c("BB", "Caixa", "Ipea")
+  df <- data.frame(names = names, pis = pis)
+  dfr <- data.frame(dado=pis,resultado=c(TRUE,FALSE,TRUE), erros=c("","Primero digito errado",""), stringsAsFactors = FALSE)
+  result <- valida_doc(df$pis, type = "pis", log = TRUE)
+  expect_equal(result, dfr)
+})

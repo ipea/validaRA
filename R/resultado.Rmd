@@ -19,35 +19,7 @@ de dados válidos e inválidos por tipo de documento:
 
 
 ```{r tab2}
-prev <- resultado[,c("tipo","validos","invalidos")]
-r <- gather(prev, categoria, qtde, validos, invalidos )
-total <- sum(r$qtde)/length(unique(r$tipo))
-r$qtde <- r$qtde / total
-ggplot(data = r, aes(x=tipo, y=qtde, fill=categoria)) + 
-  geom_bar(stat = "identity", position = "dodge") + 
-  scale_y_continuous(labels = percent) + 
-  theme_grey() + 
-  scale_fill_discrete(name="Resultado", labels=c("Validos","Invalidos")) + 
-  xlab("Tipo de Documento") + 
-  ylab("Porcentagem")
+kable(resultado)
 
 ```
 
-## Descriminação dos erros
-
-o gráfico apresenta a porcentagem de cada erro encontrado na base por tipo de documento:
-
-
-```{r tab3}
-prev <- resultado[,c("tipo","characters_iguais","primeiro_digito_invalido","segundo_digito_invalido","characters_invalido")]
-r <- gather(prev, categoria, qtde, characters_iguais, primeiro_digito_invalido, segundo_digito_invalido, characters_invalido )
-r$qtde <- r$qtde / total
-ggplot(data = r, aes(x=tipo, y=qtde, fill=categoria)) + 
-  geom_bar(stat = "identity", position = "dodge") + 
-  scale_y_continuous(labels = percent) + 
-  scale_fill_discrete(name="Categoria", labels=c("Todos os caracters Iguais","Primeiro digito invalido","Segundo invalido","Outros problemas de caracters")) + 
-  theme_grey() + 
-  xlab("Tipo de Documento") + 
-  ylab("Porcentagem")
-
-```

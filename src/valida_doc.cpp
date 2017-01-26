@@ -22,6 +22,10 @@ LogicalVector valida_cpf(Rcpp::CharacterVector x){
   LogicalVector r(x.size());
   for(unsigned int j = 0; j < x.size(); j++){
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
+    if(cpf_string.size() == 0){
+      r[j] = false;
+      continue;
+    }
     int cpf_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
@@ -73,6 +77,11 @@ Rcpp::DataFrame valida_cpf_log(Rcpp::CharacterVector x){
   Rcpp::CharacterVector log(x.size());
   for(unsigned int j = 0; j < x.size(); j++){
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
+    if(cpf_string.size() == 0){
+      log[j] = "Vazios";
+      r[j] = false;
+      continue;
+    }
     int cpf_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
@@ -180,6 +189,10 @@ LogicalVector valida_pis(Rcpp::CharacterVector x){
   LogicalVector r(x.size());
   for(unsigned int j = 0; j < x.size(); j++){
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
+    if(cpf_string.size() == 0){
+      r[j] = false;
+      continue;
+    }
     int pis_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
@@ -222,6 +235,10 @@ Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
   Rcpp::CharacterVector log(x.size());
   for(unsigned int j = 0; j < x.size(); j++){
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
+    if(cpf_string.size() == 0){
+      log[j] = "Vazios";
+      r[j] = false;
+    }
     int pis_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
