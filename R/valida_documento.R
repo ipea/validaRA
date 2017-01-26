@@ -77,6 +77,16 @@ relatorioDOC <- function(base = NULL,data = NULL, columns, types){
     stop("Columns and types have to be of the same size.")
   }
   require(data.table)
+  if(is.null(base) & is.null(data)){
+    stop("You habe to give a base or a data")
+  }
+  if(!is.null(base) & is.null(data)){
+    if(file.exists(base)){
+      data <- fread(base)
+    }else{
+      stop("It is not possible to read the base")
+    }
+  }
   #ifelse(is.null(data) & !is.null(base) , data <- fread(base), stop("You did not pass data to the function"))
   estatistica <- diagnostica_RA(data, nomes_colunas = columns, types = types)
   estatistica
@@ -97,11 +107,12 @@ relatorioDOC <- function(base = NULL,data = NULL, columns, types){
 #' @export
 #'
 graficoDOC <- function(base = NULL,data = NULL, columns, types, filename){
+    require(rmarkdown)
     if(file.exists(filename)){
       warning("The file already exists so it will overwrite")
     }
     resultado <- relatorioDOC(base = base,data = data, columns = columns, types = types)
-    render("R/resultado.Rmd",output_file = basename(filename), output_dir = dirname(filename))
+    render("R/resultado.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
 
 }
 
