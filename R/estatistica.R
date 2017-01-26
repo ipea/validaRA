@@ -11,12 +11,14 @@ estatisticas_amostra <- function(df, columnName,  type = "cpf"){
   characters_iguais <- nrow(dplyr::filter(result, grepl("Caracters iguais", erros)))
   primeiro_digito_invalido <- nrow(dplyr::filter(result, grepl("Primero digito errado", erros)))
   segundo_digito_invalido <- nrow(dplyr::filter(result, grepl("segundo digito errado", erros)))
+  sem_character <- nrow(dplyr::filter(result, grepl("Sem characters", erros)))
   validos <- nrow(dplyr::filter(result, resultado == TRUE))
   invalidos <- nrow(dplyr::filter(result, resultado == FALSE))
   e <- data.frame(characters_iguais = characters_iguais,
                             primeiro_digito_invalido = primeiro_digito_invalido,
                             segundo_digito_invalido = segundo_digito_invalido,
                             characters_invalido = characters_invalido,
+                            sem_character = sem_character,
                             validos = validos,
                             invalidos = invalidos)
   return(e)
@@ -30,6 +32,7 @@ diagnostica_RA <- function(df, nomes_colunas, types){
                             primeiro_digito_invalido = integer(0),
                             segundo_digito_invalido = integer(0),
                             characters_invalido = integer(0),
+                            sem_character = integer(0),
                             tipo = character(0),
                             validos = integer(0),
                             invalidos = integer(0))
@@ -39,6 +42,6 @@ diagnostica_RA <- function(df, nomes_colunas, types){
     x["tipo"] <- as.character(types[i])
     estatistica <- dplyr::bind_rows(estatistica, x)
   }
-  estatistica <- estatistica[c(5, 1, 2, 3,4, 6,7)]
+  estatistica <- estatistica[c(6, 1, 2, 3, 4, 5, 7,8)]
   estatistica
 }

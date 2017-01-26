@@ -1,6 +1,5 @@
 ---
 title: "Relatório de validação de Documentos"
-date: "25 de janeiro de 2017"
 output: pdf_document
 ---
 
@@ -11,15 +10,16 @@ library(knitr)
 library(ggplot2)
 library(scales)
 library(tidyr)
+library(pander)
 ```
 ## Resultado
 
-A base de dados foi validada utilizano-se o pacote ValidaRA. O gráfico abaixo apresenta a quantidade
+A base de dados foi validada utilizando-se o pacote ValidaRA. A tabela abaixo apresenta a quantidade
 de dados válidos e inválidos por tipo de documento:
 
 
 ```{r tab2}
-kable(resultado)
+pander(resultado, split.table = 80)
 
 ```
 

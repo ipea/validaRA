@@ -29,8 +29,8 @@ LogicalVector valida_cpf(Rcpp::CharacterVector x){
     int cpf_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
-      if(cpf_string[i] >= 48 && cpf_string[i] <= 57 && t < tpis_cpf){
-        cpf_limpo[t] = cpf_string[i] - '0';
+      if(cpf_string[i] >= 48 && cpf_string[i] <= 57){
+        cpf_limpo[t%tpis_cpf] = cpf_string[i] - '0';
         t++;
       }
     }
@@ -43,7 +43,7 @@ LogicalVector valida_cpf(Rcpp::CharacterVector x){
     }
     std::set<int> unicos(cpf_limpo, cpf_limpo+tpis_cpf);
 
-    if(t != tpis_cpf || unicos.size() == 1){
+    if(t > tpis_cpf || unicos.size() == 1){
       r[j] = false;
       continue;
     }
@@ -78,15 +78,15 @@ Rcpp::DataFrame valida_cpf_log(Rcpp::CharacterVector x){
   for(unsigned int j = 0; j < x.size(); j++){
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
     if(cpf_string.size() == 0){
-      log[j] = "Vazios";
+      log[j] = "Sem characters";
       r[j] = false;
       continue;
     }
     int cpf_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
-      if(cpf_string[i] >= 48 && cpf_string[i] <= 57 && t < tpis_cpf){
-        cpf_limpo[t] = cpf_string[i] - '0';
+      if(cpf_string[i] >= 48 && cpf_string[i] <= 57){
+        cpf_limpo[t%tpis_cpf] = cpf_string[i] - '0';
         t++;
       }
     }
@@ -97,6 +97,11 @@ Rcpp::DataFrame valida_cpf_log(Rcpp::CharacterVector x){
       std::fill_n(cpf_limpo, tpis_cpf - t, 0);
       t = tpis_cpf;
     }
+    if(t > tpis_cpf){
+      r[j] = false;
+      log[j] = "Numero de caracters invalido";
+      continue;
+    }
     std::set<int> unicos(cpf_limpo, cpf_limpo+tpis_cpf);
 
     if(unicos.size() == 1){
@@ -104,11 +109,7 @@ Rcpp::DataFrame valida_cpf_log(Rcpp::CharacterVector x){
       log[j] = "Caracters iguais";
       continue;
     }
-    if(t != tpis_cpf){
-      r[j] = false;
-      log[j] = "Numero de caracters invalido";
-      continue;
-    }
+
 
 
     int primeiro_digito = 0;
@@ -196,8 +197,8 @@ LogicalVector valida_pis(Rcpp::CharacterVector x){
     int pis_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
-      if(cpf_string[i] >= 48 && cpf_string[i] <= 57 && t < tpis_cpf){
-        pis_limpo[t] = cpf_string[i] - '0';
+      if(cpf_string[i] >= 48 && cpf_string[i] <= 57){
+        pis_limpo[t%tpis_cpf] = cpf_string[i] - '0';
         t++;
       }
     }
@@ -210,7 +211,7 @@ LogicalVector valida_pis(Rcpp::CharacterVector x){
     }
     std::set<int> unicos(pis_limpo, pis_limpo+tpis_cpf);
 
-    if(t != tpis_cpf || unicos.size() == 1){
+    if(t > tpis_cpf || unicos.size() == 1){
       r[j] = false;
       continue;
     }
@@ -236,14 +237,15 @@ Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
   for(unsigned int j = 0; j < x.size(); j++){
     std::string cpf_string = Rcpp::as<std::string>(x[j]);
     if(cpf_string.size() == 0){
-      log[j] = "Vazios";
+      log[j] = "Sem characters";
       r[j] = false;
+      continue;
     }
     int pis_limpo[tpis_cpf];
     int t = 0;
     for(unsigned int i = 0; i < cpf_string.size(); i++){
-      if(cpf_string[i] >= 48 && cpf_string[i] <= 57 && t < tpis_cpf){
-        pis_limpo[t] = cpf_string[i] - '0';
+      if(cpf_string[i] >= 48 && cpf_string[i] <= 57){
+        pis_limpo[t%tpis_cpf] = cpf_string[i] - '0';
         t++;
       }
     }
@@ -254,6 +256,11 @@ Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
       std::fill_n(pis_limpo, tpis_cpf - t, 0);
       t = tpis_cpf;
     }
+    if(t > tpis_cpf){
+      r[j] = false;
+      log[j] = "Numero de caracters invalido";
+      continue;
+    }
     std::set<int> unicos(pis_limpo, pis_limpo+tpis_cpf);
 
     if(unicos.size() == 1){
@@ -261,12 +268,6 @@ Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
       log[j] = "Caracters iguais";
       continue;
     }
-    if(t != tpis_cpf){
-      r[j] = false;
-      log[j] = "Numero de caracters invalido";
-      continue;
-    }
-
 
     int primeiro_digito = 0;
     for(unsigned int i = 0; i < tpis_cpf; i++){
@@ -283,7 +284,8 @@ Rcpp::DataFrame valida_pis_log(Rcpp::CharacterVector x){
   }
   Rcpp::DataFrame resultado =   Rcpp::DataFrame::create(Rcpp::Named("dado")=x,
                                                         Rcpp::Named("resultado")=r,
-                                                        Rcpp::Named("erros")=log);
+                                                        Rcpp::Named("erros")=log,
+                                                        Rcpp::Named("stringsAsFactors")=false);
   return resultado;
 }
 
