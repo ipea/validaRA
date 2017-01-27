@@ -19,10 +19,6 @@ valida_doc_df(data, column, type = "cpf", log = FALSE)
 True or False. if log is giving return a data frame.
 }
 \description{
-\code{valida_doc} returns true or false if the number of document is correct.
-}
-\examples{
- valida_doc("529.982.247-25", type = "cpf")
- valida_doc("60.149.443/0001-70", type = "cnpj")
+\code{valida_doc_df} returns true or false if the number of document is correct.
 }
 

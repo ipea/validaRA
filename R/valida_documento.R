@@ -7,6 +7,8 @@
 #' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
 #' @param log Output erros found on entrada
 #'
+#' @useDynLib validaRA
+#' @importFrom Rcpp sourceCpp
 #' @return True or False. if log is giving return a data frame.
 #'
 #' @examples
@@ -32,12 +34,19 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
       result <- valida_pis_log(entrada)
     }
   }
+  if(type == "tituloeleitor"){
+    if(log == FALSE){
+      result <- verificar_titulo_eleitor(entrada)
+    }else{
+      result <- verificar_titulo_eleitor(entrada, log = TRUE)
+    }
+  }
   result
 }
 
 #' Check brazilian documents.
 #'
-#' \code{valida_doc} returns true or false if the number of document is correct.
+#' \code{valida_doc_df} returns true or false if the number of document is correct.
 #'
 #'
 #' @param data Data frame with data to be validate.
@@ -47,9 +56,6 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
 #'
 #' @return True or False. if log is giving return a data frame.
 #'
-#' @examples
-#'  valida_doc("529.982.247-25", type = "cpf")
-#'  valida_doc("60.149.443/0001-70", type = "cnpj")
 #' @export
 #'
 valida_doc_df <- function(data, column, type = "cpf", log = FALSE)
@@ -61,53 +67,58 @@ valida_doc_df <- function(data, column, type = "cpf", log = FALSE)
 
 #' Check brazilian documents.
 #'
-#' \code{relatorioDOC} returns true or false if the number of document is correct.
+#' \code{tabulacaoDOC} returns a data frame that summarize the output of validaDOC.
+#'                     It is require a file where the data is located or the data itself.
+#'                     If neither, input and data, is giving the function stop. Also,
+#'                     columns and types must the same size.
 #'
-#'
+#' @param input_file file where the data is located.
 #' @param data Data frame with data to be validate.
-#' @param columns Column of data that will be evaluated.
+#' @param columns Columns of data that will be evaluated.
 #' @param types Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
 #'
-#' @return True or False. if log is giving return a data frame.
+#' @return return a data frame.
 #'
 #' @export
 #'
-relatorioDOC <- function(base = NULL,data = NULL, columns, types){
+tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
+  require("data.table")
   if(length(columns) != length(types)){
     stop("Columns and types have to be of the same size.")
   }
-  require(data.table)
+
   if(is.null(base) & is.null(data)){
     stop("You habe to give a base or a data")
   }
   if(!is.null(base) & is.null(data)){
     if(file.exists(base)){
-      data <- fread(base)
+      data <- data.table::fread(base)
     }else{
       stop("It is not possible to read the base")
     }
   }
-  #ifelse(is.null(data) & !is.null(base) , data <- fread(base), stop("You did not pass data to the function"))
-  estatistica <- diagnostica_RA(data, nomes_colunas = columns, types = types)
-  estatistica
-
+  diagnostica_RA(data, nomes_colunas = columns, types = types)
 }
 
 #' Check brazilian documents.
 #'
-#' \code{graficoDOC} returns true or false if the number of document is correct.
+#' \code{relatorioDOC} output on pdf a data frame that summarize the output of validaDOC.
+#'                     It is require a file where the data is located or the data itself.
+#'                     If neither, input and data, is giving the function stop. Also,
+#'                     columns and types must the same size.
 #'
-#'
+#' @param input_file file where the data is located.
 #' @param data Data frame with data to be validate.
-#' @param columns Column of data that will be evaluated.
+#' @param columns Columns of data that will be evaluated.
 #' @param types Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
-#'
-#' @return True or False. if log is giving return a data frame.
+#' @param output_filename character, where the output will be save.
+#' @param tipo_relatorio character, grafico ou tabela, indicates the kind of output
+#' @return return a data frame.
 #'
 #' @export
 #'
-graficoDOC <- function(base = NULL,data = NULL, columns, types, filename, tipo_relatorio = "tabela"){
-    require(rmarkdown)
+relatorioDOC <- function(input_file = NULL, data = NULL, columns, types, output_filename, tipo_relatorio = "tabela"){
+    require("rmarkdown")
     if(file.exists(filename)){
       warning("The file already exists so it will overwrite")
     }
@@ -115,7 +126,7 @@ graficoDOC <- function(base = NULL,data = NULL, columns, types, filename, tipo_r
     if(tipo_relatorio == "tabela"){
       render("R/resultado.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
     }else{
-      render("R/resultadoGrafico.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
+      rmarkdown::render("R/resultadoGrafico.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
     }
 }
 

@@ -1,4 +1,5 @@
 estatisticas_amostra <- function(df, columnName,  type = "cpf"){
+  require("dplyr")
   library("dplyr")
   if(is.character(columnName) & (columnName %in% colnames(df))){
     columnName <- df[,columnName]

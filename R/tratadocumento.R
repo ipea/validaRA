@@ -1,20 +1,20 @@
-#' Check brazilian documents.
+#' Correct brazilian cpf document.
 #'
-#' \code{trada_cpf} returns true or false if the number of document is correct.
+#' \code{trada_cpf} The aim is transform the entrada to the pattern of brazilian document cpf.
+#'                  It must have 11 numeric characters. When a dataset is read as a numeric,
+#'                  it lost the 0 caracter on the left. This function fix that lost and transoform
+#'                  entrada to character.
 #'
 #'
-#' @param entrada Caracter or numeric of the document that will be validated.
-#' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
-#' @param log Output erros found on entrada
+#' @param entrada Caracter or numeric of the document that will be ajusted.
 #'
-#' @return True or False. if log is giving return a data frame.
+#' @return Entrada adjusted.
 #'
 #' @export
 #'
 trata_cpf <- function(entrada){
   require(stringr)
-  result <- str_pad(entrada,11, side = "left", pad = "0")
-  result
+  stringr::str_pad(entrada,11, side = "left", pad = "0")
 }
 
 

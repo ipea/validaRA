@@ -2,21 +2,20 @@
 % Please edit documentation in R/tratadocumento.R
 \name{trata_cpf}
 \alias{trata_cpf}
-\title{Check brazilian documents.}
+\title{Correct brazilian cpf document.}
 \usage{
 trata_cpf(entrada)
 }
 \arguments{
-\item{entrada}{Caracter or numeric of the document that will be validated.}
-
-\item{type}{Caracter, it could be cpf, cnpf, pis e titulo de eleitor.}
-
-\item{log}{Output erros found on entrada}
+\item{entrada}{Caracter or numeric of the document that will be ajusted.}
 }
 \value{
-True or False. if log is giving return a data frame.
+Entrada adjusted.
 }
 \description{
-\code{trada_cpf} returns true or false if the number of document is correct.
+\code{trada_cpf} The aim is transform the entrada to the pattern of brazilian document cpf.
+                 It must have 11 numeric characters. When a dataset is read as a numeric,
+                 it lost the 0 caracter on the left. This function fix that lost and transoform
+                 entrada to character.
 }
 

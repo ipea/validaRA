@@ -20,10 +20,3 @@ test_that("Titulo de Eleitor errado", {
   expect_equal(saida, FALSE)
 })
 
-test_that("Conjunto de Titulo de Eleitor", {
-  tituloEleitor <- c(021229082020, 4356870906, 023457922097)
-  names <- c("Pedro", "João", "Alberto")
-  df <- data.frame(names = names, tituloEleitor = tituloEleitor)
-  result <- valida_doc(df$tituloEleitor, type = "tituloeleitor")
-  expect_equal(result, c(TRUE, TRUE, TRUE))
-})
