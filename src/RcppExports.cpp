@@ -5,6 +5,28 @@
 
 using namespace Rcpp;
 
+// valida_cnpj
+LogicalVector valida_cnpj(Rcpp::CharacterVector x);
+RcppExport SEXP validaRA_valida_cnpj(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_cnpj(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// valida_cnpj_log
+Rcpp::DataFrame valida_cnpj_log(Rcpp::CharacterVector x);
+RcppExport SEXP validaRA_valida_cnpj_log(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_cnpj_log(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // valida_cpf
 LogicalVector valida_cpf(Rcpp::CharacterVector x);
 RcppExport SEXP validaRA_valida_cpf(SEXP xSEXP) {
@@ -24,17 +46,6 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(valida_cpf_log(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// valida_cnpj
-LogicalVector valida_cnpj(Rcpp::CharacterVector x);
-RcppExport SEXP validaRA_valida_cnpj(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(valida_cnpj(x));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -25,7 +25,11 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
     }
   }
   if(type == "cnpj"){
-    result <- valida_cnpj(entrada)
+    if(log == FALSE){
+      result <- valida_cnpj(entrada)
+    }else{
+      result <- valida_cnpj_log(entrada)
+    }
   }
   if(type == "pis"){
     if(log == FALSE){
