@@ -87,14 +87,14 @@ tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
     stop("Columns and types have to be of the same size.")
   }
 
-  if(is.null(base) & is.null(data)){
-    stop("You habe to give a base or a data")
+  if(is.null(input_file) & is.null(data)){
+    stop("You have to give a input_file or a data")
   }
-  if(!is.null(base) & is.null(data)){
-    if(file.exists(base)){
-      data <- data.table::fread(base)
+  if(!is.null(input_file) & is.null(data)){
+    if(file.exists(input_file)){
+      data <- data.table::fread(input_file)
     }else{
-      stop("It is not possible to read the base")
+      stop("It is not possible to read the input_file")
     }
   }
   diagnostica_RA(data, nomes_colunas = columns, types = types)
@@ -119,14 +119,14 @@ tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
 #'
 relatorioDOC <- function(input_file = NULL, data = NULL, columns, types, output_filename, tipo_relatorio = "tabela"){
     require("rmarkdown")
-    if(file.exists(filename)){
+    if(file.exists(output_filename)){
       warning("The file already exists so it will overwrite")
     }
-    resultado <- relatorioDOC(base = base,data = data, columns = columns, types = types)
+    resultado <- tabulacaoDOC(input_file = input_file,data = data, columns = columns, types = types)
     if(tipo_relatorio == "tabela"){
-      render("R/resultado.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
+      render("R/resultado.Rmd",output_file = basename(output_filename), output_dir = dirname(output_filename), encoding = "utf-8")
     }else{
-      rmarkdown::render("R/resultadoGrafico.Rmd",output_file = basename(filename), output_dir = dirname(filename), encoding = "utf-8")
+      rmarkdown::render("R/resultadoGrafico.Rmd",output_file = basename(output_filename), output_dir = dirname(output_filename), encoding = "utf-8")
     }
 }
 
