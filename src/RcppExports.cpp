@@ -5,14 +5,14 @@
 
 using namespace Rcpp;
 
-// convert_ra
-NumericVector convert_ra(Rcpp::RObject x);
-RcppExport SEXP validaRA_convert_ra(SEXP xSEXP) {
+// converter_ra_
+NumericVector converter_ra_(Rcpp::RObject x);
+RcppExport SEXP validaRA_converter_ra_(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RObject >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(convert_ra(x));
+    rcpp_result_gen = Rcpp::wrap(converter_ra_(x));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -17,7 +17,7 @@ static const double base_m[] = {1,
                                 10000000000};
 
 // [[Rcpp::export]]
-NumericVector convert_ra(Rcpp::RObject x){
+NumericVector converter_ra_(Rcpp::RObject x){
   if(x.sexp_type() == STRSXP){
     //std::cout << "passou aqui" << std::endl;
     CharacterVector y(x);
