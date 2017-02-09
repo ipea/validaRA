@@ -5,6 +5,17 @@
 
 using namespace Rcpp;
 
+// convert_ra
+NumericVector convert_ra(Rcpp::RObject x);
+RcppExport SEXP validaRA_convert_ra(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::RObject >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(convert_ra(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // valida_cnpj
 LogicalVector valida_cnpj(Rcpp::CharacterVector x);
 RcppExport SEXP validaRA_valida_cnpj(SEXP xSEXP) {
