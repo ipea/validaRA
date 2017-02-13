@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // converter_ra_
-NumericVector converter_ra_(Rcpp::RObject x);
+SEXP converter_ra_(Rcpp::RObject x);
 RcppExport SEXP validaRA_converter_ra_(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

@@ -9,6 +9,7 @@
 #' @param entrada Caracter or numeric of the document that will be ajusted.
 #'
 #' @return Entrada adjusted.
+#' @import stringr
 #'
 #' @export
 #'

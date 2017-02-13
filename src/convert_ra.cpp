@@ -17,7 +17,9 @@ static const double base_m[] = {1,
                                 10000000000};
 
 // [[Rcpp::export]]
-NumericVector converter_ra_(Rcpp::RObject x){
+SEXP converter_ra_(Rcpp::RObject x){
+  Environment myEnv = Environment::global_env();
+  Function int64 = myEnv.find("as.integer64");
   if(x.sexp_type() == STRSXP){
     //std::cout << "passou aqui" << std::endl;
     CharacterVector y(x);
@@ -36,10 +38,11 @@ NumericVector converter_ra_(Rcpp::RObject x){
       //std::cout << t << std::endl;
       resultado[i] = t;
     }
-    return resultado;
+
+    return int64(Rcpp::Named("x", resultado));
   }else if(x.sexp_type() == REALSXP){
     return NumericVector(x);
   }
-  return NumericVector();
+  return NumericVector(x);
 }
 
