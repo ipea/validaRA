@@ -1,26 +1,11 @@
-#' Check brazilian documents.
+#' Convert brazilian documents.
 #'
-#' \code{converter_ra} returns a brazilian document without special characters and as a numeric.
-#'
-#'
-#' @param entrada Caracter or numeric of the document that will be validated.
-#'
-#' @return doc converted.
-#'
-#' @export
-#'
-converter_ra <- function(entrada){
-  converter_ra_(entrada)
-}
-
-#' Check brazilian documents.
-#'
-#' \code{doc2integer64} returns a brazilian document without special characters and as a numeric.
+#' \code{doc2integer64} returns a brazilian document without special characters and as an integer64.
 #'
 #'
-#' @param entrada Caracter or numeric of the document that will be validated.
+#' @param entrada Caracter or numeric that will be converted.
 #'
-#' @return a bit64 integer
+#' @return an bit64 integer
 #' @import bit64
 #'
 #' @export
