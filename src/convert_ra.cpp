@@ -28,8 +28,6 @@ SEXP converter_ra_(Rcpp::RObject x){
 
     return int64(Rcpp::Named("x", resultado));
   }
-
-  NumericVector res(x);
-  return int64(Rcpp::Named("x", res));
+  return int64(Rcpp::Named("x", x));
 }
 
