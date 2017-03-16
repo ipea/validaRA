@@ -5,6 +5,79 @@
 #define tpis_cpf 11
 using namespace Rcpp;
 static const int digito_pis[] = {3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0};
+class Pis{
+private:
+  int * digits;
+  int error;
+  void set_digits(int *p);
+public:
+  Pis(int* digits_value){ set_digits(digits_value); };
+  int generate_last_digit();
+  bool validate();
+  bool has_error(){ return error; }
+  void print_pis();
+};
+
+void Pis::print_pis(){
+  for(int i = 0; i < 11; i++){
+    std::cout << digits[i] << "," ;
+  }
+  std::cout << std::endl;
+}
+void Pis::set_digits(int *p){
+  int size = sizeof(p)/sizeof(int);
+  std::cout << "Size " << size << std::endl;
+  if(size == 11){
+    digits = p;
+  }else{
+    digits = new int[11];
+    print_pis();
+    std::copy(p, p+size, digits);
+  }
+
+}
+
+int Pis::generate_last_digit(){
+  int result = 0;
+  for(int i = 0; i < tpis_cpf; i++){
+    result += digits[i] * digito_pis[i];
+  }
+  result = (result * 10) % tpis_cpf;
+  if(result == 10) result = 0;
+  digits[10] = result;
+  return result;
+}
+
+bool Pis::validate(){
+  bool r = false;
+  int result = 0;
+  for(int i = 0; i < tpis_cpf; i++){
+    result += digits[i] * digito_pis[i];
+  }
+  result = (result * 10) % tpis_cpf;
+  if(result == 10) result = 0;
+  if(result == digits[10]){
+    r = true;
+  }else{
+    error = 1;
+  }
+  return r;
+}
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::export]]
+void test(){
+  int digito[] = {1,2,0,7,4,3,6,2,7,8,3};
+  int digito2[] = {1,2,0,7,4,3,6,2,7,8,0};
+  Pis p(digito);
+  p.print_pis();
+  std::cout << p.validate() << std::endl;
+  digito[3] = 8;
+  Pis p2(digito);
+  std::cout << p2.validate() << std::endl;
+  Pis p3(digito2);
+  std::cout << p3.generate_last_digit() << std::endl;
+}
+
 // [[Rcpp::export]]
 LogicalVector valida_pis(Rcpp::CharacterVector x){
   LogicalVector r(x.size());
