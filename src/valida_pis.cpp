@@ -9,14 +9,21 @@ class Pis{
 private:
   int * digits;
   int error;
+  unsigned int size;
   void set_digits(int *p);
 public:
+  Pis(){ digits = new int[11];};
   Pis(int* digits_value){ set_digits(digits_value); };
   int generate_last_digit();
   bool validate();
   bool has_error(){ return error; }
   void print_pis();
+  void push(int n){
+    digits[size] = n;
+    size++;
+  }
 };
+
 
 void Pis::print_pis(){
   for(int i = 0; i < 11; i++){
@@ -25,16 +32,7 @@ void Pis::print_pis(){
   std::cout << std::endl;
 }
 void Pis::set_digits(int *p){
-  int size = sizeof(p)/sizeof(int);
-  std::cout << "Size " << size << std::endl;
-  if(size == 11){
-    digits = p;
-  }else{
-    digits = new int[11];
-    print_pis();
-    std::copy(p, p+size, digits);
-  }
-
+  digits = p;
 }
 
 int Pis::generate_last_digit(){
@@ -63,6 +61,7 @@ bool Pis::validate(){
   }
   return r;
 }
+
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 void test(){
@@ -76,6 +75,27 @@ void test(){
   std::cout << p2.validate() << std::endl;
   Pis p3(digito2);
   std::cout << p3.generate_last_digit() << std::endl;
+}
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::export]]
+SEXP valida_pis_2(Rcpp::RObject x){
+  bool * r;
+  if(x.sexp_type() == STRSXP){
+    Rcpp::CharacterVector t(x);
+    r = new bool[t.size()];
+    Pis pis;
+    for(unsigned int j = 0; j < t.size(); j++){
+      std::string cpf_string = Rcpp::as<std::string>(t[j]);
+      for(unsigned int i = 0; i < cpf_string.size(); i++ ){
+        if(std::isdigit(cpf_string[i])){
+          std::stoi(10);
+          pis.push((cpf_string[i]));
+        }
+      }
+    }
+  }
+
+  return Rcpp::wrap(r);
 }
 
 // [[Rcpp::export]]
