@@ -31,7 +31,6 @@ public:
   }
 };
 
-
 void Pis::print_pis(){
   for(int i = 0; i < 11; i++){
     std::cout << digits[i] << "," ;
@@ -110,6 +109,22 @@ SEXP valida_pis_3(Rcpp::RObject x){
 
     }
     UNPROTECT(1);
+  }else if(x.sexp_type() == REALSXP){
+    Pis pis;
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      double t = REAL(x.get__())[i];
+      for(int j = (tpis_cpf-1); j >= 0; j--){
+        double base = powl(10,j);
+        int n = t/base;
+        //std::cout << n << " " << t << " " << base << std::endl;
+        t -= (n*base);
+        pis.push(n);
+      }
+      //pis.print_pis();
+      LOGICAL(r)[i] = pis.validate();
+      pis.clear();
+    }
+
   }
   return r;
 }
