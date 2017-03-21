@@ -4,6 +4,10 @@
 #include<set>
 #include <algorithm>
 #include <string>
+#include <R.h>
+#include <Rdefines.h>
+#include <RInternals.h>
+
 #define tpis_cpf 11
 using namespace Rcpp;
 static const int digito_pis[] = {3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0};
@@ -14,15 +18,16 @@ private:
   unsigned int size;
   void set_digits(int *p);
 public:
-  Pis(){ digits = new int[11];};
+  Pis(){ digits = new int[11](); this->size = 0; };
   Pis(int* digits_value){ set_digits(digits_value); };
   int generate_last_digit();
   bool validate();
   bool has_error(){ return error; }
   void print_pis();
+  void clear(){ this->size = 0;}
   void push(int n){
-    digits[size] = n;
-    size++;
+    digits[this->size] = n;
+    this->size++;
   }
 };
 
@@ -51,6 +56,9 @@ int Pis::generate_last_digit(){
 bool Pis::validate(){
   bool r = false;
   int result = 0;
+  if(size < tpis_cpf){
+    std::fill_n(digits + size, tpis_cpf - size, 0);
+  }
   for(int i = 0; i < tpis_cpf; i++){
     result += digits[i] * digito_pis[i];
   }
@@ -80,6 +88,30 @@ void test(){
   std::string s = "18609070662";
   long q1 = boost::lexical_cast<long>(s);
   std::cout << q1 << std::endl;
+}
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::export]]
+SEXP valida_pis_3(Rcpp::RObject x){
+  SEXP r = PROTECT(Rf_allocVector(LGLSXP, LENGTH(x.get__())));
+  if(x.sexp_type() == STRSXP){
+    Pis pis;
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      const char *t = CHAR(STRING_ELT(x.get__(), i));
+      for(unsigned int j = 0; j < strlen(t); j++){
+        try{
+          int n = boost::lexical_cast<int>(t[j]);
+          pis.push(n);
+        }catch(...){
+          continue;
+        }
+      }
+      LOGICAL(r)[i] = pis.validate();
+      pis.clear();
+
+    }
+    UNPROTECT(1);
+  }
+  return r;
 }
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
