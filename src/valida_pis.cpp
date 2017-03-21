@@ -1,7 +1,9 @@
+#include "boost.h"
 #include <Rcpp.h>
 #include<vector>
 #include<set>
 #include <algorithm>
+#include <string>
 #define tpis_cpf 11
 using namespace Rcpp;
 static const int digito_pis[] = {3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0};
@@ -75,20 +77,22 @@ void test(){
   std::cout << p2.validate() << std::endl;
   Pis p3(digito2);
   std::cout << p3.generate_last_digit() << std::endl;
+  std::string s = "18609070662";
+  long q1 = boost::lexical_cast<long>(s);
+  std::cout << q1 << std::endl;
 }
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 SEXP valida_pis_2(Rcpp::RObject x){
-  bool * r;
+  bool  r = true;
   if(x.sexp_type() == STRSXP){
     Rcpp::CharacterVector t(x);
-    r = new bool[t.size()];
     Pis pis;
     for(unsigned int j = 0; j < t.size(); j++){
       std::string cpf_string = Rcpp::as<std::string>(t[j]);
       for(unsigned int i = 0; i < cpf_string.size(); i++ ){
         if(std::isdigit(cpf_string[i])){
-          std::stoi(10);
+
           pis.push((cpf_string[i]));
         }
       }
