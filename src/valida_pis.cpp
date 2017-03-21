@@ -90,6 +90,44 @@ void test(){
 }
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
+SEXP generate_digit_pis(Rcpp::RObject x){
+  if(x.sexp_type() == STRSXP){
+    Pis pis;
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      const char *t = CHAR(STRING_ELT(x.get__(), i));
+      for(unsigned int j = 0; j < strlen(t); j++){
+        try{
+          int n = boost::lexical_cast<int>(t[j]);
+          pis.push(n);
+        }catch(...){
+          continue;
+        }
+      }
+      pis.clear();
+
+    }
+  }else if(x.sexp_type() == REALSXP){
+    Pis pis;
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      double t = REAL(x.get__())[i];
+      for(int j = (tpis_cpf-2); j >= 0; j--){
+        double base = powl(10,j);
+        int n = t/base;
+        //std::cout << n << " " << t << " " << base << std::endl;
+        t -= (n*base);
+        pis.push(n);
+      }
+      //pis.print_pis();
+      int dig = pis.generate_last_digit();
+      REAL(x.get__())[i] = (REAL(x.get__())[i] * 10) +  dig;
+      pis.clear();
+    }
+
+  }
+  return x.get__();
+}
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::export]]
 SEXP valida_pis_3(Rcpp::RObject x){
   SEXP r = PROTECT(Rf_allocVector(LGLSXP, LENGTH(x.get__())));
   if(x.sexp_type() == STRSXP){
@@ -108,7 +146,7 @@ SEXP valida_pis_3(Rcpp::RObject x){
       pis.clear();
 
     }
-    UNPROTECT(1);
+
   }else if(x.sexp_type() == REALSXP){
     Pis pis;
     for(int i = 0; i < LENGTH(x.get__()); i++){
@@ -116,7 +154,7 @@ SEXP valida_pis_3(Rcpp::RObject x){
       for(int j = (tpis_cpf-1); j >= 0; j--){
         double base = powl(10,j);
         int n = t/base;
-        //std::cout << n << " " << t << " " << base << std::endl;
+        std::cout << n << " " << t << " " << base << std::endl;
         t -= (n*base);
         pis.push(n);
       }
@@ -126,6 +164,7 @@ SEXP valida_pis_3(Rcpp::RObject x){
     }
 
   }
+  UNPROTECT(1);
   return r;
 }
 // [[Rcpp::plugins(cpp11)]]
