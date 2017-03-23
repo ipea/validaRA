@@ -1,4 +1,5 @@
 #include "boost.h"
+#include "char2numeric.h"
 #include <Rcpp.h>
 #include<vector>
 #include<set>
@@ -7,6 +8,7 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <RInternals.h>
+
 
 #define tpis_cpf 11
 using namespace Rcpp;
@@ -25,6 +27,19 @@ public:
   bool has_error(){ return error; }
   void print_pis();
   void clear(){ this->size = 0;}
+  char *  int2char(){
+    char * c = new char[size + 1];
+    for(unsigned int i = 0; i < size; i++){
+      try{
+        c[i] = boost::lexical_cast<char>(digits[i]) ;
+      }catch(...){
+        std::cout << "Erro aqui na funcao" << std::endl;
+        continue;
+      }
+    }
+    c[size] = '\0';
+    return c;
+  }
   void push(int n){
     digits[this->size] = n;
     this->size++;
@@ -49,6 +64,7 @@ int Pis::generate_last_digit(){
   result = (result * 10) % tpis_cpf;
   if(result == 10) result = 0;
   digits[10] = result;
+  size++;
   return result;
 }
 
@@ -76,21 +92,32 @@ bool Pis::validate(){
 void test(){
   int digito[] = {1,2,0,7,4,3,6,2,7,8,3};
   int digito2[] = {1,2,0,7,4,3,6,2,7,8,0};
-  Pis p(digito);
+  Pis p;
+  for(int i = 0; i < 11; i++){
+    p.push(digito[i]);
+  }
+
   p.print_pis();
+  std::cout << p.int2char() << std::endl;
   std::cout << p.validate() << std::endl;
   digito[3] = 8;
+
   Pis p2(digito);
   std::cout << p2.validate() << std::endl;
   Pis p3(digito2);
   std::cout << p3.generate_last_digit() << std::endl;
   std::string s = "18609070662";
-  long q1 = boost::lexical_cast<long>(s);
-  std::cout << q1 << std::endl;
+
 }
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
-SEXP generate_digit_pis(Rcpp::RObject x){
+void generate_digit_pis(Rcpp::RObject x){
+  int *p,*n;
+  convert_char2arrayint(x.get__(), &p, n);
+  //SEXP klass = Rf_getAttrib(x.get__(), R_ClassSymbol);
+
+  //std::cout << x.sexp_type() << " " << CHAR(STRING_ELT(klass,0))  << std::endl;
+  std::cout << *(n) << " " << p[0]  << std::endl;
   if(x.sexp_type() == STRSXP){
     Pis pis;
     for(int i = 0; i < LENGTH(x.get__()); i++){
@@ -100,16 +127,23 @@ SEXP generate_digit_pis(Rcpp::RObject x){
           int n = boost::lexical_cast<int>(t[j]);
           pis.push(n);
         }catch(...){
+          std::cout << "Erro aqui" << std::endl;
           continue;
         }
       }
+      pis.generate_last_digit();
+      //pis.print_pis();
+      SEXP q = Rf_mkChar(pis.int2char());
+      //std::cout << TYPEOF(q) << std::endl;
       pis.clear();
+      SET_STRING_ELT(x.get__(), i, q);
 
     }
   }else if(x.sexp_type() == REALSXP){
     Pis pis;
     for(int i = 0; i < LENGTH(x.get__()); i++){
       double t = REAL(x.get__())[i];
+      std::cout << " " << t <<  std::endl;
       for(int j = (tpis_cpf-2); j >= 0; j--){
         double base = powl(10,j);
         int n = t/base;
@@ -117,14 +151,14 @@ SEXP generate_digit_pis(Rcpp::RObject x){
         t -= (n*base);
         pis.push(n);
       }
-      //pis.print_pis();
+      pis.print_pis();
       int dig = pis.generate_last_digit();
       REAL(x.get__())[i] = (REAL(x.get__())[i] * 10) +  dig;
       pis.clear();
     }
 
   }
-  return x.get__();
+
 }
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
