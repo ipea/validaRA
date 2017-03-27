@@ -18,12 +18,14 @@ private:
   int * digits;
   int error;
   unsigned int size;
-  void set_digits(int *p);
 public:
-  Pis(){ digits = new int[11](); this->size = 0; };
+  Pis(){ this->size = 0; };
   Pis(int* digits_value){ set_digits(digits_value); };
   int generate_last_digit();
   bool validate();
+  void set_digits(int *p);
+  int * get_size(){ int * q = (int *)&size; return q;}
+  int * get_digits(){return digits;}
   bool has_error(){ return error; }
   void print_pis();
   void clear(){ this->size = 0;}
@@ -112,25 +114,11 @@ void test(){
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 void generate_digit_pis(Rcpp::RObject x){
-  int *p,*n;
-  convert_char2arrayint(x.get__(), &p, n);
-  //SEXP klass = Rf_getAttrib(x.get__(), R_ClassSymbol);
-
-  //std::cout << x.sexp_type() << " " << CHAR(STRING_ELT(klass,0))  << std::endl;
-  std::cout << *(n) << " " << p[0]  << std::endl;
+  Pis pis;
   if(x.sexp_type() == STRSXP){
-    Pis pis;
+
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      const char *t = CHAR(STRING_ELT(x.get__(), i));
-      for(unsigned int j = 0; j < strlen(t); j++){
-        try{
-          int n = boost::lexical_cast<int>(t[j]);
-          pis.push(n);
-        }catch(...){
-          std::cout << "Erro aqui" << std::endl;
-          continue;
-        }
-      }
+      pis.set_digits(charxp2arrayint(STRING_ELT(x.get__(), i),pis.get_size()));
       pis.generate_last_digit();
       //pis.print_pis();
       SEXP q = Rf_mkChar(pis.int2char());
@@ -140,7 +128,6 @@ void generate_digit_pis(Rcpp::RObject x){
 
     }
   }else if(x.sexp_type() == REALSXP){
-    Pis pis;
     for(int i = 0; i < LENGTH(x.get__()); i++){
       double t = REAL(x.get__())[i];
       std::cout << " " << t <<  std::endl;
