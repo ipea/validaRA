@@ -1,5 +1,5 @@
 #include "boost.h"
-#include "char2numeric.h"
+#include "convert2int.h"
 #include <Rcpp.h>
 #include<vector>
 #include<set>
@@ -30,21 +30,35 @@ public:
   void print_pis();
   void clear(){ this->size = 0;}
   char *  int2char();
-  long long int2bit64(){
-    long long num = 0;
-    std::cout << "Size " << this->size << std::endl;
-    unsigned int temp_size = this->size - 1;
-    for(unsigned int i = 0; i <= temp_size; i++){
-      num += (pow(10,i) * digits[temp_size - i]);
-      std::cout << num << std::endl;
-    }
-    return num;
-  }
+  long long int2bit64();
+  double int2double();
   void push(int n){
     digits[this->size] = n;
     this->size++;
   }
 };
+
+long long Pis::int2bit64(){
+  long long num = 0;
+  //std::cout << "Size " << this->size << std::endl;
+  unsigned int temp_size = this->size - 1;
+  for(unsigned int i = 0; i <= temp_size; i++){
+    num += (pow(10,i) * digits[temp_size - i]);
+    //std::cout << num << std::endl;
+  }
+  return num;
+}
+
+double Pis::int2double(){
+  double num = 0;
+  //std::cout << "Size " << this->size << std::endl;
+  unsigned int temp_size = this->size - 1;
+  for(unsigned int i = 0; i <= temp_size; i++){
+    num += (pow(10,i) * digits[temp_size - i]);
+    //std::cout << num << std::endl;
+  }
+  return num;
+}
 
 char *  Pis::int2char(){
   char * c = new char[size + 1];
@@ -130,36 +144,27 @@ void generate_digit_pis(Rcpp::RObject x){
   Pis pis;
   if(x.sexp_type() == REALSXP && is_bit64(x.get__())){
     long long * q = (long long *)REAL(x.get__());
-    std::cout << " " << LENGTH(x.get__())  << std::endl;
+    //std::cout << " " << LENGTH(x.get__())  << std::endl;
     for(int i = 0; i < LENGTH(x.get__()); i++){
       int porra = 9;
       pis.set_digits(bit642arrayint(&q[i], pis.get_size(),&porra ));
       pis.generate_last_digit();
       q[i] = pis.int2bit64();
-      pis.print_pis();
+      //pis.print_pis();
     }
-    std::cout << "falskjflakjfslaksjflakjfslaksfjlakf" << std::endl;
+    //std::cout << "falskjflakjfslaksjflakjfslaksfjlakf" << std::endl;
   }else if(x.sexp_type() == REALSXP){
-    std::cout << "falskjflakjfslaksjflakjfslaksfjlakf toma no cu" << std::endl;
+    double * q = REAL((x.get__()));
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      double t = REAL(x.get__())[i];
-      std::cout << " " << t <<  std::endl;
-      for(int j = (tpis_cpf-2); j >= 0; j--){
-        double base = powl(10,j);
-        int n = t/base;
-        //std::cout << n << " " << t << " " << base << std::endl;
-        t -= (n*base);
-        pis.push(n);
-      }
-      pis.print_pis();
-      int dig = pis.generate_last_digit();
-      REAL(x.get__())[i] = (REAL(x.get__())[i] * 10) +  dig;
-      pis.clear();
+      int porra = 9;
+      pis.set_digits(double2arrayint(&q[i], pis.get_size(),&porra ));
+      pis.generate_last_digit();
+      q[i] = pis.int2double();
+      //pis.print_pis();
     }
   }
 
   if(x.sexp_type() == STRSXP){
-    std::cout << "falskjfla bem no cento toma no cu" << std::endl;
     for(int i = 0; i < LENGTH(x.get__()); i++){
       pis.set_digits(charxp2arrayint(STRING_ELT(x.get__(), i),pis.get_size()));
       pis.generate_last_digit();
@@ -170,7 +175,6 @@ void generate_digit_pis(Rcpp::RObject x){
 
     }
   }
-  std::cout << "finaliza" << std::endl;
 }
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
@@ -190,7 +194,7 @@ SEXP valida_pis_3(Rcpp::RObject x){
       for(int j = (tpis_cpf-1); j >= 0; j--){
         double base = powl(10,j);
         int n = t/base;
-        std::cout << n << " " << t << " " << base << std::endl;
+        //std::cout << n << " " << t << " " << base << std::endl;
         t -= (n*base);
         pis.push(n);
       }

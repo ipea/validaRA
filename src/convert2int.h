@@ -57,4 +57,19 @@ int * bit642arrayint(long long *t, int *size, int* numbers_needed, int size_vec 
   return v;
 }
 
+int * double2arrayint(double *t, int *size, int* numbers_needed, int size_vec = 11){
+  int t_vec = 0;
+  int *v = (int *)malloc(sizeof(int) * size_vec);
+  //std::cout << " " << t <<  std::endl;
+  for(int j = *(numbers_needed) ; j >= 0; j--){
+    double base = powl(10,j);
+    int n = *(t)/base;
+    //std::cout << n << " " << t << " " << base << std::endl;
+    *(t) -= (n*base);
+    v[t_vec] = n;
+    t_vec++;
+  }
+  *(size) = t_vec;
+  return v;
+}
 
