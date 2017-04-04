@@ -99,9 +99,10 @@ bool Pis::validate(){
   bool r = false;
   int result = 0;
   if(size < tpis_cpf){
-    std::fill_n(digits + size, tpis_cpf - size, 0);
+    std::fill_n(digits + size, tpis_cpf - size, -1);
   }
-  for(int i = 0; i < tpis_cpf; i++){
+  //std::cout << "Digits" <<  digits[10] << std::endl;
+  for(unsigned int i = 0; i < size; i++){
     result += digits[i] * digito_pis[i];
   }
   result = (result * 10) % tpis_cpf;
@@ -180,52 +181,31 @@ void generate_digit_pis(Rcpp::RObject x){
 // [[Rcpp::export]]
 SEXP valida_pis_3(Rcpp::RObject x){
   SEXP r = PROTECT(Rf_allocVector(LGLSXP, LENGTH(x.get__())));
+  Pis pis;
   if(x.sexp_type() == STRSXP){
-    Pis pis;
     for(int i = 0; i < LENGTH(x.get__()); i++){
       pis.set_digits(charxp2arrayint(STRING_ELT(x.get__(), i),pis.get_size()));
       LOGICAL(r)[i] = pis.validate();
     }
 
-  }else if(x.sexp_type() == REALSXP){
-    Pis pis;
+  }else if(x.sexp_type() == REALSXP && is_bit64(x.get__())){
+    long long * q = (long long *)REAL(x.get__());
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      double t = REAL(x.get__())[i];
-      for(int j = (tpis_cpf-1); j >= 0; j--){
-        double base = powl(10,j);
-        int n = t/base;
-        //std::cout << n << " " << t << " " << base << std::endl;
-        t -= (n*base);
-        pis.push(n);
-      }
-      //pis.print_pis();
+      int tamanho = 10;
+      pis.set_digits(bit642arrayint(q[i], pis.get_size(),&tamanho ));
       LOGICAL(r)[i] = pis.validate();
-      pis.clear();
+    }
+  }else if(x.sexp_type() == REALSXP){
+    double * q = REAL(x.get__());
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      int tamanho = 10;
+      pis.set_digits(double2arrayint(q[i], pis.get_size(),&tamanho ));
+      LOGICAL(r)[i] = pis.validate();
     }
 
   }
   UNPROTECT(1);
   return r;
-}
-// [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::export]]
-SEXP valida_pis_2(Rcpp::RObject x){
-  bool  r = true;
-  if(x.sexp_type() == STRSXP){
-    Rcpp::CharacterVector t(x);
-    Pis pis;
-    for(unsigned int j = 0; j < t.size(); j++){
-      std::string cpf_string = Rcpp::as<std::string>(t[j]);
-      for(unsigned int i = 0; i < cpf_string.size(); i++ ){
-        if(std::isdigit(cpf_string[i])){
-
-          pis.push((cpf_string[i]));
-        }
-      }
-    }
-  }
-
-  return Rcpp::wrap(r);
 }
 
 // [[Rcpp::export]]

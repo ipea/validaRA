@@ -3,3 +3,5 @@
 .travis.yml
 .gitignore
 data-raw\*
+^README\.Rmd$
+^README-.*\.png$
