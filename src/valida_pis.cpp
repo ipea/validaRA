@@ -1,5 +1,6 @@
 #include "boost.h"
 #include "convert2int.h"
+#include "Pis.h"
 #include <Rcpp.h>
 #include<vector>
 #include<set>
@@ -10,110 +11,7 @@
 #include <RInternals.h>
 
 
-#define tpis_cpf 11
-using namespace Rcpp;
-static const int digito_pis[] = {3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0};
-class Pis{
-private:
-  int * digits;
-  int error;
-  unsigned int size;
-public:
-  Pis(){ this->size = 0; };
-  Pis(int* digits_value){ set_digits(digits_value); };
-  int generate_last_digit();
-  bool validate();
-  void set_digits(int *p);
-  int * get_size(){ int * q = (int *)&size; return q;}
-  int * get_digits(){return digits;}
-  bool has_error(){ return error; }
-  void print_pis();
-  void clear(){ this->size = 0;}
-  char *  int2char();
-  long long int2bit64();
-  double int2double();
-  void push(int n){
-    digits[this->size] = n;
-    this->size++;
-  }
-};
 
-long long Pis::int2bit64(){
-  long long num = 0;
-  //std::cout << "Size " << this->size << std::endl;
-  unsigned int temp_size = this->size - 1;
-  for(unsigned int i = 0; i <= temp_size; i++){
-    num += (pow(10,i) * digits[temp_size - i]);
-    //std::cout << num << std::endl;
-  }
-  return num;
-}
-
-double Pis::int2double(){
-  double num = 0;
-  //std::cout << "Size " << this->size << std::endl;
-  unsigned int temp_size = this->size - 1;
-  for(unsigned int i = 0; i <= temp_size; i++){
-    num += (pow(10,i) * digits[temp_size - i]);
-    //std::cout << num << std::endl;
-  }
-  return num;
-}
-
-char *  Pis::int2char(){
-  char * c = new char[size + 1];
-  for(unsigned int i = 0; i < size; i++){
-    try{
-      c[i] = boost::lexical_cast<char>(digits[i]) ;
-    }catch(...){
-      std::cout << "Erro aqui na funcao" << std::endl;
-      continue;
-    }
-  }
-  c[size] = '\0';
-  return c;
-}
-void Pis::print_pis(){
-  for(int i = 0; i < 11; i++){
-    std::cout << digits[i] << "," ;
-  }
-  std::cout << std::endl;
-}
-void Pis::set_digits(int *p){
-  digits = p;
-}
-
-int Pis::generate_last_digit(){
-  int result = 0;
-  for(int i = 0; i < tpis_cpf; i++){
-    result += digits[i] * digito_pis[i];
-  }
-  result = (result * 10) % tpis_cpf;
-  if(result == 10) result = 0;
-  digits[10] = result;
-  size++;
-  return result;
-}
-
-bool Pis::validate(){
-  bool r = false;
-  int result = 0;
-  if(size < tpis_cpf){
-    std::fill_n(digits + size, tpis_cpf - size, -1);
-  }
-  //std::cout << "Digits" <<  digits[10] << std::endl;
-  for(unsigned int i = 0; i < size; i++){
-    result += digits[i] * digito_pis[i];
-  }
-  result = (result * 10) % tpis_cpf;
-  if(result == 10) result = 0;
-  if(result == digits[10]){
-    r = true;
-  }else{
-    error = 1;
-  }
-  return r;
-}
 
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
@@ -125,16 +23,17 @@ void test(){
     p.push(digito[i]);
   }
 
-  p.print_pis();
   std::cout << p.int2char() << std::endl;
-  std::cout << p.validate() << std::endl;
-  digito[3] = 8;
+  //std::cout << p.validate() << std::endl;
+  //digito[3] = 8;
 
-  Pis p2(digito);
+  Pis p2(digito, 11);
   std::cout << p2.validate() << std::endl;
-  Pis p3(digito2);
+  Pis p3(digito2,11);
+  std::cout << p3 << std::endl;
   std::cout << p3.generate_last_digit() << std::endl;
-  std::string s = "18609070662";
+
+
 
 }
 
