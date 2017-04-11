@@ -1,5 +1,6 @@
 #include "Pis.h"
 
+
 void test_constructor_pis(){
   int digito[] = {1,2,0,7,4,3,6,2,7,8,3};
   Pis p;
@@ -11,36 +12,31 @@ void test_constructor_pis(){
 
 void test_intTochar(){
   int digito[] = {1,2,0,7,4,3,6,2,7,8,3};
+  Pis p(digito, 11);
+  std::cout << p.int2char() << std::endl;
+}
+
+void test_intToBit64(){
+  int digito[] = {1,2,0,7,4,3,6,2,7,8,3};
   Pis p;
   for(int i = 0; i < 11; i++){
     p.push(digito[i]);
   }
-  std::cout << p.int2char() << std::endl;
+  long long n = p.int2bit64();
+  std::cout << n << std::endl;
 }
+
+
 
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 void test_classes(){
+  std::cout << "Test int to char " << std::endl;
+  test_intTochar();
+  std::cout << "Test int to Bit64 " << std::endl;
+  test_intToBit64();
+  std::cout << "Test constructor " << std::endl;
   test_constructor_pis();
-  //test_intTochar();
-  // int digito[] = {1,2,0,7,4,3,6,2,7,8,3};
-  // int digito2[] = {1,2,0,7,4,3,6,2,7,8,0};
-  // Pis p;
-  // for(int i = 0; i < 11; i++){
-  //   p.push(digito[i]);
-  // }
-  //
-  // std::cout << p.int2char() << std::endl;
-  // //std::cout << p.validate() << std::endl;
-  // //digito[3] = 8;
-  //
-  // Pis p2(digito, 11);
-  // std::cout << p2.validate() << std::endl;
-  // Pis p3(digito2,11);
-  // std::cout << p3 << std::endl;
-  // std::cout << p3.generate_last_digit() << std::endl;
-
-
 
 }
 

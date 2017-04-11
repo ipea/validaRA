@@ -5,6 +5,10 @@ converter_ra_ <- function(x) {
     .Call('validaRA_converter_ra_', PACKAGE = 'validaRA', x)
 }
 
+test_classes <- function() {
+    invisible(.Call('validaRA_test_classes', PACKAGE = 'validaRA'))
+}
+
 valida_cnpj <- function(x) {
     .Call('validaRA_valida_cnpj', PACKAGE = 'validaRA', x)
 }
@@ -19,6 +23,18 @@ valida_cpf <- function(x) {
 
 valida_cpf_log <- function(x) {
     .Call('validaRA_valida_cpf_log', PACKAGE = 'validaRA', x)
+}
+
+test <- function() {
+    invisible(.Call('validaRA_test', PACKAGE = 'validaRA'))
+}
+
+generate_digit_pis <- function(x) {
+    invisible(.Call('validaRA_generate_digit_pis', PACKAGE = 'validaRA', x))
+}
+
+valida_pis_3 <- function(x) {
+    .Call('validaRA_valida_pis_3', PACKAGE = 'validaRA', x)
 }
 
 valida_pis <- function(x) {

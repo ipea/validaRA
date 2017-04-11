@@ -15,8 +15,7 @@ class Ra{
     unsigned int size;
     unsigned int size_ra;
   public:
-    Ra(){ this->size = 0; };
-    ~Ra(){ delete digits; }
+    Ra(){ this->size = 0; digits = NULL; error = 0; };
     Ra(int *digits_value, unsigned int size){ set_digits(digits_value, size); };
     virtual int generate_last_digit() = 0;
     virtual bool validate() = 0;
@@ -26,17 +25,27 @@ class Ra{
     virtual unsigned int sizeRaGenerateLastDigit() = 0;
     int * get_size(){ int * q = (int *)&size; return q;}
     int * get_digits(){return digits;}
+    int get_error(){return error; }
     bool has_error(){ return error; }
     void clear(){ this->size = 0;}
     char *  int2char();
     long long int2bit64();
     double int2double();
-    void push(int n){
-      digits[this->size] = n;
-      this->size++;
-    }
+    void push(int n);
     friend ostream& operator<<(ostream& os, const Ra& ra);
 };
+
+
+
+ostream& operator<<(ostream& os, const Ra& ra){
+  os << "class: Ra " <<  std::endl;
+  os << "Size: " << ra.size << std::endl;
+  os << "Digits: ";
+  for(unsigned int i = 0; i < ra.size; i++){
+    os << ra.digits[i] << "," ;
+  }
+  return os;
+}
 
 long long Ra::int2bit64(){
   long long num = 0;
@@ -61,6 +70,7 @@ double Ra::int2double(){
 }
 
 char *  Ra::int2char(){
+//std::cout << "Size: " << size << std::endl;
   char * c = new char[size + 1];
   for(unsigned int i = 0; i < size; i++){
     try{
@@ -74,15 +84,7 @@ char *  Ra::int2char(){
   return c;
 }
 
-ostream& operator<<(ostream& os, const Ra& ra){
-  os << "class: Ra " <<  std::endl;
-  os << "Size: " << ra.size << std::endl;
-  os << "Digits: ";
-  for(unsigned int i = 0; i < ra.size; i++){
-    os << ra.digits[i] << "," ;
-  }
-  return os;
-}
+
 
 void Ra::set_digits(int *p, unsigned int size){
   digits = p;
@@ -93,6 +95,17 @@ void Ra::set_digits(int *p){
   digits = p;
   this->size = size;
 }
+
+void Ra::push(int n){
+  if(digits == NULL){
+    digits = (int *)malloc(sizeof(int) * this->size_ra) ;
+  }
+  if(digits != NULL){
+    digits[this->size] = n;
+  }
+  this->size++;
+}
+
 
 #endif
 

@@ -46,8 +46,7 @@ void generate_digit_pis(Rcpp::RObject x){
     long long * q = (long long *)REAL(x.get__());
     //std::cout << " " << LENGTH(x.get__())  << std::endl;
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      int porra = 9;
-      pis.set_digits(bit642arrayint(&q[i], pis.get_size(),&porra ));
+      pis.set_digits(bit642arrayint(&q[i], pis.get_size(),pis.sizeRaGenerateLastDigit() ));
       pis.generate_last_digit();
       q[i] = pis.int2bit64();
       //pis.print_pis();
@@ -56,8 +55,7 @@ void generate_digit_pis(Rcpp::RObject x){
   }else if(x.sexp_type() == REALSXP){
     double * q = REAL((x.get__()));
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      int porra = 9;
-      pis.set_digits(double2arrayint(&q[i], pis.get_size(),&porra ));
+      pis.set_digits(double2arrayint(&q[i], pis.get_size(),pis.sizeRaGenerateLastDigit() ));
       pis.generate_last_digit();
       q[i] = pis.int2double();
       //pis.print_pis();
@@ -90,15 +88,13 @@ SEXP valida_pis_3(Rcpp::RObject x){
   }else if(x.sexp_type() == REALSXP && is_bit64(x.get__())){
     long long * q = (long long *)REAL(x.get__());
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      int tamanho = 10;
-      pis.set_digits(bit642arrayint(q[i], pis.get_size(),&tamanho ));
+      pis.set_digits(bit642arrayint(q[i], pis.get_size(),pis.sizeRaValidate() ));
       LOGICAL(r)[i] = pis.validate();
     }
   }else if(x.sexp_type() == REALSXP){
     double * q = REAL(x.get__());
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      int tamanho = 10;
-      pis.set_digits(double2arrayint(q[i], pis.get_size(),&tamanho ));
+      pis.set_digits(double2arrayint(q[i], pis.get_size(),pis.sizeRaValidate() ));
       LOGICAL(r)[i] = pis.validate();
     }
 

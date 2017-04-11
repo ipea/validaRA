@@ -50,7 +50,9 @@ bool Pis::validate(){
   if(result == 10) result = 0;
   if(result == digits[10]){
     r = true;
+    error = 0;
   }else{
+    r = false;
     error = 1;
   }
   return r;
