@@ -7,7 +7,6 @@
 #' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
 #' @param log Output erros found on entrada
 #'
-#' @useDynLib validaRA
 #' @importFrom Rcpp sourceCpp
 #' @return True or False. if log is giving return a data frame.
 #'

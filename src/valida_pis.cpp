@@ -1,15 +1,14 @@
-#include "boost.h"
 #include "convert2int.h"
 #include "Pis.h"
 #include <Rcpp.h>
-#include<vector>
-#include<set>
+#include <vector>
+#include <set>
 #include <algorithm>
 #include <string>
 #include <R.h>
 #include <Rdefines.h>
 #include <RInternals.h>
-
+#include "boost.h"
 
 
 

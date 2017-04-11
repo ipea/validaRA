@@ -16,15 +16,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// test_classes
-void test_classes();
-RcppExport SEXP validaRA_test_classes() {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    test_classes();
-    return R_NilValue;
-END_RCPP
-}
 // valida_cnpj
 LogicalVector valida_cnpj(Rcpp::CharacterVector x);
 RcppExport SEXP validaRA_valida_cnpj(SEXP xSEXP) {
@@ -119,5 +110,27 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(valida_pis_log(x));
     return rcpp_result_gen;
+END_RCPP
+}
+// valida_ra
+SEXP valida_ra(SEXP x, SEXP type, SEXP log);
+RcppExport SEXP validaRA_valida_ra(SEXP xSEXP, SEXP typeSEXP, SEXP logSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type type(typeSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type log(logSEXP);
+    rcpp_result_gen = Rcpp::wrap(valida_ra(x, type, log));
+    return rcpp_result_gen;
+END_RCPP
+}
+// test_classes
+void test_classes();
+RcppExport SEXP validaRA_test_classes() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test_classes();
+    return R_NilValue;
 END_RCPP
 }
