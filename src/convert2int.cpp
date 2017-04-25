@@ -18,6 +18,18 @@ bool is_bit64(SEXP x){
 
 }
 
+bool is_factor(SEXP x){
+  SEXP klass = Rf_getAttrib(x, R_ClassSymbol);
+  if(TYPEOF(klass) == CHARSXP || TYPEOF(klass) == STRSXP){
+    if(strcmp(CHAR(STRING_ELT(klass,0)),"factor") == 0){
+      return true;
+    }
+    return false;
+  }
+  return false;
+
+}
+
 int * charxp2arrayint(SEXP x, int *size){
   if(TYPEOF(x) != CHARSXP) std::cout << "Não é um charxt";
   const char *t = CHAR(x);

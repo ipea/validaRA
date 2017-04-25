@@ -39,7 +39,7 @@ test_that("PIS using log", {
 
 test_that("Generate pis", {
   pis_correto <- c("45993824692", "16630925956", "16345860949")
-  pis_incorreto <- c("4599382469", "1663092595", "16345860949")
-  result <- gera_digito(pis_incorreto, type = "pis")
-  expect_equal(pis_correto, result)
+  pis_incorreto <- c("4599382469", "1663092595", "1634586094")
+  gera_digito(pis_incorreto, type = "pis")
+  expect_equal(pis_correto, pis_incorreto)
 })

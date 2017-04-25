@@ -32,7 +32,7 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
   }
   if(type == "pis"){
     if(log == FALSE){
-      result <- valida_pis(entrada)
+      result <- valida_ra(entrada, type, log)
     }else{
       result <- valida_pis_log(entrada)
     }
