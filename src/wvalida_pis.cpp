@@ -1,3 +1,4 @@
+#include "boost.h"
 #include "convert2int.h"
 #include "Pis.h"
 #include <Rcpp.h>
@@ -8,7 +9,7 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <RInternals.h>
-#include "boost.h"
+
 
 
 

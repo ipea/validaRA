@@ -17,7 +17,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
   SEXP r = PROTECT(Rf_allocVector(LGLSXP, LENGTH(x)));
   SEXP l = PROTECT(Rf_allocVector(INTSXP, LENGTH(x)));
   const char *t = CHAR(STRING_ELT(type,0));
-  std::cout << LOGICAL(log)[0] << std::endl;
+  //std::cout << LOGICAL(log)[0] << std::endl;
   Ra *ra = factoryRa(t);
   if(TYPEOF(x) == STRSXP){
     for(int i = 0; i < LENGTH(x); i++){

@@ -1,0 +1,1 @@
+PKG_CPPFLAGS= -I"C:/Users/b15599226/Documents/boost_1_63_0/" -L"C:/Users/b15599226/Documents/boost_1_63_0/bin.v2/libs" 

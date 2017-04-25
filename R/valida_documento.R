@@ -18,7 +18,7 @@
 valida_doc <- function(entrada, type = "cpf", log = FALSE){
   if(type == "cpf"){
     if(log == FALSE){
-      result <- valida_cpf(entrada)
+      result <- valida_ra(entrada, type, log)
     }else{
       result <- valida_cpf_log(entrada)
     }
@@ -61,8 +61,7 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
 #'
 #' @export
 #'
-valida_doc_df <- function(data, column, type = "cpf", log = FALSE)
-{
+valida_doc_df <- function(data, column, type = "cpf", log = FALSE){
   arguments <- as.list(match.call())
   column = eval(arguments$column, data)
   valida_doc(column, type = type, log = log)
