@@ -1,5 +1,6 @@
 #include "Cpf.h"
 #include "Pis.h"
+#include "Cnpj.h"
 
 Ra * factoryRa(const char *t){
   Ra *ra;
@@ -8,8 +9,10 @@ Ra * factoryRa(const char *t){
     ra = new Pis();
   }else if(strcmp(t,"cpf") == 0){
     ra = new Cpf();
+  }else if(strcmp(t,"cnpj") == 0){
+    ra = new Cnpj();
   }else{
-    ra = new Pis();
+    ra = new Cpf();
   }
   return ra;
 }

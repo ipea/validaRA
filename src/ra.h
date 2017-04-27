@@ -15,10 +15,18 @@ class Ra{
     unsigned int size;
     unsigned int size_ra;
   public:
-    Ra(){ this->size = 0; digits = NULL; error = 0; };
-    Ra(int *digits_value, unsigned int size){ set_digits(digits_value, size); };
+    Ra(){
+      this->size = 0;
+      digits = NULL;
+      error = 0;
+    };
+    Ra(int *digits_value, unsigned int size){
+      this->size = 0;
+      error = 0;
+      set_digits(digits_value, size);
+    }
     virtual int generate_last_digit() = 0;
-    virtual bool validate() = 0;
+    virtual int validate() = 0;
     void set_digits(int *p, unsigned int size);
     void set_digits(int *p);
     virtual unsigned int sizeRaValidate() = 0;

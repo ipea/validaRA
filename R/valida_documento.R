@@ -16,33 +16,14 @@
 #' @export
 #'
 valida_doc <- function(entrada, type = "cpf", log = FALSE){
-  if(type == "cpf"){
-    if(log == FALSE){
-      result <- valida_ra(entrada, type, log)
-    }else{
-      result <- valida_cpf_log(entrada)
-    }
-  }
-  if(type == "cnpj"){
-    if(log == FALSE){
-      result <- valida_cnpj(entrada)
-    }else{
-      result <- valida_cnpj_log(entrada)
-    }
-  }
-  if(type == "pis"){
-    if(log == FALSE){
-      result <- valida_ra(entrada, type, log)
-    }else{
-      result <- valida_pis_log(entrada)
-    }
-  }
   if(type == "tituloeleitor"){
     if(log == FALSE){
       result <- verificar_titulo_eleitor(entrada)
     }else{
       result <- verificar_titulo_eleitor(entrada, log = TRUE)
     }
+  }else{
+    result <- valida_ra(entrada, type, log)
   }
   result
 }

@@ -19,11 +19,20 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
   const char *t = CHAR(STRING_ELT(type,0));
   Ra *ra = factoryRa(t);
   //std::cout << "Is factor: " << is_factor(x) << std::endl;
-  if(TYPEOF(x) == STRSXP){
+  if(is_factor(x)){
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(charxp2arrayint(STRING_ELT(x, i),ra->get_size()));
       LOGICAL(r)[i] = ra->validate();
       INTEGER(l)[i] = ra->get_error();
+
+    }
+
+  }else if(TYPEOF(x) == STRSXP){
+    for(int i = 0; i < LENGTH(x); i++){
+      ra->set_digits(charxp2arrayint(STRING_ELT(x, i),ra->get_size()));
+      LOGICAL(r)[i] = ra->validate();
+      INTEGER(l)[i] = ra->get_error();
+
     }
 
   }else if(TYPEOF(x) == REALSXP && is_bit64(x)){
@@ -42,11 +51,13 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
     }
 
   }
-
+ // std::cout << "error " <<  ra->get_error() << std::endl;
   if(LOGICAL(log)[0] == 1){
     Rcpp::DataFrame NDF =
-      Rcpp::DataFrame::create(Rcpp::Named("resultado")=r,
-                              Rcpp::Named("log")=l);
+      Rcpp::DataFrame::create(Rcpp::Named("dado")=x,
+                              Rcpp::Named("resultado")=r,
+                              Rcpp::Named("erros")=l,
+                              _["stringsAsFactors"] = false );
     UNPROTECT(2);
     return NDF.get__();
   }

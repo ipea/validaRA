@@ -1,6 +1,7 @@
 #include "Ra.h"
 
 
+
 ostream& operator<<(ostream& os, const Ra& ra){
   os << "class: Ra " <<  std::endl;
   os << "Size: " << ra.size << std::endl;

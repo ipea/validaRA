@@ -13,7 +13,7 @@ public:
   unsigned int sizeRaValidate();
   unsigned int sizeRaGenerateLastDigit();
   int generate_last_digit();
-  bool validate();
+  int validate();
 };
 
 #endif

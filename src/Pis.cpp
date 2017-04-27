@@ -20,8 +20,8 @@ int Pis::generate_last_digit(){
   return result;
 }
 
-bool Pis::validate(){
-  bool r = false;
+int Pis::validate(){
+  int r = 0;
   int result = 0;
   if(size < tpis_cpf){
     std::fill_n(digits + size, tpis_cpf - size, -1);
@@ -33,10 +33,10 @@ bool Pis::validate(){
   result = (result * 10) % tpis_cpf;
   if(result == 10) result = 0;
   if(result == digits[10]){
-    r = true;
+    r = 1;
     error = 0;
   }else{
-    r = false;
+    r = 0;
     error = 1;
   }
   return r;
