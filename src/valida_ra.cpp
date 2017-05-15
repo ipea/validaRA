@@ -1,10 +1,8 @@
 #include "boost.h"
 #include "convert2int.h"
-#include "cpf.h"
-#include "Pis.h"
-#include "utils.h"
 #include <Rcpp.h>
 #include <algorithm>
+#include "utils.h"
 #include <string>
 #include <R.h>
 #include <Rdefines.h>
@@ -65,4 +63,39 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
   return r;
 }
 
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::export]]
+void generate_digit_pis(Rcpp::RObject x){
+  Pis pis;
+  if(x.sexp_type() == REALSXP && is_bit64(x.get__())){
+    long long * q = (long long *)REAL(x.get__());
+    //std::cout << " " << LENGTH(x.get__())  << std::endl;
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      pis.set_digits(bit642arrayint(&q[i], pis.get_size(),pis.sizeRaGenerateLastDigit() ));
+      pis.generate_last_digit();
+      q[i] = pis.int2bit64();
+      //pis.print_pis();
+    }
+    //std::cout << "falskjflakjfslaksjflakjfslaksfjlakf" << std::endl;
+  }else if(x.sexp_type() == REALSXP){
+    double * q = REAL((x.get__()));
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      pis.set_digits(double2arrayint(&q[i], pis.get_size(),pis.sizeRaGenerateLastDigit() ));
+      pis.generate_last_digit();
+      q[i] = pis.int2double();
+      //pis.print_pis();
+    }
+  }
 
+  if(x.sexp_type() == STRSXP){
+    for(int i = 0; i < LENGTH(x.get__()); i++){
+      pis.set_digits(charxp2arrayint(STRING_ELT(x.get__(), i),pis.get_size()));
+      pis.generate_last_digit();
+      //pis.print_pis();
+      SEXP q = Rf_mkChar(pis.int2char());
+      //std::cout << TYPEOF(q) << std::endl;
+      SET_STRING_ELT(x.get__(), i, q);
+
+    }
+  }
+}

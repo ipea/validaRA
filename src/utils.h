@@ -1,6 +1,4 @@
-#include "Cpf.h"
-#include "Pis.h"
-#include "Cnpj.h"
+#include "boost.h"
 
 Ra * factoryRa(const char *t){
   Ra *ra;

@@ -5,47 +5,11 @@ converter_ra_ <- function(x) {
     .Call('validaRA_converter_ra_', PACKAGE = 'validaRA', x)
 }
 
-valida_cnpj <- function(x) {
-    .Call('validaRA_valida_cnpj', PACKAGE = 'validaRA', x)
-}
-
-valida_cnpj_log <- function(x) {
-    .Call('validaRA_valida_cnpj_log', PACKAGE = 'validaRA', x)
-}
-
-valida_cpf <- function(x) {
-    .Call('validaRA_valida_cpf', PACKAGE = 'validaRA', x)
-}
-
-valida_cpf_log <- function(x) {
-    .Call('validaRA_valida_cpf_log', PACKAGE = 'validaRA', x)
-}
-
 valida_ra <- function(x, type, log) {
     .Call('validaRA_valida_ra', PACKAGE = 'validaRA', x, type, log)
 }
 
-test_classes <- function() {
-    invisible(.Call('validaRA_test_classes', PACKAGE = 'validaRA'))
-}
-
-test <- function() {
-    invisible(.Call('validaRA_test', PACKAGE = 'validaRA'))
-}
-
 generate_digit_pis <- function(x) {
     invisible(.Call('validaRA_generate_digit_pis', PACKAGE = 'validaRA', x))
-}
-
-valida_pis_3 <- function(x) {
-    .Call('validaRA_valida_pis_3', PACKAGE = 'validaRA', x)
-}
-
-valida_pis <- function(x) {
-    .Call('validaRA_valida_pis', PACKAGE = 'validaRA', x)
-}
-
-valida_pis_log <- function(x) {
-    .Call('validaRA_valida_pis_log', PACKAGE = 'validaRA', x)
 }
 
