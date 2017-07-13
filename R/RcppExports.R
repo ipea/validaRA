@@ -9,7 +9,7 @@ valida_ra <- function(x, type, log) {
     .Call('validaRA_valida_ra', PACKAGE = 'validaRA', x, type, log)
 }
 
-generate_digit_pis <- function(x) {
-    invisible(.Call('validaRA_generate_digit_pis', PACKAGE = 'validaRA', x))
+generate_digit <- function(x, type) {
+    invisible(.Call('validaRA_generate_digit', PACKAGE = 'validaRA', x, type))
 }
 

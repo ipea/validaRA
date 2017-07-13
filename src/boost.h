@@ -7,5 +7,6 @@
 #include <ra/Cpf.hpp>
 #include <ra/Cnpj.hpp>
 #include <ra/Pis.hpp>
+#include <ra/CNS.hpp>
 
 #endif

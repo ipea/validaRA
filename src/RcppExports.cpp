@@ -29,13 +29,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// generate_digit_pis
-void generate_digit_pis(Rcpp::RObject x);
-RcppExport SEXP validaRA_generate_digit_pis(SEXP xSEXP) {
+// generate_digit
+void generate_digit(Rcpp::RObject x, SEXP type);
+RcppExport SEXP validaRA_generate_digit(SEXP xSEXP, SEXP typeSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RObject >::type x(xSEXP);
-    generate_digit_pis(x);
+    Rcpp::traits::input_parameter< SEXP >::type type(typeSEXP);
+    generate_digit(x, type);
     return R_NilValue;
 END_RCPP
 }

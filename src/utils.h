@@ -1,14 +1,18 @@
 #include "boost.h"
 
-Ra * factoryRa(const char *t){
+Ra * factoryRa(const char *q){
   Ra *ra;
-  if(strcmp(t,"pis") == 0){
+  std::string t(q);
+  std::transform(t.begin(), t.end(), t.begin(), ::tolower);
+  if(t == "pis"){
     //std::cout << "Entrou aqui" << std::endl;
     ra = new Pis();
-  }else if(strcmp(t,"cpf") == 0){
+  }else if(t == "cpf"){
     ra = new Cpf();
-  }else if(strcmp(t,"cnpj") == 0){
+  }else if(t == "cnpj"){
     ra = new Cnpj();
+  }else if(t == "cns"){
+    ra = new CNS();
   }else{
     ra = new Cpf();
   }

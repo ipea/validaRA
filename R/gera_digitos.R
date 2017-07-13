@@ -16,8 +16,6 @@
 #' @export
 #'
 gera_digito <- function(entrada, type = "cpf"){
-  if(type == "pis"){
-    generate_digit_pis(entrada)
-  }
+  generate_digit(entrada, type)
 }
 
