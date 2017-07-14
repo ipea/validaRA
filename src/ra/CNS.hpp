@@ -59,31 +59,34 @@ public:
       return r;
     }else{
       result = sum_digits(11);
+      //std::cout << "result: " <<  result << std::endl;
       double resto = result % 11;
       double dv = 11 - resto;
       if(dv == 11){
         dv = 0;
       }
+      //std::cout << "dv: " <<  dv << std::endl;
+      //std::cout << "RA: " <<   << std::endl;
+      //for(int i = 0; i < 15; i++){
+      //  std::cout << digits[i] << " ";
+      //}
+      int penultimo = 0;
+      //std::cout << std::endl;
       if(dv == 10){
         result += 2;
         resto = result % 11;
         dv = 11 - resto;
-        if(digits[13] == 1 && digits[12] == 0 && digits[11] == 0 && digits[14] == dv){
-          r = 1;
-          error = 0;
-        }else{
-          r = 0;
-          error = 1;
-        }
-      }else{
-        if(digits[13] == 0 && digits[12] == 0 && digits[11] == 0 && digits[14] == dv){
-          r = 1;
-          error = 0;
-        }else{
-          r = 0;
-          error = 2;
-        }
+        //std::cout << "dv: " <<  dv << std::endl;
+        penultimo = 1;
       }
+      if(digits[13] == penultimo && digits[12] == 0 && digits[11] == 0 && digits[14] == dv){
+        r = 1;
+        error = 0;
+      }else{
+        r = 0;
+        error = 2;
+      }
+
 
     }
     return r;
