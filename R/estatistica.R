@@ -1,33 +1,18 @@
 estatisticas_amostra <- function(df, columnName,  type = "cpf"){
-  require("dplyr")
-  library("dplyr")
-  if(is.character(columnName) & (columnName %in% colnames(df))){
-    columnName <- df[,columnName]
-  }else{
-    arguments <- as.list(match.call())
-    columnName <- eval(arguments$columnName, df)
-  }
-  result <- valida_doc(columnName, type = type, log = TRUE)
-  validos <- nrow(dplyr::filter(result, resultado == TRUE))
-  invalidos <- nrow(dplyr::filter(result, resultado == FALSE))
-  sem_character <- nrow(dplyr::filter(result, grepl("Sem characters", erros)))
-  characters_invalido <- nrow(dplyr::filter(result, grepl("Numero de caracters invalido", erros)))
-  characters_iguais <- nrow(dplyr::filter(result, grepl("Caracters iguais", erros)))
-  primeiro_digito_invalido <- nrow(dplyr::filter(result, grepl("Primero digito errado", erros)))
-  segundo_digito_invalido <- nrow(dplyr::filter(result, grepl("segundo digito errado", erros)))
-  zeros <- nrow(dplyr::filter(result, grepl("Zeros", erros)))
+  require(data.table)
+  library(data.table)
+  setDT(df)
+  dados_validados <- valida_doc(df[, columnName, with, F], type = type, log = TRUE)
+  setDT(dados_validados)
+  return(sumarizando_dados(dados_validados))
 
-  e <- data.frame(validos = validos,
-                  invalidos = invalidos,
-                  sem_character = sem_character,
-                  characters_invalido = characters_invalido,
-                  zeros = zeros,
-                  characters_iguais = characters_iguais,
-                  primeiro_digito_invalido = primeiro_digito_invalido,
-                  segundo_digito_invalido = segundo_digito_invalido
-
-                  )
-  return(e)
+}
+sumarizando_dados <- function(dados){
+  log <- dados[, .N, by=erros]
+  print(log)
+  t <- data.table("Corretos"=0,"Primeiro digito errado"=1,"Segundo Digito errado"=2)
+  log[, erros:=names(t)[match(erros, t)]]
+  return(log)
 }
 
 diagnostica_RA <- function(df, nomes_colunas, types){
@@ -44,12 +29,20 @@ diagnostica_RA <- function(df, nomes_colunas, types){
                             primeiro_digito_invalido = integer(0),
                             segundo_digito_invalido = integer(0)
                             )
-  estatistica$tipo <- as.character(estatistica$tipo)
-  for(i in 1:length(nomes_colunas)){
-    x <- estatisticas_amostra(df, nomes_colunas[i], type = types[i])
-    x["tipo"] <- as.character(types[i])
-    estatistica <- dplyr::bind_rows(estatistica, x)
-  }
-  #estatistica <- estatistica[c(7, 1, 2, 3, 4, 5, 7,8)]
-  estatistica
+
+  todas <- mapply(function(column, type){
+    result <- estatisticas_amostra(df, column, type)
+    result[, type:= type]
+    retun(result)
+  }, nomes_colunas, types)
+  todas <- rbindlist(todas)
+  return(todas)
+  # estatistica$tipo <- as.character(estatistica$tipo)
+  # for(i in 1:length(nomes_colunas)){
+  #   x <- estatisticas_amostra(df, nomes_colunas[i], type = types[i])
+  #   x["tipo"] <- as.character(types[i])
+  #   estatistica <- dplyr::bind_rows(estatistica, x)
+  # }
+  # #estatistica <- estatistica[c(7, 1, 2, 3, 4, 5, 7,8)]
+  # estatistica
 }
