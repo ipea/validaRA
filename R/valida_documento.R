@@ -59,7 +59,7 @@ valida_doc_df <- function(data, column, type = "cpf", log = FALSE){
 #' @param data Data frame with data to be validate.
 #' @param columns Columns of data that will be evaluated.
 #' @param types Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
-#'
+#' @import data.table
 #' @return return a data frame.
 #'
 #' @export

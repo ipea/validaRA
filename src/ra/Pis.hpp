@@ -43,10 +43,10 @@ public:
     if(result == 10) result = 0;
     if(result == digits[10]){
       r = 1;
-      error = 0;
+      this->error = 0;
     }else{
       r = 0;
-      error = 1;
+      this->error = 1;
     }
     return r;
   }

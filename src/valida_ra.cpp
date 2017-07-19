@@ -18,11 +18,12 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
   Ra *ra = factoryRa(t);
   //std::cout << "Is factor: " << is_factor(x) << std::endl;
   if(is_factor(x)){
+    std::cout << "Entrou no factor: " << std::endl;
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(charxp2arrayint(STRING_ELT(x, i),ra->get_size()));
       LOGICAL(r)[i] = ra->validate();
       INTEGER(l)[i] = ra->get_error();
-
+      ra->clear();
     }
 
   }else if(TYPEOF(x) == STRSXP){
@@ -30,6 +31,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
       ra->set_digits(charxp2arrayint(STRING_ELT(x, i),ra->get_size()));
       LOGICAL(r)[i] = ra->validate();
       INTEGER(l)[i] = ra->get_error();
+      ra->clear();
 
     }
 
@@ -39,6 +41,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
       ra->set_digits(bit642arrayint(q[i], ra->get_size(),ra->sizeRaValidate() ));
       LOGICAL(r)[i] = ra->validate();
       INTEGER(l)[i] = ra->get_error();
+      ra->clear();
     }
   }else if(TYPEOF(x) == REALSXP){
     double * q = REAL(x);
@@ -46,6 +49,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
       ra->set_digits(double2arrayint(q[i], ra->get_size(),ra->sizeRaValidate() ));
       LOGICAL(r)[i] = ra->validate();
       INTEGER(l)[i] = ra->get_error();
+      ra->clear();
     }
 
   }

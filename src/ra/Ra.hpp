@@ -18,11 +18,11 @@ class Ra{
     Ra(){
       this->size = 0;
       digits = NULL;
-      error = 0;
+      error = -1;
     };
     Ra(int *digits_value, unsigned int size){
       this->size = 0;
-      error = 0;
+      error = -1;
       set_digits(digits_value, size);
     }
     virtual int generate_last_digit() = 0;
@@ -33,7 +33,7 @@ class Ra{
     int * get_digits(){return digits;}
     int get_error(){return error; }
     bool has_error(){ return error; }
-    void clear(){ this->size = 0;}
+    void clear(){ this->error = -1;}
     friend ostream& operator<<(ostream& os, const Ra& ra){
       os << "class: Ra " <<  std::endl;
       os << "Size: " << ra.size << std::endl;

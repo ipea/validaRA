@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ### NEW:
 
--   Generate last digit of pis
+-   Validate CNS numbers
 
 ### COMMING SOON:
   * Generate last digits for any RA document
