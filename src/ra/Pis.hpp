@@ -32,6 +32,10 @@ public:
   int validate(){
     int r = 0;
     int result = 0;
+    if(all_equal()){
+      error = 3;
+      return r;
+    }
     if(size < tpis_cpf){
       std::fill_n(digits + size, tpis_cpf - size, -1);
     }

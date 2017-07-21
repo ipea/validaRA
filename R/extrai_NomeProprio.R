@@ -17,6 +17,7 @@ extrai_NomeProprio <- function(x, sobrenome = FALSE, sexo = FALSE){
 
   #Carrega bases necessárias e variáveis--------------------------
   base_nomes <- system.file("extdata", "base_nomes.csv", package = "validaRA")
+  base_nomes <- fread(base_nomes)
   patternOneName <- "^[a-zA-Z0-9_]+"
   patternTwoNames <- "^[a-zA-Z0-9_]+\\s[a-zA-Z0-9_]+"
   patternThreeNames <- "^[a-zA-Z0-9_]+\\s[a-zA-Z0-9_]+\\s[a-zA-Z0-9_]+"

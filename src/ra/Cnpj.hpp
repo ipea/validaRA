@@ -41,7 +41,7 @@ public:
   int validate(){
     int r = 0;
     if(all_equal()){
-      error = 1;
+      error = 3;
       return r;
     }
     int result = 0;

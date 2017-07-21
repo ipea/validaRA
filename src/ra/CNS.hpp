@@ -41,6 +41,10 @@ public:
   int validate(){
     int r = 0;
     int result = 0;
+    if(all_equal()){
+      error = 3;
+      return r;
+    }
     if(size < tcns){
       std::fill_n(digits + size, tcns - size, -1);
     }

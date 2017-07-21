@@ -21,4 +21,4 @@ Suggests:
     testthat
 RoxygenNote: 5.0.1
 LinkingTo: Rcpp
-Imports: Rcpp, bit64, stringr, data.table
+Imports: Rcpp, bit64, stringr, data.table, rmarkdown

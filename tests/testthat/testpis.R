@@ -32,7 +32,7 @@ test_that("PIS using log", {
   pis <- c(45993824692, 12345678918, 16345860949)
   names <- c("BB", "Caixa", "Ipea")
   df <- data.frame(names = names, pis = pis)
-  dfr <- data.frame(dado=as.character(pis),resultado=c(TRUE,FALSE,TRUE), erros=c("","Primero digito errado",""), stringsAsFactors = FALSE)
+  dfr <- data.frame(dado=pis,resultado=c(TRUE,FALSE,TRUE), erros=as.numeric(c(0,1,0)), stringsAsFactors = FALSE)
   result <- valida_doc(df$pis, type = "pis", log = TRUE)
   expect_equal(result, dfr)
 })

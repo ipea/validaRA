@@ -65,7 +65,6 @@ valida_doc_df <- function(data, column, type = "cpf", log = FALSE){
 #' @export
 #'
 tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
-  require("data.table")
   if(length(columns) != length(types)){
     stop("Columns and types have to be of the same size.")
   }
@@ -96,16 +95,17 @@ tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
 #' @param types Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
 #' @param output_filename character, where the output will be save.
 #' @param tipo_relatorio character, grafico ou tabela, indicates the kind of output
+#' @import rmarkdown
 #' @return return a data frame.
 #'
 #' @export
 #'
 relatorioDOC <- function(input_file = NULL, data = NULL, columns, types, output_filename, tipo_relatorio = "tabela"){
-    require("rmarkdown")
     if(file.exists(output_filename)){
       warning("The file already exists so it will overwrite")
     }
     resultado <- tabulacaoDOC(input_file = input_file,data = data, columns = columns, types = types)
+    resultado <- dcast(resultado, type ~ erros , value.var = "N", fill = 0)
     if(tipo_relatorio == "tabela"){
       render("R/resultado.Rmd",output_file = basename(output_filename), output_dir = dirname(output_filename), encoding = "utf-8")
     }else{

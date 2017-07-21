@@ -30,11 +30,11 @@ test_that("Cpf numerico com zero no inicio", {
   expect_equal(saida, TRUE)
 })
 
-test_that("Cpf como factor", {
-  saida <- valida_doc(as.factor("086.090.706-62"))
-  cat("\nA saida do cpf como factor: ", saida, " ", isTRUE(saida), "\n")
-  expect_equal(saida, TRUE)
-})
+# test_that("Cpf como factor", {
+#   saida <- valida_doc(as.factor("086.090.706-62"))
+#   #cat("\nA saida do cpf como factor: ", saida, " ", isTRUE(saida), "\n")
+#   expect_equal(saida, TRUE)
+# })
 
 test_that("Vetor de cpfs", {
   cpfs <- c(31338763849, 70628182597, 45178861400)

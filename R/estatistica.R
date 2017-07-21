@@ -3,7 +3,7 @@ estatisticas_amostra <- function(dados, columnName,  type = "cpf"){
   dados_validados <- valida_doc(dados[[columnName]], type = type, log = TRUE)
   setDT(dados_validados)
   log <- dados_validados[, .N, by=erros]
-  t <- data.table("Corretos"=0,"Primeiro digito errado"=1,"Segundo Digito errado"=2)
+  t <- data.table("Corretos"=0,"Primeiro digito errado"=1,"Segundo Digito errado"=2,"Todos os digitos iguais"=3)
   log[, erros:=names(t)[match(erros, t)]]
   return(log)
 

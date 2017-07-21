@@ -17,20 +17,20 @@ library(pander)
 A base de dados foi validada utilizando-se o pacote ValidaRA. A tabela abaixo apresenta a quantidade
 de dados válidos e inválidos por tipo de documento:
 
+```{r, echo=FALSE, results='hide'}
+resultado[,Invalidos:=sum(.SD, na.rm = T), by=type, .SDcols=-"Corretos"]
+resultado <- resultado[,c(1,2, 6, 3, 4, 5)]
+```
 
-```{r tab2}
-resultado$digitos <- resultado$primeiro_digito_invalido + resultado$segundo_digito_invalido
-resultado <- resultado[c(-8,-9)]
-kable(resultado, col.names = c("Tipo","Validos","Invalidos","Missing","Tam Invalido","Zeros","Iguais(1-9)","Digitos inválidos"))
+
+
+```{r tab2, results='asis', echo=FALSE}
+kable(resultado, col.names = c("Tipo","Válidos","Inválidos","Primeiro dígito errado","Segundo dígito errado","Todos os dígitos iguais"))
 
 ```
 
 \begingroup\footnotesize
-Tam Invalido: o tamanho do dado informado era maior do que o necessário(excluindo-se os caracters especiais)
-
-Zeros: Todos os dígitos eram iguais a zero.
-
-Iguais(1-9): Todos os dígitos do documento eram iguais.
+Todos os dígitos iguais: Todos os dígitos eram iguais a zero.
 
 Digitos inválidos: o primeiro ou seguindo digito do documento não corresponde ao algoritmo de validação
 \endgroup
