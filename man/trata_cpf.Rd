@@ -18,4 +18,3 @@ Entrada adjusted.
                  it lost the 0 caracter on the left. This function fix that lost and transoform
                  entrada to character.
 }
-

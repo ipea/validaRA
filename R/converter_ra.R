@@ -11,6 +11,5 @@
 #' @export
 #'
 doc2integer64 <- function(entrada){
-  require(bit64)
   converter_ra_(entrada)
 }

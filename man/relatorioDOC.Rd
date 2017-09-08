@@ -29,4 +29,3 @@ return a data frame.
                     If neither, input and data, is giving the function stop. Also,
                     columns and types must the same size.
 }
-

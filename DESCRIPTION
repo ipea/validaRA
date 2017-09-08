@@ -2,10 +2,10 @@ Package: validaRA
 Type: Package
 Title: Fun??es para valida??o de qualidade de Registros Administrativos
 Version: 0.1.0
-Authors@R: as.person(c(
-    "Lucas Mation <lucas.mation@ipea.gov.br> [aut,cre]",
-    "Gustavo Coelho <gustavo.coelho@ipea.gov.br> [aut]"
-    ))
+Authors@R: c(
+    person("Gustavo","Coelho",      role=c("aut","cre"), email="gustavo.coelho@ipea.gov.br"),
+    person("Lucas","Mation",      role=c("aut"), email="lucas.mation@ipea.gov.br")
+    )
 Description: Fun??es para facilitar a checagem da qualidade e unicidade de
     registros administrativos. Incluindo: - valida_documento : Valida??o de d?gitos
     verificadores (CPF, CNPJ, PIS-NIT-NIS-PASEP) - mapeia_duplicidades : usuario
@@ -16,9 +16,9 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: LazyData: true
 URL: https://github.com/ipea/validaRA
-BugReports: http://github.com/hadley/dplyr/issues/issues
+BugReports: https://github.com/ipea/validaRA/issues/
 Suggests:
     testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 LinkingTo: Rcpp
 Imports: Rcpp, bit64, stringr, data.table, rmarkdown

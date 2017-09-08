@@ -13,7 +13,6 @@ verificar_titulo_eleitor <- function(entrada, log = FALSE){
     saida <- TRUE
   }else{
     saida <- FALSE
-    if(log == TRUE) log_digito_errado(tamanho_entrada - 1)
   }
   if(saida == TRUE){
     vetor_de_validacao_sequencial <- c(rep(0,tamanho_entrada-4), 7:9, 0)
@@ -24,7 +23,6 @@ verificar_titulo_eleitor <- function(entrada, log = FALSE){
       saida <- TRUE
     }else{
       saida <- FALSE
-      if(log == TRUE) log_digito_errado(tamanho_entrada)
     }
   }
   saida

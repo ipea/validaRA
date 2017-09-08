@@ -15,4 +15,3 @@ an bit64 integer
 \description{
 \code{doc2integer64} returns a brazilian document without special characters and as an integer64.
 }
-

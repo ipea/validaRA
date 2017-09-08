@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // converter_ra_
 SEXP converter_ra_(Rcpp::RObject x);
-RcppExport SEXP validaRA_converter_ra_(SEXP xSEXP) {
+RcppExport SEXP _validaRA_converter_ra_(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -18,7 +18,7 @@ END_RCPP
 }
 // valida_ra
 SEXP valida_ra(SEXP x, SEXP type, SEXP log);
-RcppExport SEXP validaRA_valida_ra(SEXP xSEXP, SEXP typeSEXP, SEXP logSEXP) {
+RcppExport SEXP _validaRA_valida_ra(SEXP xSEXP, SEXP typeSEXP, SEXP logSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // generate_digit
 void generate_digit(Rcpp::RObject x, SEXP type);
-RcppExport SEXP validaRA_generate_digit(SEXP xSEXP, SEXP typeSEXP) {
+RcppExport SEXP _validaRA_generate_digit(SEXP xSEXP, SEXP typeSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::RObject >::type x(xSEXP);
@@ -39,4 +39,16 @@ BEGIN_RCPP
     generate_digit(x, type);
     return R_NilValue;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_validaRA_converter_ra_", (DL_FUNC) &_validaRA_converter_ra_, 1},
+    {"_validaRA_valida_ra", (DL_FUNC) &_validaRA_valida_ra, 3},
+    {"_validaRA_generate_digit", (DL_FUNC) &_validaRA_generate_digit, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_validaRA(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

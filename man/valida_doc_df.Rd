@@ -21,4 +21,3 @@ True or False. if log is giving return a data frame.
 \description{
 \code{valida_doc_df} returns true or false if the number of document is correct.
 }
-

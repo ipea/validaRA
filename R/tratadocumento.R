@@ -14,7 +14,6 @@
 #' @export
 #'
 trata_cpf <- function(entrada){
-  require(stringr)
   stringr::str_pad(entrada,11, side = "left", pad = "0")
 }
 

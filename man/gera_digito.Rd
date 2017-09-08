@@ -21,4 +21,3 @@ it will alter the number by reference.
  gera_digito("529.982.247-2", type = "cpf")
  gera_digito("60.149.443/0001-7", type = "cnpj")
 }
-
