@@ -1,4 +1,5 @@
 estatisticas_amostra <- function(dados, columnName,  type = "cpf"){
+  erros <- NULL
   setDT(dados)
   dados_validados <- valida_doc(dados[[columnName]], type = type, log = TRUE)
   setDT(dados_validados)
