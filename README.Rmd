@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 -   Validate CNS numbers
 
 ### COMMING SOON:
-  * Generate last digits for any RA document
+  * Validate ibge cities numbers
 
 ## Description 
 
