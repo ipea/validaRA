@@ -1,2 +1,2 @@
-DIR_PKG=$(shell cygpath -w $(CURDIR))
+DIR_PKG=$(shell $PWD)
 PKG_CPPFLAGS= -I"$(DIR_PKG)"
