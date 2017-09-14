@@ -1,2 +1,2 @@
-DIR_PKG=$(shell $PWD)
+DIR_PKG=$(shell pwd)
 PKG_CPPFLAGS= -I"$(DIR_PKG)"
