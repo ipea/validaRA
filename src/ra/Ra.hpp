@@ -3,7 +3,7 @@
 #include "boost.h"
 #include <Rcpp.h>
 #include <Rdefines.h>
-#include <RInternals.h>
+#include <Rinternals.h>
 #include <math.h>
 #include <iostream>
 using namespace std;

@@ -6,7 +6,7 @@
 #include <string>
 #include <R.h>
 #include <Rdefines.h>
-#include <RInternals.h>
+#include <Rinternals.h>
 
 
 // [[Rcpp::plugins(cpp11)]]
