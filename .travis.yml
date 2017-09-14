@@ -1,4 +1,11 @@
 language: r
 cache: packages
 sudo: false
+addons:
+        apt:
+                sources:
+                        - r-packages-precise
+                packages:
+                        - r-base-dev
+                        - r-recommended
 warnings_are_errors: false
