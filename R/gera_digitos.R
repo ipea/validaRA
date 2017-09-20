@@ -6,7 +6,7 @@
 #' @param entrada Caracter or numeric of the document that will be validated.
 #' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
 #'
-#' @useDynLib validaRA
+#' @useDynLib validaRA, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @return it will alter the number by reference.
 #'
