@@ -1,6 +1,6 @@
 #ifndef CONVERT2INT_H
 #define CONVERT2INT_H
-#include "boost.h"
+#include "libraries.h"
 #include <Rcpp.h>
 #include <Rdefines.h>
 #include <Rinternals.h>

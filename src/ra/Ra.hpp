@@ -1,7 +1,7 @@
 #ifndef RA_H
 #define RA_H
-#include "boost.h"
 #include <Rcpp.h>
+#include "libraries.h"
 #include <Rdefines.h>
 #include <Rinternals.h>
 #include <math.h>

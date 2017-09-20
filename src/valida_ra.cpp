@@ -1,4 +1,4 @@
-#include "boost.h"
+#include "libraries.h"
 #include "convert2int.h"
 #include <Rcpp.h>
 #include <algorithm>
@@ -8,7 +8,7 @@
 #include <Rdefines.h>
 #include <Rinternals.h>
 
-
+// [[Rcpp::depends(BH)]]
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 SEXP valida_ra(SEXP x, SEXP type, SEXP log){
