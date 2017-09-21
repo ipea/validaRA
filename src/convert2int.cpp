@@ -31,7 +31,7 @@ bool is_factor(SEXP x){
 }
 
 int * charxp2arrayint(SEXP x, int *size){
-  if(TYPEOF(x) != CHARSXP) std::cout << "Não é um charxt";
+  //if(TYPEOF(x) != CHARSXP) std::cout << "Não é um charxt";
   const char *t = CHAR(x);
   int t_vec = 0;
   int len_v = (strlen(t) > 11) ? strlen(t) : 11;

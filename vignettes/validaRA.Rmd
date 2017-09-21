@@ -9,6 +9,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<style>
+  body { text-align: justify }
+</style>
+
+```{r, include=FALSE}
+options(width = "800")
+```
+
+
 ## Introdução
 
 Um pacote na linguagem R concentra funções com objetivos comuns para se alcançar uma maior reusabilidade de código e facilitar as manutenções futuras. O pacote validaRA tem como meta a reunião de funções que lidam com registros administrativos brasileiros como cadastro de pessoa física(CPF), programa de integração social (PIS), cartão nacional de saúde(CNES) e cadastro nacional de pessoas jurídicas(CNPJ). O pacote reúne funções que possibilitam a validação individual assim como de bases com esses registros. O restante do texto irá explicar como funciona o algoritmos de validação de cada registro e como usar o pacote para validar um conjunto de dados.  O pacote foi desenvolvido em linguagem c++ com interfaces para R visando maior reusabilidade e eficiência das operações. 
@@ -122,13 +131,13 @@ devtools::install_github("ipea/validaRA")
 A função principal do pacote é chamada de valida_doc. Essa função é genérica e aceita três argumentos(entrada, type, log) sendo apenas o primeiro obrigatório. O primeiro argumento é o documento que se deseja validar em formato texto, numérico ou interger64(O tipo interger64 pertence ao pacote bit64). O segundo argumento, type, refere-se ao tipo de documento que se deseja validar sendo possível as opções CPF, PIS CNPJ e CNES. Esse argumento não é obrigatório e o seu valor padrão é CPF. O último argumento especifica o tipo de retorno que se deseja ter. O valor padrão de log é false, nessa opção será retornado apenas True ou False. Caso o valor de log seja True, o retorno de valida_doc será mais verboso mostrando onde o erro pode ter acontecido no caso do documento ser inválido. A função pode ser usando como no exemplo abaixo para validar um CPF sem saída verbosa:
 
 ```{r, eval=FALSE}
-valida_doc("56273869596”)
+valida_doc("56273869596")
 ```
 
 
 Para validar um número de PIS a função poderia ser chamada da seguinte forma:
 ```{r, eval=FALSE}
-valida_doc("56273869596”, type = “pis”)
+valida_doc("56273869596", type = "pis")
 ```
 
 	

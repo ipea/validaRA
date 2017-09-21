@@ -7,7 +7,7 @@ Authors@R: c(
     person("Lucas","Mation", role=c("aut"), email="lucas.mation@ipea.gov.br")
     )
 Maintainer: Gustavo Coelho <gustavo.coelho@ipea.gov.br>
-Description: Contains funcitons to validade administrative register as 
+Description: Contains functions to validate administrative register as 
              CPF, CNPJ, PIS, CNES. It can check individual registers or create
              a rmarkdown analyses of a base. 
 License: GPL-3
