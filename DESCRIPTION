@@ -18,5 +18,6 @@ Suggests:
     testthat
 RoxygenNote: 6.0.1
 Depends: R (>= 3.0)
-LinkingTo: Rccp, BH
+LinkingTo: Rcpp, BH
 Imports: Rcpp, bit64, stringr, data.table, rmarkdown, BH
+SystemRequirements: C++11
