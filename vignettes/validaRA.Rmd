@@ -1,0 +1,147 @@
+---
+title: "Introdução ao ValidaRA"
+author: "Gustavo Coelho"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introdução
+
+Um pacote na linguagem R concentra funções com objetivos comuns para se alcançar uma maior reusabilidade de código e facilitar as manutenções futuras. O pacote validaRA tem como meta a reunião de funções que lidam com registros administrativos brasileiros como cadastro de pessoa física(CPF), programa de integração social (PIS), cartão nacional de saúde(CNES) e cadastro nacional de pessoas jurídicas(CNPJ). O pacote reúne funções que possibilitam a validação individual assim como de bases com esses registros. O restante do texto irá explicar como funciona o algoritmos de validação de cada registro e como usar o pacote para validar um conjunto de dados.  O pacote foi desenvolvido em linguagem c++ com interfaces para R visando maior reusabilidade e eficiência das operações. 
+
+## Registros administrativos
+### CPF
+
+O número do CPF é composto de 11 dígitos sendo os dois últimos verificadores. Os algoritmos de validação de registros administrativos são muito semelhantes. O algoritmo de validação do CPF será explicado detalhadamente e para os outros registros será apontada apenas as diferenças pontuais. O primeiro passo para se validar o CPF é multiplicar o número que se deseja validar pelos vetores de validação(VV) como no exemplo abaixo:
+
+```{r, results='asis', echo=FALSE}
+
+CPF <- c(5,6,2,7,3,8,6,9,5,9,6)
+
+VV1 <- c(10,9,8,7,6,5,4,3,2,0,0)
+
+RES1 <- CPF * VV1
+
+m <- matrix(c(CPF, VV1, RES1), ncol = 11, byrow = T)
+rownames(m) <- c("CPF: ", "VV 1: ", "RES: ")
+knitr::kable(m)
+```
+
+```{r, results='asis', echo=FALSE}
+
+CPF <- c(5,6,2,7,3,8,6,9,5,9,6)
+
+VV2 <- c(11, 10,9,8,7,6,5,4,3,2,0)
+
+RES1 <- CPF * VV2
+
+m <- matrix(c(CPF, VV1, RES1), ncol = 11, byrow = T)
+rownames(m) <- c("CPF: ", "VV 2: ", "RES 2: ")
+knitr::kable(m)
+```
+
+Os valores dos vetores Res então são somados e multiplicados por 10, portanto, o resultado da soma para res1 seria 288 e da multiplicação 2880.  Com o resultado da multiplicação é feita uma divisão inteira por 11, caso o resto dessa divisão seja 10 o primeiro dígito verificador tem que ser 0, caso contrário o primeiro dígito verificador tem que ser o resto da divisão. No exemplo o resto da divisão inteira de 2880 por 11 será 9 mostrando que o primeiro dígito do CPF está correto. O segundo dígito seguirá o mesmo procedimento apenas mudando o vetor VV.  Caso o resto da divisão dos dois passos sejam iguais o CPF será válido. 
+
+### PIS
+
+O pis segue o mesmo procedimento do CPF porém tem apenas um dígito verificador. Outra diferença é o vetor de verificação que tem os seguintes valores:
+
+```{r, results='asis', echo=FALSE}
+
+VV <- c(3, 2,9,8,7,6,5,4,3,2,0)
+
+m <- matrix(VV, ncol = 11, byrow = T)
+rownames(m) <- c("VV: ")
+knitr::kable(m)
+```
+
+A soma da multiplicação do PIS que se deseja verificar pelo vetor de verificação também será multiplicada por 10 e feita a divisão inteira por 11. Caso o resto da divisão inteira resulte em 10 o último dígito do PIS sendo verificado deve ser zero caso contrário o resto da divisão tem que ser igual ao último dígito do PIS que se deseja verificar, como no caso do CPF. 
+
+### CNPJ
+
+O CNPJ possui dois dígitos verificadores(os dois dígitos finais) como o CPF e segue, também, o algoritmo de validação do CPF apenas com vetores de validação diferentes. Os vetores utilizados são:
+
+```{r, results='asis', echo=FALSE}
+
+VV <- c(5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0, 0)
+VV2 <- c(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0)
+m <- matrix(c(VV, VV2), ncol = 14, byrow = T)
+rownames(m) <- c("VV1: ", "VV2: ")
+knitr::kable(m)
+```
+
+Outra diferença entre o CNPJ e o CPF é que a divisão inteira é feita por 14. Os outros procedimentos são semelhantes. 
+
+## CNES
+O número do cartão nacional de saúde segue um procedimento um pouco diferente dos demais registros administrativos pois tem algoritmos de validação dependente do dígito inicial. Os cartões com números iniciados em 7, 8 e 9 seguem o mesmo algoritmo do CPF com um vetor de verificação:
+
+```{r, results='asis', echo=FALSE}
+
+VV <- c(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+
+m <- matrix(VV, ncol = 15, byrow = T)
+rownames(m) <- c("V1: ")
+knitr::kable(m)
+```
+
+Nesse caso, semelhante ao CPF, a divisão inteira será feita por 11 e segue o restante dos procedimentos. 
+
+Os CNES começados com 1 e 2 seguem um procedimento diferente. Nesse caso os quatros últimos dígitos do CNES são usados na verificação, porém, os três penúltimos serão 000 ou 001. O princípio do algoritmo é igual ao do CPF, o número é multiplicado pelo vetor de verificação e os resultados somados:
+
+```{r, results='asis', echo=FALSE}
+
+VV <- c(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 0, 0, 0, 0)
+
+m <- matrix(VV, ncol = 15, byrow = T)
+rownames(m) <- c("V1: ")
+knitr::kable(m)
+```
+
+Após a soma é feita a divisão inteira por 11, também, porém o resto não é o dígito verificador como nos outros casos.  O dígito verificador será 0 caso o resultado da subtração de 11 menos o resto da divisão inteira por 11 seja 11 os três últimos serão 000. Caso esse resultado seja 10, a soma é acrescida de 2 e o dígito verificador será a diferença de 11 para o resto da divisão inteira por 11 e os três penúltimos números serão 001.     
+
+## Instalação do Pacote
+O pacote validaRA ainda não foi submetido para o CRAN(The Comprehensive R Archive Network), repositório padrão de pacotes da linguagem R, portanto para instalá-lo é necessário o uso da ferramenta DevTools. O  pacote Devtools pode ser instalado usando-se o comando:
+
+```{r, eval=FALSE}
+install.packages("devtools")
+```
+
+
+Após esse procedimento, pode-se instalar o pacote validaRA usando o comando:
+```{r, eval=FALSE}
+devtools::install_github("ipea/validaRA")
+```
+
+	
+
+## Tutorial de Uso
+A função principal do pacote é chamada de valida_doc. Essa função é genérica e aceita três argumentos(entrada, type, log) sendo apenas o primeiro obrigatório. O primeiro argumento é o documento que se deseja validar em formato texto, numérico ou interger64(O tipo interger64 pertence ao pacote bit64). O segundo argumento, type, refere-se ao tipo de documento que se deseja validar sendo possível as opções CPF, PIS CNPJ e CNES. Esse argumento não é obrigatório e o seu valor padrão é CPF. O último argumento especifica o tipo de retorno que se deseja ter. O valor padrão de log é false, nessa opção será retornado apenas True ou False. Caso o valor de log seja True, o retorno de valida_doc será mais verboso mostrando onde o erro pode ter acontecido no caso do documento ser inválido. A função pode ser usando como no exemplo abaixo para validar um CPF sem saída verbosa:
+
+```{r, eval=FALSE}
+valida_doc("56273869596”)
+```
+
+
+Para validar um número de PIS a função poderia ser chamada da seguinte forma:
+```{r, eval=FALSE}
+valida_doc("56273869596”, type = “pis”)
+```
+
+	
+
+Caso se deseja uma saída mais verbosa a função pode ser chamada da seguinte forma:
+valida_doc(“56273869596”, type = “pis”, log = T)
+
+Outra função importante do pacote é a função relatorioDOC. Essa função foi projetada para avaliar uma ou mais colunas de documentos administrativos gerando resultados em uma arquivo pdf especificado pelo usuário. A função pode ser usada como no exemplo a seguir:
+
+```{r, eval=FALSE}
+relatorioDOC(input_file = “arquivo.xls”, columns = c(“CPF”, “PIS”), types = c(“cpf”, “pis”),     output_filename = “resultado.pdf”)
+```
+
+
+A função recebe como parâmetro um arquivo, input_file, ou uma base de dados já lida no parâmetro data. O parâmetro columns  indica as colunas onde estão os números administrativos na base dada no primeiro argumento e o parâmetro types espera os tipos de validação de cada coluna. Columns e types devem ter o mesmo tamanho, caso contrário a função irá retornar um erro. O resultado da validação será salvo no arquivo especificado no parâmetro outpu_file. 
+
