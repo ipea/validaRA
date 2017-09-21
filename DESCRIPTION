@@ -1,12 +1,12 @@
 Package: validaRA
 Type: Package
-Title: Functions to validate brazilian administrative registers
+Title: Validate Brazilian Administrative Registers
 Version: 0.1.0
 Authors@R: c(
     person("Gustavo","Coelho", role=c("aut","cre"), email="gustavo.coelho@ipea.gov.br"),
-    person("Lucas","Mation",role=c("aut"), email="lucas.mation@ipea.gov.br")
+    person("Lucas","Mation", role=c("aut"), email="lucas.mation@ipea.gov.br")
     )
-Description: The package contains funcitons to validade administrative register as 
+Description: Contains funcitons to validade administrative register as 
              CPF, CNPJ, PIS, CNES. It can check individual registers or create
              a rmarkdown analyses of a base. 
 License: GPL-3
@@ -17,5 +17,6 @@ BugReports: https://github.com/ipea/validaRA/issues/
 Suggests:
     testthat
 RoxygenNote: 6.0.1
-LinkingTo: Rcpp, BH
+Depends: R (>= 3.0)
+LinkingTo: BH
 Imports: Rcpp, bit64, stringr, data.table, rmarkdown, BH
