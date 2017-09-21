@@ -36,10 +36,10 @@ int * charxp2arrayint(SEXP x, int *size){
   int t_vec = 0;
   int len_v = (strlen(t) > 11) ? strlen(t) : 11;
   int *v = (int *)malloc(sizeof(int) * len_v) ;
-  if(v == NULL){
-    std::cout << "Não alocado";
-    exit(1);
-  }
+  //if(v == NULL){
+    //std::cout << "Não alocado";
+    //exit(1);
+  //}
 
   //std::cout << "o texto: " << t << std::endl;
   for(unsigned int j = 0; j < strlen(t); j++){
