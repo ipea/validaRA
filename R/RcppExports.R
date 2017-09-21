@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 converter_ra_ <- function(x) {
-    .Call('_validaRA_converter_ra_', PACKAGE = 'validaRA', x)
+    .Call(`_validaRA_converter_ra_`, x)
 }
 
 valida_ra <- function(x, type, log) {
-    .Call('_validaRA_valida_ra', PACKAGE = 'validaRA', x, type, log)
+    .Call(`_validaRA_valida_ra`, x, type, log)
 }
 
 generate_digit <- function(x, type) {
-    invisible(.Call('_validaRA_generate_digit', PACKAGE = 'validaRA', x, type))
+    invisible(.Call(`_validaRA_generate_digit`, x, type))
 }
 
