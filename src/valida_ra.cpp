@@ -18,7 +18,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
   Ra *ra = factoryRa(t);
   //std::cout << "Is factor: " << is_factor(x) << std::endl;
   if(is_factor(x)){
-    std::cout << "Entrou no factor: " << std::endl;
+    //std::cout << "Entrou no factor: " << std::endl;
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(charxp2arrayint(STRING_ELT(x, i),ra->get_size()));
       LOGICAL(r)[i] = ra->validate();
