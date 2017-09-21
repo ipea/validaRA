@@ -73,7 +73,7 @@ class Ra{
         try{
           c[i] = boost::lexical_cast<char>(digits[i]) ;
         }catch(...){
-          std::cout << "Erro aqui na funcao" << std::endl;
+          //std::cout << "Erro aqui na funcao" << std::endl;
           continue;
         }
       }
