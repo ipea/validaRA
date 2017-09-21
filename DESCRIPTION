@@ -15,9 +15,12 @@ LazyData: LazyData: true
 URL: https://github.com/ipea/validaRA
 BugReports: https://github.com/ipea/validaRA/issues/
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
 Depends: R (>= 3.0)
 LinkingTo: Rcpp, BH
 Imports: Rcpp, bit64, stringr, data.table, rmarkdown, BH
 SystemRequirements: C++11
+VignetteBuilder: knitr
