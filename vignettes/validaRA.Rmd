@@ -18,7 +18,31 @@ Um pacote na linguagem R concentra funções com objetivos comuns para se alcan�
 
 O número do CPF é composto de 11 dígitos sendo os dois últimos verificadores. Os algoritmos de validação de registros administrativos são muito semelhantes. O algoritmo de validação do CPF será explicado detalhadamente e para os outros registros será apontada apenas as diferenças pontuais. O primeiro passo para se validar o CPF é multiplicar o número que se deseja validar pelos vetores de validação(VV) como no exemplo abaixo:
 
-Tabelas
+```{r, results='asis', echo=FALSE}
+
+CPF <- c(5,6,2,7,3,8,6,9,5,9,6)
+
+VV1 <- c(10,9,8,7,6,5,4,3,2,0,0)
+
+RES1 <- CPF * VV1
+
+m <- matrix(c(CPF, VV1, RES1), ncol = 11, byrow = T)
+rownames(m) <- c("CPF: ", "VV 1: ", "RES: ")
+knitr::kable(m)
+```
+
+```{r, results='asis', echo=FALSE}
+
+CPF <- c(5,6,2,7,3,8,6,9,5,9,6)
+
+VV2 <- c(11, 10,9,8,7,6,5,4,3,2,0)
+
+RES1 <- CPF * VV2
+
+m <- matrix(c(CPF, VV1, RES1), ncol = 11, byrow = T)
+rownames(m) <- c("CPF: ", "VV 2: ", "RES 2: ")
+knitr::kable(m)
+```
 
 Os valores dos vetores Res então são somados e multiplicados por 10, portanto, o resultado da soma para res1 seria 288 e da multiplicação 2880.  Com o resultado da multiplicação é feita uma divisão inteira por 11, caso o resto dessa divisão seja 10 o primeiro dígito verificador tem que ser 0, caso contrário o primeiro dígito verificador tem que ser o resto da divisão. No exemplo o resto da divisão inteira de 2880 por 11 será 9 mostrando que o primeiro dígito do CPF está correto. O segundo dígito seguirá o mesmo procedimento apenas mudando o vetor VV.  Caso o resto da divisão dos dois passos sejam iguais o CPF será válido. 
 
@@ -26,7 +50,14 @@ Os valores dos vetores Res então são somados e multiplicados por 10, portanto,
 
 O pis segue o mesmo procedimento do CPF porém tem apenas um dígito verificador. Outra diferença é o vetor de verificação que tem os seguintes valores:
 
-Tabelas
+```{r, results='asis', echo=FALSE}
+
+VV <- c(3, 2,9,8,7,6,5,4,3,2,0)
+
+m <- matrix(VV, ncol = 11, byrow = T)
+rownames(m) <- c("VV: ")
+knitr::kable(m)
+```
 
 A soma da multiplicação do PIS que se deseja verificar pelo vetor de verificação também será multiplicada por 10 e feita a divisão inteira por 11. Caso o resto da divisão inteira resulte em 10 o último dígito do PIS sendo verificado deve ser zero caso contrário o resto da divisão tem que ser igual ao último dígito do PIS que se deseja verificar, como no caso do CPF. 
 
@@ -34,18 +65,41 @@ A soma da multiplicação do PIS que se deseja verificar pelo vetor de verifica�
 
 O CNPJ possui dois dígitos verificadores(os dois dígitos finais) como o CPF e segue, também, o algoritmo de validação do CPF apenas com vetores de validação diferentes. Os vetores utilizados são:
 
+```{r, results='asis', echo=FALSE}
+
+VV <- c(5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0, 0)
+VV2 <- c(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0)
+m <- matrix(c(VV, VV2), ncol = 14, byrow = T)
+rownames(m) <- c("VV1: ", "VV2: ")
+knitr::kable(m)
+```
+
 Outra diferença entre o CNPJ e o CPF é que a divisão inteira é feita por 14. Os outros procedimentos são semelhantes. 
 
-CNES
+## CNES
 O número do cartão nacional de saúde segue um procedimento um pouco diferente dos demais registros administrativos pois tem algoritmos de validação dependente do dígito inicial. Os cartões com números iniciados em 7, 8 e 9 seguem o mesmo algoritmo do CPF com um vetor de verificação:
 
-Tabela
+```{r, results='asis', echo=FALSE}
+
+VV <- c(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+
+m <- matrix(VV, ncol = 15, byrow = T)
+rownames(m) <- c("V1: ")
+knitr::kable(m)
+```
 
 Nesse caso, semelhante ao CPF, a divisão inteira será feita por 11 e segue o restante dos procedimentos. 
 
 Os CNES começados com 1 e 2 seguem um procedimento diferente. Nesse caso os quatros últimos dígitos do CNES são usados na verificação, porém, os três penúltimos serão 000 ou 001. O princípio do algoritmo é igual ao do CPF, o número é multiplicado pelo vetor de verificação e os resultados somados:
 
-Tabela
+```{r, results='asis', echo=FALSE}
+
+VV <- c(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 0, 0, 0, 0)
+
+m <- matrix(VV, ncol = 15, byrow = T)
+rownames(m) <- c("V1: ")
+knitr::kable(m)
+```
 
 Após a soma é feita a divisão inteira por 11, também, porém o resto não é o dígito verificador como nos outros casos.  O dígito verificador será 0 caso o resultado da subtração de 11 menos o resto da divisão inteira por 11 seja 11 os três últimos serão 000. Caso esse resultado seja 10, a soma é acrescida de 2 e o dígito verificador será a diferença de 11 para o resto da divisão inteira por 11 e os três penúltimos números serão 001.     
 
