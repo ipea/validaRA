@@ -128,22 +128,39 @@ devtools::install_github("ipea/validaRA")
 	
 
 ## Tutorial de Uso
-A função principal do pacote é chamada de valida_doc. Essa função é genérica e aceita três argumentos(entrada, type, log) sendo apenas o primeiro obrigatório. O primeiro argumento é o documento que se deseja validar em formato texto, numérico ou interger64(O tipo interger64 pertence ao pacote bit64). O segundo argumento, type, refere-se ao tipo de documento que se deseja validar sendo possível as opções CPF, PIS CNPJ e CNES. Esse argumento não é obrigatório e o seu valor padrão é CPF. O último argumento especifica o tipo de retorno que se deseja ter. O valor padrão de log é false, nessa opção será retornado apenas True ou False. Caso o valor de log seja True, o retorno de valida_doc será mais verboso mostrando onde o erro pode ter acontecido no caso do documento ser inválido. A função pode ser usando como no exemplo abaixo para validar um CPF sem saída verbosa:
+A função principal do pacote é chamada de valida_doc. Essa função é genérica e aceita três argumentos(entrada, type, log) sendo apenas o primeiro obrigatório. O primeiro argumento é o documento que se deseja validar em formato texto, numérico ou interger64(O tipo interger64 pertence ao pacote bit64). O segundo argumento, type, refere-se ao tipo de documento que se deseja validar sendo possível as opções CPF, PIS CNPJ e CNES. Esse argumento não é obrigatório e o seu valor padrão é CPF. O último argumento especifica o tipo de retorno que se deseja ter. O valor padrão de log é false, nessa opção será retornado apenas True ou False. Caso o valor de log seja True, o retorno de valida_doc será mais verboso mostrando onde o erro pode ter acontecido no caso do documento ser inválido. 
 
-```{r, eval=FALSE}
+O primeiro passo para se utilizar o pacote é carregá-lo utilizando a função library do pacote base:
+
+```{r}
+library("validaRA")
+```
+
+
+A função pode ser usando como no exemplo abaixo para validar um CPF sem saída verbosa:
+
+```{r}
 valida_doc("56273869596")
 ```
 
 
 Para validar um número de PIS a função poderia ser chamada da seguinte forma:
-```{r, eval=FALSE}
+
+```{r}
 valida_doc("56273869596", type = "pis")
 ```
 
-	
 
 Caso se deseja uma saída mais verbosa a função pode ser chamada da seguinte forma:
-valida_doc(“56273869596”, type = “pis”, log = T)
+
+```{r}
+d <- valida_doc("56273869595", type = "pis", log = T)
+
+```
+
+```{r, echo=FALSE}
+knitr::kable(d)
+```
 
 Outra função importante do pacote é a função relatorioDOC. Essa função foi projetada para avaliar uma ou mais colunas de documentos administrativos gerando resultados em uma arquivo pdf especificado pelo usuário. A função pode ser usada como no exemplo a seguir:
 

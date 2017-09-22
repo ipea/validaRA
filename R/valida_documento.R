@@ -16,6 +16,7 @@
 #' @export
 #'
 valida_doc <- function(entrada, type = "cpf", log = FALSE){
+  erros <- NULL
   if(type == "tituloeleitor"){
     if(log == FALSE){
       result <- verificar_titulo_eleitor(entrada)
@@ -24,6 +25,11 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
     }
   }else{
     result <- valida_ra(entrada, type, log)
+    if(log == TRUE){
+      setDT(result)
+      t <- data.table("Corretos"=0,"Primeiro digito errado"=1,"Segundo Digito errado"=2,"Todos os digitos iguais"=3)
+      result[, erros:=names(t)[match(erros, t)]]
+    }
   }
   result
 }
