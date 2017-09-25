@@ -6,10 +6,11 @@ Authors@R: c(
     person('Gustavo','Coelho', role=c('aut','cre'), email='gustavo.coelho@ipea.gov.br'),
     person('Lucas','Mation', role=c('aut'), email='lucas.mation@ipea.gov.br')
     )
-Maintainer: Gustavo Coelho <gustavo.coelho@ipea.gov.br>
-Description: Contains functions to validate administrative register as 
-             CPF, CNPJ, PIS, CNES. It can check individual registers or create
-             a rmarkdown analyses of a base. 
+Description: The package contains funcitons to validade administrative register as 
+             CPF (Cadastro de Pessoa Física), CNPJ (Cadastro de pessoa juricia), PIS (Programa de integracao social),
+             CNES (Cadastro Nacional de Saude). 
+             It can check individual registers or create
+             a 'rmarkdown' analyses of a base. 
 License: GPL-3
 Encoding: UTF-8
 LazyData: LazyData: true

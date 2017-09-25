@@ -12,6 +12,8 @@
 #'
 #' @examples
 #'  valida_doc("529.982.247-25", type = "cpf")
+#'  valida_doc("529.982.247-25" type = "pis")
+#'  valida_doc("529.982.247-25" type = "cnes")
 #'  valida_doc("60.149.443/0001-70", type = "cnpj")
 #' @export
 #'
