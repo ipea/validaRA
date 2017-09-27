@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 SEXP converter_ra_(Rcpp::RObject x){
-  Environment myEnv = Environment::global_env();
+  Environment myEnv = Environment::namespace_env("bit64");
   Function int64 = myEnv.find("as.integer64");
   if(x.sexp_type() == STRSXP){
     //std::cout << "passou aqui" << std::endl;

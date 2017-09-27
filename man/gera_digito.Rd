@@ -2,20 +2,20 @@
 % Please edit documentation in R/gera_digitos.R
 \name{gera_digito}
 \alias{gera_digito}
-\title{Check brazilian documents.}
+\title{Complete Brazilian documents.}
 \usage{
 gera_digito(entrada, type = "cpf")
 }
 \arguments{
-\item{entrada}{Caracter or numeric of the document that will be validated.}
+\item{entrada}{Character or numeric of the document that will be validated.}
 
-\item{type}{Caracter, it could be cpf, cnpf, pis e titulo de eleitor.}
+\item{type}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
 }
 \value{
 it will alter the number by reference.
 }
 \description{
-\code{gera_digito} generate the last digit of a id.
+\code{gera_digito} generate the last digit of a administrative register.
 }
 \examples{
  gera_digito("529.982.247-2", type = "cpf")

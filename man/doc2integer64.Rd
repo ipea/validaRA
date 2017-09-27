@@ -2,16 +2,19 @@
 % Please edit documentation in R/converter_ra.R
 \name{doc2integer64}
 \alias{doc2integer64}
-\title{Convert brazilian documents.}
+\title{Convert Brazilian documents.}
 \usage{
 doc2integer64(entrada)
 }
 \arguments{
-\item{entrada}{Caracter or numeric that will be converted.}
+\item{entrada}{Character or numeric that will be converted.}
 }
 \value{
 an bit64 integer
 }
 \description{
-\code{doc2integer64} returns a brazilian document without special characters and as an integer64.
+\code{doc2integer64} returns a Brazilian document without special characters and as an integer64.
+}
+\examples{
+   doc2integer64("086.090.705-65")
 }

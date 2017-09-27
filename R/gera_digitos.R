@@ -1,10 +1,10 @@
-#' Check brazilian documents.
+#' Complete Brazilian documents.
 #'
-#' \code{gera_digito} generate the last digit of a id.
+#' \code{gera_digito} generate the last digit of a administrative register.
 #'
 #'
-#' @param entrada Caracter or numeric of the document that will be validated.
-#' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param entrada Character or numeric of the document that will be validated.
+#' @param type Character, it could be cpf, cnpf, pis e titulo de eleitor.
 #'
 #' @useDynLib validaRA, .registration = TRUE
 #' @importFrom Rcpp sourceCpp

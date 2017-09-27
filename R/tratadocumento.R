@@ -1,4 +1,4 @@
-#' Correct brazilian cpf document.
+#' Correct Brazilian cpf document.
 #'
 #' \code{trada_cpf} The aim is transform the entrada to the pattern of brazilian document cpf.
 #'                  It must have 11 numeric characters. When a dataset is read as a numeric,
@@ -6,11 +6,13 @@
 #'                  entrada to character.
 #'
 #'
-#' @param entrada Caracter or numeric of the document that will be ajusted.
+#' @param entrada Character or numeric of the document that will be ajusted.
 #'
 #' @return Entrada adjusted.
 #' @import stringr
 #'
+#' @examples
+#'    trata_cpf(52145795)
 #' @export
 #'
 trata_cpf <- function(entrada){

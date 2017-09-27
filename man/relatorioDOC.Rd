@@ -14,11 +14,11 @@ relatorioDOC(input_file = NULL, data = NULL, columns, types,
 
 \item{columns}{Columns of data that will be evaluated.}
 
-\item{types}{Caracter, it could be cpf, cnpf, pis e titulo de eleitor.}
+\item{types}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
 
-\item{output_filename}{character, where the output will be save.}
+\item{output_filename}{Character, where the output will be save.}
 
-\item{tipo_relatorio}{character, grafico ou tabela, indicates the kind of output}
+\item{tipo_relatorio}{Character, grafico ou tabela, indicates the kind of output}
 }
 \value{
 return a data frame.

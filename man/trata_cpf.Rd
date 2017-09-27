@@ -2,12 +2,12 @@
 % Please edit documentation in R/tratadocumento.R
 \name{trata_cpf}
 \alias{trata_cpf}
-\title{Correct brazilian cpf document.}
+\title{Correct Brazilian cpf document.}
 \usage{
 trata_cpf(entrada)
 }
 \arguments{
-\item{entrada}{Caracter or numeric of the document that will be ajusted.}
+\item{entrada}{Character or numeric of the document that will be ajusted.}
 }
 \value{
 Entrada adjusted.
@@ -17,4 +17,7 @@ Entrada adjusted.
                  It must have 11 numeric characters. When a dataset is read as a numeric,
                  it lost the 0 caracter on the left. This function fix that lost and transoform
                  entrada to character.
+}
+\examples{
+   trata_cpf(52145795)
 }

@@ -2,14 +2,14 @@
 % Please edit documentation in R/valida_documento.R
 \name{valida_doc}
 \alias{valida_doc}
-\title{Check brazilian documents.}
+\title{Check Brazilian documents.}
 \usage{
 valida_doc(entrada, type = "cpf", log = FALSE)
 }
 \arguments{
-\item{entrada}{Caracter or numeric of the document that will be validated.}
+\item{entrada}{Character or numeric of the document that will be validated.}
 
-\item{type}{Caracter, it could be cpf, cnpf, pis e titulo de eleitor.}
+\item{type}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
 
 \item{log}{Output erros found on entrada}
 }

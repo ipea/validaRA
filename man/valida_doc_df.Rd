@@ -2,7 +2,7 @@
 % Please edit documentation in R/valida_documento.R
 \name{valida_doc_df}
 \alias{valida_doc_df}
-\title{Check brazilian documents.}
+\title{Check Brazilian documents.}
 \usage{
 valida_doc_df(data, column, type = "cpf", log = FALSE)
 }
