@@ -11,9 +11,9 @@ valida_doc_df(data, column, type = "cpf", log = FALSE)
 
 \item{column}{Column of data that will be evaluated.}
 
-\item{type}{Caracter, it could be cpf, cnpf, pis e titulo de eleitor.}
+\item{type}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
 
-\item{log}{Output erros found on entrada}
+\item{log}{Output errs found on entrada}
 }
 \value{
 True or False. if log is giving return a data frame.

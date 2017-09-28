@@ -2,7 +2,7 @@
 % Please edit documentation in R/valida_documento.R
 \name{tabulacaoDOC}
 \alias{tabulacaoDOC}
-\title{Check brazilian documents.}
+\title{Check Brazilian documents.}
 \usage{
 tabulacaoDOC(input_file = NULL, data = NULL, columns, types)
 }

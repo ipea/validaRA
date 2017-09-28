@@ -5,7 +5,7 @@
 #'
 #' @param entrada Character or numeric of the document that will be validated.
 #' @param type Character, it could be cpf, cnpf, pis e titulo de eleitor.
-#' @param log Output erros found on entrada
+#' @param log Output errs found on entrada
 #'
 #' @importFrom Rcpp sourceCpp
 #' @return True or False. if log is giving return a data frame.
@@ -43,8 +43,8 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
 #'
 #' @param data Data frame with data to be validate.
 #' @param column Column of data that will be evaluated.
-#' @param type Caracter, it could be cpf, cnpf, pis e titulo de eleitor.
-#' @param log Output erros found on entrada
+#' @param type Character, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param log Output errs found on entrada
 #'
 #' @return True or False. if log is giving return a data frame.
 #'
@@ -56,7 +56,7 @@ valida_doc_df <- function(data, column, type = "cpf", log = FALSE){
   valida_doc(column, type = type, log = log)
 }
 
-#' Check brazilian documents.
+#' Check Brazilian documents.
 #'
 #' \code{tabulacaoDOC} returns a data frame that summarize the output of validaDOC.
 #'                     It is require a file where the data is located or the data itself.
@@ -90,7 +90,6 @@ tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
   diagnostica_RA(data, nomes_colunas = columns, types = types)
 }
 
-#' Check brazilian documents.
 #'
 #' \code{relatorioDOC} output on pdf a data frame that summarize the output of validaDOC.
 #'                     It is require a file where the data is located or the data itself.
@@ -102,7 +101,7 @@ tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
 #' @param columns Columns of data that will be evaluated.
 #' @param types Character, it could be cpf, cnpf, pis e titulo de eleitor.
 #' @param output_filename Character, where the output will be save.
-#' @param tipo_relatorio Character, grafico ou tabela, indicates the kind of output
+#' @param tipo_relatorio Character, grafico or tabela, indicates the kind of output
 #' @import rmarkdown
 #' @return return a data frame.
 #'

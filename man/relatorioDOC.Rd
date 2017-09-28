@@ -2,7 +2,10 @@
 % Please edit documentation in R/valida_documento.R
 \name{relatorioDOC}
 \alias{relatorioDOC}
-\title{Check brazilian documents.}
+\title{\code{relatorioDOC} output on pdf a data frame that summarize the output of validaDOC.
+                    It is require a file where the data is located or the data itself.
+                    If neither, input and data, is giving the function stop. Also,
+                    columns and types must the same size.}
 \usage{
 relatorioDOC(input_file = NULL, data = NULL, columns, types,
   output_filename, tipo_relatorio = "tabela")
@@ -18,7 +21,7 @@ relatorioDOC(input_file = NULL, data = NULL, columns, types,
 
 \item{output_filename}{Character, where the output will be save.}
 
-\item{tipo_relatorio}{Character, grafico ou tabela, indicates the kind of output}
+\item{tipo_relatorio}{Character, grafico or tabela, indicates the kind of output}
 }
 \value{
 return a data frame.

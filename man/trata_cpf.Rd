@@ -7,7 +7,7 @@
 trata_cpf(entrada)
 }
 \arguments{
-\item{entrada}{Character or numeric of the document that will be ajusted.}
+\item{entrada}{Character or numeric of the document that will be adjusted.}
 }
 \value{
 Entrada adjusted.

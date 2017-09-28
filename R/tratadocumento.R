@@ -6,7 +6,7 @@
 #'                  entrada to character.
 #'
 #'
-#' @param entrada Character or numeric of the document that will be ajusted.
+#' @param entrada Character or numeric of the document that will be adjusted.
 #'
 #' @return Entrada adjusted.
 #' @import stringr

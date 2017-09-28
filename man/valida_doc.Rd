@@ -11,7 +11,7 @@ valida_doc(entrada, type = "cpf", log = FALSE)
 
 \item{type}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
 
-\item{log}{Output erros found on entrada}
+\item{log}{Output errs found on entrada}
 }
 \value{
 True or False. if log is giving return a data frame.
