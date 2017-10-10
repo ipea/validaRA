@@ -4,7 +4,7 @@
 #'
 #'
 #' @param entrada Character or numeric of the document that will be validated.
-#' @param type Character, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param type Character, it could be CPF, CNPF, PIS e titulo de eleitor.
 #'
 #' @useDynLib validaRA, .registration = TRUE
 #' @importFrom Rcpp sourceCpp

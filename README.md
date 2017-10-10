@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-Valida RA
+Valida RA [![Coverage Status](https://img.shields.io/codecov/c/github/IPEA/validaRA/master.svg)](https://codecov.io/github/IPEA/validaRA?branch=master)
 =========
 
 work in progress

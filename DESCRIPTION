@@ -6,12 +6,11 @@ Authors@R: c(
     person('Gustavo','Coelho', role=c('aut','cre'), email='gustavo.coelho@ipea.gov.br'),
     person('Lucas','Mation', role=c('aut'), email='lucas.mation@ipea.gov.br')
     )
-Description: Contains functions to validade administrative register as 
-             CPF (Cadastro de Pessoa Física), CNPJ (Cadastro de pessoa jurídica), PIS (Programa de integração social),
-             CNES (Cadastro Nacional de Saúde). 
-             It can check individual registers or create
-             a  'rmarkdown' analyses of a base.
 Maintainer: Gustavo Coelho <gustavo.coelho@ipea.gov.br>
+Description: Contains functions to validate administrative register as 
+             CPF (Cadastro de Pessoa Fisica), CNPJ (Cadastro de Pessoa Juridica), PIS (Programa de Integracao Social),
+             CNES (Cadastro Nacional de Saude). 
+             It can check individual registers or create a rmarkdown analyses of a base.
 License: GPL-3
 Encoding: UTF-8
 LazyData: LazyData: true
@@ -19,7 +18,8 @@ URL: https://github.com/ipea/validaRA
 BugReports: https://github.com/ipea/validaRA/issues/
 Suggests:
     testthat,
-    knitr
+    knitr,
+    covr
 RoxygenNote: 6.0.1
 Depends: R (>= 3.0)
 LinkingTo: Rcpp, BH

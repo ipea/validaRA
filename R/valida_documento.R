@@ -4,7 +4,7 @@
 #'
 #'
 #' @param entrada Character or numeric of the document that will be validated.
-#' @param type Character, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param type Character, it could be CPF, CNPJ, PIS e titulo de eleitor.
 #' @param log Output errs found on entrada
 #'
 #' @importFrom Rcpp sourceCpp
@@ -43,7 +43,7 @@ valida_doc <- function(entrada, type = "cpf", log = FALSE){
 #'
 #' @param data Data frame with data to be validate.
 #' @param column Column of data that will be evaluated.
-#' @param type Character, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param type Character, it could be CPF, CNPJ, PIS e titulo de eleitor.
 #' @param log Output errs found on entrada
 #'
 #' @return True or False. if log is giving return a data frame.
@@ -66,7 +66,7 @@ valida_doc_df <- function(data, column, type = "cpf", log = FALSE){
 #' @param input_file file where the data is located.
 #' @param data Data frame with data to be validate.
 #' @param columns Columns of data that will be evaluated.
-#' @param types Character, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param types Character, it could be CPF, CNPJ, PIS e titulo de eleitor.
 #' @import data.table
 #' @return return a data frame.
 #'
@@ -99,7 +99,7 @@ tabulacaoDOC <- function(input_file = NULL,data = NULL, columns, types){
 #' @param input_file file where the data is located.
 #' @param data Data frame with data to be validate.
 #' @param columns Columns of data that will be evaluated.
-#' @param types Character, it could be cpf, cnpf, pis e titulo de eleitor.
+#' @param types Character, it could be CPF, CNPJ, PIS e titulo de eleitor.
 #' @param output_filename Character, where the output will be save.
 #' @param tipo_relatorio Character, grafico or tabela, indicates the kind of output
 #' @import rmarkdown

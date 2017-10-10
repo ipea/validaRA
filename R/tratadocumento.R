@@ -1,8 +1,8 @@
 #' Correct Brazilian cpf document.
 #'
-#' \code{trada_cpf} The aim is transform the entrada to the pattern of brazilian document cpf.
+#' \code{trada_cpf} The aim is transform the entrada to the pattern of Brazilian document cpf.
 #'                  It must have 11 numeric characters. When a dataset is read as a numeric,
-#'                  it lost the 0 caracter on the left. This function fix that lost and transoform
+#'                  it lost the 0 character on the left. This function fix that lost and transform
 #'                  entrada to character.
 #'
 #'

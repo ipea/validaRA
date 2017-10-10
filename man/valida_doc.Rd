@@ -9,7 +9,7 @@ valida_doc(entrada, type = "cpf", log = FALSE)
 \arguments{
 \item{entrada}{Character or numeric of the document that will be validated.}
 
-\item{type}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
+\item{type}{Character, it could be CPF, CNPJ, PIS e titulo de eleitor.}
 
 \item{log}{Output errs found on entrada}
 }

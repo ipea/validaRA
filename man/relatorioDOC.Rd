@@ -17,7 +17,7 @@ relatorioDOC(input_file = NULL, data = NULL, columns, types,
 
 \item{columns}{Columns of data that will be evaluated.}
 
-\item{types}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
+\item{types}{Character, it could be CPF, CNPJ, PIS e titulo de eleitor.}
 
 \item{output_filename}{Character, where the output will be save.}
 

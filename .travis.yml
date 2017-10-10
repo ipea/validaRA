@@ -9,3 +9,5 @@ addons:
                         - r-base-dev
                         - r-recommended
 warnings_are_errors: false
+after_success:
+  - Rscript -e 'covr::codecov()

@@ -9,7 +9,7 @@ gera_digito(entrada, type = "cpf")
 \arguments{
 \item{entrada}{Character or numeric of the document that will be validated.}
 
-\item{type}{Character, it could be cpf, cnpf, pis e titulo de eleitor.}
+\item{type}{Character, it could be CPF, CNPF, PIS e titulo de eleitor.}
 }
 \value{
 it will alter the number by reference.
