@@ -10,7 +10,7 @@ Maintainer: Gustavo Coelho <gustavo.coelho@ipea.gov.br>
 Description: Contains functions to validate administrative register as 
              CPF (Cadastro de Pessoa Fisica), CNPJ (Cadastro de Pessoa Juridica), PIS (Programa de Integracao Social),
              CNES (Cadastro Nacional de Saude). 
-             It can check individual registers or create a rmarkdown analysis of a base.
+             It can check individual registers or create a 'rmarkdown' analysis of a base.
 License: GPL-3
 Encoding: UTF-8
 LazyData: LazyData: true
