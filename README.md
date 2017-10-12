@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-Valida RA [![Coverage Status](https://img.shields.io/codecov/c/github/IPEA/validaRA/master.svg)](https://codecov.io/github/IPEA/validaRA?branch=master)
+Valida RA [![Build Status](https://travis-ci.org/ipea/validaRA.svg?branch=master)](https://travis-ci.org/ipea/validaRA) [![Cran](https://www.r-pkg.org/badges/version/validaRA)](https://www.r-pkg.org/badges/version/validaRA) [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/validaRA)](https://cranlogs.r-pkg.org/badges/grand-total/validaRA) [![Coverage Status](https://img.shields.io/codecov/c/github/IPEA/validaRA/master.svg)](https://codecov.io/github/IPEA/validaRA?branch=master)
 =========
 
 work in progress
@@ -22,16 +22,10 @@ This package contains functions to work with brazilian documents ids as CPF, PIS
 Installation
 ------------
 
-The package is not yet on CRAN, so to install it is needed to use devtools. Devtools can be installed as a normal R package:
+After that, it is possible install validaRA from [CRAN](https://cran.r-project.org/web/packages/validaRA/index.html):
 
 ``` r
-install.packages("devtools") 
-```
-
-After that, it is possible install validaRA from the github repository using devtools:
-
-``` r
-devtools::install_github("ipea/validaRA") 
+install.packages("validaRA")
 ```
 
 The package, validaRA, depends on c++ code that has to be compiled, then Rtools must be installed. It can be found [here](https://cran.r-project.org/bin/windows/Rtools/)
