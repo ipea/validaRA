@@ -21,7 +21,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
     //std::cout << "Entrou no factor: " << std::endl;
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(charxp2arrayint(STRING_ELT(x, i),ra->get_size()));
-      LOGICAL(r)[i] = ra->validate();
+      LOGICAL(r)[i] = ra->validate_generic();
       INTEGER(l)[i] = ra->get_error();
       ra->clear();
     }
@@ -29,7 +29,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
   }else if(TYPEOF(x) == STRSXP){
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(charxp2arrayint(STRING_ELT(x, i),ra->get_size()));
-      LOGICAL(r)[i] = ra->validate();
+      LOGICAL(r)[i] = ra->validate_generic();
       INTEGER(l)[i] = ra->get_error();
       ra->clear();
 
@@ -39,7 +39,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
     long long * q = (long long *)REAL(x);
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(bit642arrayint(q[i], ra->get_size(),ra->sizeRaValidate() ));
-      LOGICAL(r)[i] = ra->validate();
+      LOGICAL(r)[i] = ra->validate_generic();
       INTEGER(l)[i] = ra->get_error();
       ra->clear();
     }
@@ -47,7 +47,7 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
     double * q = REAL(x);
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(double2arrayint(q[i], ra->get_size(),ra->sizeRaValidate() ));
-      LOGICAL(r)[i] = ra->validate();
+      LOGICAL(r)[i] = ra->validate_generic();
       INTEGER(l)[i] = ra->get_error();
       ra->clear();
     }
@@ -70,8 +70,6 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 void generate_digit(Rcpp::RObject x, SEXP type){
-  SEXP r = PROTECT(Rf_allocVector(LGLSXP, LENGTH(x)));
-  SEXP l = PROTECT(Rf_allocVector(INTSXP, LENGTH(x)));
   const char *t = CHAR(STRING_ELT(type,0));
   Ra *ra = factoryRa(t);
   if(x.sexp_type() == REALSXP && is_bit64(x.get__())){

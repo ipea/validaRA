@@ -1,11 +1,13 @@
 #ifndef RA_H
 #define RA_H
 #include <Rcpp.h>
-#include "libraries.h"
 #include <Rdefines.h>
 #include <Rinternals.h>
 #include <math.h>
 #include <iostream>
+#include "../libraries.h"
+
+using namespace Rcpp;
 using namespace std;
 
 class Ra{
@@ -111,6 +113,27 @@ class Ra{
         }
       }
       return r;
+    }
+
+    inline int validate_digit(int &result, int pos, int error_number = 1){
+      int r = 0;
+      if(result == digits[pos]){
+        r = 1;
+        error = 0;
+      }else{
+        r = 0;
+        error = error_number;
+      }
+      return r;
+    }
+
+    int validate_generic(){
+      int r = 0;
+      if(all_equal()){
+        error = 3;
+        return r;
+      }
+      return validate();
     }
 };
 

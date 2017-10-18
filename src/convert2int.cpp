@@ -1,10 +1,10 @@
 #ifndef CONVERT2INT_H
 #define CONVERT2INT_H
-#include "libraries.h"
 #include <Rcpp.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
 #include <math.h>
+#include "libraries.h"
 
 bool is_bit64(SEXP x){
   SEXP klass = Rf_getAttrib(x, R_ClassSymbol);
@@ -31,20 +31,12 @@ bool is_factor(SEXP x){
 }
 
 int * charxp2arrayint(SEXP x, int *size){
-  //if(TYPEOF(x) != CHARSXP) std::cout << "Não é um charxt";
   const char *t = CHAR(x);
   int t_vec = 0;
   int len_v = (strlen(t) > 11) ? strlen(t) : 11;
   int *v = (int *)malloc(sizeof(int) * len_v) ;
-  //if(v == NULL){
-    //std::cout << "Não alocado";
-    //exit(1);
-  //}
-
-  //std::cout << "o texto: " << t << std::endl;
   for(unsigned int j = 0; j < strlen(t); j++){
     try{
-      //std::cout << boost::lexical_cast<int>(t[j]) << std::endl;
       v[t_vec] = boost::lexical_cast<int>(t[j]);
       t_vec++;
     }catch(...){
@@ -58,11 +50,9 @@ int * charxp2arrayint(SEXP x, int *size){
 int * bit642arrayint(long long *t, int *size, int numbers_needed, int size_vec = 11){
   int t_vec = 0;
   int *v = (int *)malloc(sizeof(int) * size_vec);
-  //std::cout << " " << t <<  std::endl;
   for(int j = numbers_needed ; j >= 0; j--){
     double base = powl(10,j);
     int n = *(t)/base;
-    //std::cout << n << " " << t << " " << base << std::endl;
     *(t) -= (n*base);
     v[t_vec] = n;
     t_vec++;
@@ -106,11 +96,9 @@ int * double2arrayint(double *t, int *size, int numbers_needed, int size_vec = 1
 int * double2arrayint(double t, int *size, int numbers_needed, int size_vec = 11){
   int t_vec = 0;
   int *v = (int *)malloc(sizeof(int) * size_vec);
-  //std::cout << " " << t <<  std::endl;
   for(int j = numbers_needed ; j >= 0; j--){
     double base = powl(10,j);
     int n = t/base;
-    //std::cout << n << " " << t << " " << base << std::endl;
     t -= (n*base);
     v[t_vec] = n;
     t_vec++;

@@ -6,8 +6,8 @@
 #include <boost/lexical_cast.hpp>
 #include <ra/Ra.hpp>
 #include <ra/Cpf.hpp>
-#include <ra/Cnpj.hpp>
 #include <ra/Pis.hpp>
 #include <ra/CNS.hpp>
+#include <ra/Cnpj.hpp>
 
 #endif

@@ -3,7 +3,6 @@
 #include "Ra.hpp"
 
 #define tcns 15
-using namespace Rcpp;
 static const int digito_cns[] = {15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 
 class CNS: public  Ra{
@@ -32,7 +31,7 @@ public:
 
   int sum_digits(int tloop){
     int result = 0;
-    for(unsigned int i = 0; i < tloop; i++){
+    for(int i = 0; i < tloop; i++){
       result += digits[i] * digito_cns[i];
     }
     return result;
