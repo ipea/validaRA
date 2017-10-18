@@ -113,19 +113,14 @@ knitr::kable(m)
 Após a soma é feita a divisão inteira por 11, também, porém o resto não é o dígito verificador como nos outros casos.  O dígito verificador será 0 caso o resultado da subtração de 11 menos o resto da divisão inteira por 11 seja 11 os três últimos serão 000. Caso esse resultado seja 10, a soma é acrescida de 2 e o dígito verificador será a diferença de 11 para o resto da divisão inteira por 11 e os três penúltimos números serão 001.     
 
 ## Instalação do Pacote
-O pacote validaRA ainda não foi submetido para o CRAN(The Comprehensive R Archive Network), repositório padrão de pacotes da linguagem R, portanto para instalá-lo é necessário o uso da ferramenta DevTools. O  pacote Devtools pode ser instalado usando-se o comando:
+O pacote validaRA ainda foi submetido para o CRAN(The Comprehensive R Archive Network), repositório padrão de pacotes da linguagem R, portanto para instalá-lo basta utilizar o modo 
+padrão do r, utilizando o comando:
 
-```{r, eval=FALSE}
-install.packages("devtools")
+```{r}
+install.packages("validaRA")
 ```
 
 
-Após esse procedimento, pode-se instalar o pacote validaRA usando o comando:
-```{r, eval=FALSE}
-devtools::install_github("ipea/validaRA")
-```
-
-	
 
 ## Tutorial de Uso
 A função principal do pacote é chamada de valida_doc. Essa função é genérica e aceita três argumentos(entrada, type, log) sendo apenas o primeiro obrigatório. O primeiro argumento é o documento que se deseja validar em formato texto, numérico ou interger64(O tipo interger64 pertence ao pacote bit64). O segundo argumento, type, refere-se ao tipo de documento que se deseja validar sendo possível as opções CPF, PIS CNPJ e CNES. Esse argumento não é obrigatório e o seu valor padrão é CPF. O último argumento especifica o tipo de retorno que se deseja ter. O valor padrão de log é false, nessa opção será retornado apenas True ou False. Caso o valor de log seja True, o retorno de valida_doc será mais verboso mostrando onde o erro pode ter acontecido no caso do documento ser inválido. 

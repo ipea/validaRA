@@ -1,8 +1,8 @@
 Package: validaRA
 Type: Package
 Title: Validate Brazilian Administrative Registers
-Version: 0.1.1
 Authors@R: c(
+Version: 0.1.1
     person('Gustavo','Coelho', role=c('aut','cre'), email='gustavo.coelho@ipea.gov.br'),
     person('Lucas','Mation', role=c('aut'), email='lucas.mation@ipea.gov.br')
     )
