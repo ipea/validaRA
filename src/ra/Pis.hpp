@@ -30,9 +30,6 @@ public:
   }
 
   int validate(){
-    if(size < size_ra){
-      std::fill_n(digits + size, size_ra - size, -1);
-    }
     int result = 0;
     for(unsigned int i = 0; i < size; i++){
       result += digits[i] * digito_pis[i];

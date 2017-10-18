@@ -40,10 +40,6 @@ public:
 
   int validate(){
     int result = 0, result1 = 0;
-    if(size < size_ra){
-      std::fill_n(digits + size, size_ra - size, -1);
-    }
-    //std::cout << "Digits" <<  digits[10] << std::endl;
     for(unsigned int i = 0; i < size; i++){
       result += digits[i] * primeiro_digito_cnpj[i];
       result1 += digits[i] * segundo_digito_cnpj[i];
