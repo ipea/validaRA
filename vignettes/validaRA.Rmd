@@ -117,7 +117,7 @@ O pacote validaRA ainda foi submetido para o CRAN(The Comprehensive R Archive Ne
 padrão do r, utilizando o comando:
 
 ```{r}
-install.packages("validaRA")
+install.packages("validaRA", repos ="https://vps.fmvz.usp.br/CRAN/")
 ```
 
 
