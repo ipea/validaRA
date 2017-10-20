@@ -20,18 +20,18 @@ public:
 
   int generate_last_digit(){
     int result = 0;
-    for(unsigned int i = 0; i < size_ra; i++){
+    for(unsigned int i = 0; i < size; i++){
       result += digits[i] * primeiro_digito_cnpj[i];
     }
-    result = (result * 10) % size_ra;
+    result = (result * 10) % 11;
     if(result == 10) result = 0;
     digits[12] = result;
     size++;
     result = 0;
-    for(unsigned int i = 0; i < size_ra; i++){
+    for(unsigned int i = 0; i < size; i++){
       result += digits[i] * segundo_digito_cnpj[i];
     }
-    result = (result * 10) % size_ra;
+    result = (result * 10) % 11;
     if(result == 10) result = 0;
     digits[13] = result;
     size++;

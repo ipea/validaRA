@@ -37,3 +37,10 @@ test_that("Conjunto de CNPJS", {
   result <- valida_doc(df$cnpjs, type = "cnpj")
   expect_equal(result, c(TRUE, TRUE, TRUE))
 })
+
+test_that("Generate cnpj", {
+  cnpj_incorreto <- c("522641040001", "297438670001", "855840660001")
+  cnpj_correto <- c("52264104000107", "29743867000119", "85584066000129")
+  gera_digito(cnpj_incorreto, type = "cnpj")
+  expect_equal(cnpj_correto, cnpj_incorreto)
+})

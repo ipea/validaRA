@@ -57,4 +57,11 @@ test_that("Data frame de cpfs e log true", {
   expect_equal(result, resultado)
 })
 
+test_that("Generate cpf", {
+  cpf_incorreto <- c("263.364.246", "943.888.158", "533.103.723")
+  cpf_correto <- c("26336424626", "94388815810", "53310372324")
+  gera_digito(cpf_incorreto, type = "cpf")
+  expect_equal(cpf_correto, cpf_incorreto)
+})
+
 
