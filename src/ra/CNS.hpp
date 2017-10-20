@@ -40,14 +40,6 @@ public:
   int validate(){
     int r = 0;
     int result = 0;
-    if(all_equal()){
-      error = 3;
-      return r;
-    }
-    if(size < tcns){
-      std::fill_n(digits + size, tcns - size, -1);
-    }
-
     //std::cout << "Digits" <<  digits[10] << std::endl;
     if(digits[0] == 7 || digits[0] == 8|| digits[0] == 9){
       result = sum_digits(15);
