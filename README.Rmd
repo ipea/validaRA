@@ -48,7 +48,7 @@ The package, validaRA, depends on c++ code that has to be compiled, then Rtools 
 
 ```{r eval=FALSE}
 # Validanting cpf
-result <- valiada_doc(c("788.346.838-38"), type = "cpf")
+result <- valida_doc(c("788.346.838-38"), type = "cpf")
 
 # Validanting pis
-result <- valiada_doc(c("788.346.838-38"), type = "pis")
+result <- valida_doc(c("788.346.838-38"), type = "pis")
