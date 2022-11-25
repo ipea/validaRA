@@ -35,8 +35,8 @@ Basic Usage
 
 ``` r
 # Validanting cpf
-result <- valiada_doc(c("788.346.838-38"), type = "cpf")
+result <- valida_doc(c("788.346.838-38"), type = "cpf")
 
 # Validanting pis
-result <- valiada_doc(c("788.346.838-38"), type = "pis")
+result <- valida_doc(c("788.346.838-38"), type = "pis")
 ```
