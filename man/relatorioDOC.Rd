@@ -7,8 +7,14 @@
                     If neither, input and data, is giving the function stop. Also,
                     columns and types must the same size.}
 \usage{
-relatorioDOC(input_file = NULL, data = NULL, columns, types,
-  output_filename, tipo_relatorio = "tabela")
+relatorioDOC(
+  input_file = NULL,
+  data = NULL,
+  columns,
+  types,
+  output_filename,
+  tipo_relatorio = "tabela"
+)
 }
 \arguments{
 \item{input_file}{file where the data is located.}
