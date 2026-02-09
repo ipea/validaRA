@@ -1,3 +1,16 @@
+# validaRA 0.1.3
+person('Rodrigo','Borges', role=c('aut'), email='rodrigo.borges@ipea.gov.br')
+)
+
+- Fix for https://github.com/ipea/validaRA/issues/16
+
+
+# validaRA 0.1.2
+person('Rodrigo','Borges', role=c('aut'), email='rodrigo.borges@ipea.gov.br')
+)
+
+- fixes out of memory writes errors pointed by CRAN and responsible for CRAN removal
+
 # validaRA 0.1.1
 person('Gustavo','Coelho', role=c('aut','cre'), email='gustavo.coelho@ipea.gov.br'),
 person('Lucas','Mation', role=c('aut'), email='lucas.mation@ipea.gov.br')
