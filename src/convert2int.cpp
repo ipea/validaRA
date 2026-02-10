@@ -6,18 +6,11 @@
 #include <cctype>
 
 // =========================================================
-// CORRECAO CRITICA:
-// 1. Uso de R_alloc em vez de malloc para evitar vazamento de memoria.
-// 2. Calculo dinamico do tamanho de alocacao para evitar buffer overflow (escrita fora da memoria).
-// =========================================================
-
-// =========================================================
 // CORRECAO DE CRASH (Heap Corruption):
 // Definimos um tamanho minimo seguro (MIN_SAFE_SIZE = 16).
 // Isso garante que mesmo se o usuario passar string vazia "" ou curta "123",
 // o validador (que espera 11 ou 14 digitos) nao le memory fora do array.
 // =========================================================
-// fix para https://github.com/ipea/validaRA/issues/16
 
 #define MIN_SAFE_SIZE 16
 
@@ -60,7 +53,6 @@ int * charxp2arrayint(SEXP x, int *size){
 
   int t_vec = 0;
   for(int j = 0; j < len_t; j++){
-    // Substituido boost::lexical_cast por isdigit padrao (mais leve e seguro)
     if(isdigit(t[j])){
       v[t_vec] = t[j] - '0';
       t_vec++;
@@ -72,17 +64,17 @@ int * charxp2arrayint(SEXP x, int *size){
 
 // Versao Bit64 (ponteiro)
 int * bit642arrayint(long long *t, int *size, int numbers_needed, int size_vec){
-  // CORRECAO: Se numbers_needed for maior que size_vec (ex: 11), expande a alocacao.
-  // Isso previne o crash "out of memory write".
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
+  if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE; // Garante tamanho minimo
+
   int *v = (int *) R_alloc(alloc_size, sizeof(int));
+  std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
   for(int j = numbers_needed ; j >= 0; j--){
     double base = std::pow(10, j);
     long long val = *t;
     int n = (int)(val / (long long)base);
-    // Preserva o comportamento original de modificar o valor apontado
     *t -= (n * (long long)base);
     v[t_vec] = n;
     t_vec++;
@@ -94,7 +86,10 @@ int * bit642arrayint(long long *t, int *size, int numbers_needed, int size_vec){
 // Versao Bit64 (valor)
 int * bit642arrayint(long long t, int *size, int numbers_needed, int size_vec){
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
+  if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE;
+
   int *v = (int *) R_alloc(alloc_size, sizeof(int));
+  std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
   for(int j = numbers_needed ; j >= 0; j--){
@@ -111,7 +106,10 @@ int * bit642arrayint(long long t, int *size, int numbers_needed, int size_vec){
 // Versao Double (ponteiro)
 int * double2arrayint(double *t, int *size, int numbers_needed, int size_vec){
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
+  if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE;
+
   int *v = (int *) R_alloc(alloc_size, sizeof(int));
+  std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
   for(int j = numbers_needed ; j >= 0; j--){
@@ -128,7 +126,10 @@ int * double2arrayint(double *t, int *size, int numbers_needed, int size_vec){
 // Versao Double (valor)
 int * double2arrayint(double t, int *size, int numbers_needed, int size_vec){
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
+  if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE;
+
   int *v = (int *) R_alloc(alloc_size, sizeof(int));
+  std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
   for(int j = numbers_needed ; j >= 0; j--){
