@@ -4,12 +4,15 @@
 #include <cstring>
 #include <cmath>
 #include <cctype>
+#include <cstdlib> // Necessario para std::malloc
 
 // =========================================================
-// CORRECAO DE CRASH (Heap Corruption):
-// Definimos um tamanho minimo seguro (MIN_SAFE_SIZE = 16).
-// Isso garante que mesmo se o usuario passar string vazia "" ou curta "123",
-// o validador (que espera 11 ou 14 digitos) nao le memory fora do array.
+// CORRECAO DEFINITIVA (Crash + CRAN Error):
+// 1. Usamos std::malloc() em vez de R_alloc().
+//    Motivo: O crash -1073740940 ocorre porque a classe 'Ra' tenta fazer free()
+//    em um ponteiro gerenciado pelo R (R_alloc). Voltamos para malloc para compatibilidade.
+// 2. Mantemos MIN_SAFE_SIZE = 16.
+//    Motivo: Evita o erro do CRAN onde strings curtas causavam escrita fora da memoria.
 // =========================================================
 
 #define MIN_SAFE_SIZE 16
@@ -45,17 +48,19 @@ int * charxp2arrayint(SEXP x, int *size){
   // Isso impede o crash se a string for menor que o esperado pelo validador.
   int alloc_size = (len_t > MIN_SAFE_SIZE) ? len_t + 1 : MIN_SAFE_SIZE;
 
-  // Usa R_alloc para o R gerenciar a memoria (sem memory leaks)
-  int *v = (int *) R_alloc(alloc_size, sizeof(int));
+  // Usa malloc (compativel com o free() interno da classe Ra)
+  int *v = (int *) std::malloc(alloc_size * sizeof(int));
 
   // Zera a memoria para garantir que digitos faltantes sejam 0
-  std::memset(v, 0, alloc_size * sizeof(int));
+  if(v) std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
-  for(int j = 0; j < len_t; j++){
-    if(isdigit(t[j])){
-      v[t_vec] = t[j] - '0';
-      t_vec++;
+  if(v) {
+    for(int j = 0; j < len_t; j++){
+      if(isdigit(t[j])){
+        v[t_vec] = t[j] - '0';
+        t_vec++;
+      }
     }
   }
   *(size) = t_vec;
@@ -67,17 +72,19 @@ int * bit642arrayint(long long *t, int *size, int numbers_needed, int size_vec){
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
   if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE; // Garante tamanho minimo
 
-  int *v = (int *) R_alloc(alloc_size, sizeof(int));
-  std::memset(v, 0, alloc_size * sizeof(int));
+  int *v = (int *) std::malloc(alloc_size * sizeof(int));
+  if(v) std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
-  for(int j = numbers_needed ; j >= 0; j--){
-    double base = std::pow(10, j);
-    long long val = *t;
-    int n = (int)(val / (long long)base);
-    *t -= (n * (long long)base);
-    v[t_vec] = n;
-    t_vec++;
+  if(v) {
+    for(int j = numbers_needed ; j >= 0; j--){
+      double base = std::pow(10, j);
+      long long val = *t;
+      int n = (int)(val / (long long)base);
+      *t -= (n * (long long)base);
+      v[t_vec] = n;
+      t_vec++;
+    }
   }
   *(size) = t_vec;
   return v;
@@ -88,16 +95,18 @@ int * bit642arrayint(long long t, int *size, int numbers_needed, int size_vec){
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
   if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE;
 
-  int *v = (int *) R_alloc(alloc_size, sizeof(int));
-  std::memset(v, 0, alloc_size * sizeof(int));
+  int *v = (int *) std::malloc(alloc_size * sizeof(int));
+  if(v) std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
-  for(int j = numbers_needed ; j >= 0; j--){
-    double base = std::pow(10, j);
-    int n = (int)(t / (long long)base);
-    t -= (n * (long long)base);
-    v[t_vec] = n;
-    t_vec++;
+  if(v) {
+    for(int j = numbers_needed ; j >= 0; j--){
+      double base = std::pow(10, j);
+      int n = (int)(t / (long long)base);
+      t -= (n * (long long)base);
+      v[t_vec] = n;
+      t_vec++;
+    }
   }
   *(size) = t_vec;
   return v;
@@ -108,16 +117,18 @@ int * double2arrayint(double *t, int *size, int numbers_needed, int size_vec){
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
   if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE;
 
-  int *v = (int *) R_alloc(alloc_size, sizeof(int));
-  std::memset(v, 0, alloc_size * sizeof(int));
+  int *v = (int *) std::malloc(alloc_size * sizeof(int));
+  if(v) std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
-  for(int j = numbers_needed ; j >= 0; j--){
-    double base = std::pow(10, j);
-    int n = (int)(*t / base);
-    *t -= (n * base);
-    v[t_vec] = n;
-    t_vec++;
+  if(v) {
+    for(int j = numbers_needed ; j >= 0; j--){
+      double base = std::pow(10, j);
+      int n = (int)(*t / base);
+      *t -= (n * base);
+      v[t_vec] = n;
+      t_vec++;
+    }
   }
   *(size) = t_vec;
   return v;
@@ -128,16 +139,18 @@ int * double2arrayint(double t, int *size, int numbers_needed, int size_vec){
   int alloc_size = (numbers_needed + 2 > size_vec) ? (numbers_needed + 2) : size_vec;
   if (alloc_size < MIN_SAFE_SIZE) alloc_size = MIN_SAFE_SIZE;
 
-  int *v = (int *) R_alloc(alloc_size, sizeof(int));
-  std::memset(v, 0, alloc_size * sizeof(int));
+  int *v = (int *) std::malloc(alloc_size * sizeof(int));
+  if(v) std::memset(v, 0, alloc_size * sizeof(int));
 
   int t_vec = 0;
-  for(int j = numbers_needed ; j >= 0; j--){
-    double base = std::pow(10, j);
-    int n = (int)(t / base);
-    t -= (n * base);
-    v[t_vec] = n;
-    t_vec++;
+  if(v) {
+    for(int j = numbers_needed ; j >= 0; j--){
+      double base = std::pow(10, j);
+      int n = (int)(t / base);
+      t -= (n * base);
+      v[t_vec] = n;
+      t_vec++;
+    }
   }
   *(size) = t_vec;
   return v;

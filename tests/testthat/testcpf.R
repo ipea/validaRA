@@ -36,6 +36,11 @@ test_that("Cpf numerico com zero no inicio", {
 #   expect_equal(saida, TRUE)
 # })
 
+test_that("CPF issue #16 causava crash", {
+  saida <- valida_doc("366501887", type = "cpf", log = FALSE)
+  expect_equal(saida,TRUE)
+})
+
 test_that("Vetor de cpfs", {
   cpfs <- c(31338763849, 70628182597, 45178861400)
   names <- c("Pedro", "Joao", "Augusto")
