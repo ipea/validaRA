@@ -8,6 +8,7 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
+#include <R_ext/Print.h>
 
 // [[Rcpp::depends(BH)]]
 // [[Rcpp::export]]
@@ -25,8 +26,16 @@ SEXP valida_ra(SEXP x, SEXP type, SEXP log){
     SEXP x_str = PROTECT(Rf_coerceVector(x, STRSXP));
     for(int i = 0; i < LENGTH(x); i++){
       ra->set_digits(charxp2arrayint(STRING_ELT(x_str, i),ra->get_size()));
+
+      // Antes de validar
+      Rprintf("Validando...\n");
+
       LOGICAL(r)[i] = ra->validate_generic();
       INTEGER(l)[i] = ra->get_error();
+
+      // Antes de limpar
+      Rprintf("Limpando...\n");
+
       ra->clear();
     }
 
@@ -101,7 +110,18 @@ void generate_digit(Rcpp::RObject x, SEXP type){
 
   if(x.sexp_type() == STRSXP){
     for(int i = 0; i < LENGTH(x.get__()); i++){
-      ra->set_digits(charxp2arrayint(STRING_ELT(x.get__(), i),ra->get_size()));
+      Rprintf("Iteracao %d: Iniciando...\n", i);
+
+      // Antes da conversão
+      Rprintf("Chamando conversao...\n");
+      // Antes da conversão
+      Rprintf("Chamando conversao...\n");
+      int* digitos = charxp2arrayint(STRING_ELT(x, i), ra->get_size());
+
+      // Antes de setar no objeto
+      Rprintf("Setando digitos...\n");
+      ra->set_digits(digitos);
+
       ra->generate_last_digit();
       //pis.print_pis();
       SEXP q = Rf_mkChar(ra->int2char());
