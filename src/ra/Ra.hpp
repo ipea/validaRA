@@ -35,7 +35,14 @@ class Ra{
     int * get_digits(){return digits;}
     int get_error(){return error; }
     bool has_error(){ return error; }
-    void clear(){ this->error = -1;}
+    void clear(){
+      this->error = -1;
+      if(this->digits != NULL) {
+        std::free(this->digits);
+        this->digits = NULL;
+      }
+      this->size = 0;
+      }
     friend ostream& operator<<(ostream& os, const Ra& ra){
       os << "class: Ra " <<  std::endl;
       os << "Size: " << ra.size << std::endl;
@@ -96,7 +103,7 @@ class Ra{
 
     void push(int n){
       if(digits == NULL){
-        digits = (int *)malloc(sizeof(int) * this->size_ra) ;
+        digits = (int *)std::malloc(sizeof(int) * this->size_ra) ;
       }
       if(digits != NULL){
         digits[this->size] = n;
@@ -134,7 +141,7 @@ class Ra{
         return r;
       }
       if(size < size_ra){
-        int *new_digits = (int *)std::malloc(size_ra);
+        int *new_digits = (int *)std::malloc(size_ra * sizeof(int));
         std::fill(new_digits, new_digits+size_ra, 0);
         int d = size_ra - size;
         std::copy(digits, digits+size, new_digits+d);
