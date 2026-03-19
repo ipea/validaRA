@@ -9,5 +9,6 @@
 #include <ra/Pis.hpp>
 #include <ra/CNS.hpp>
 #include <ra/Cnpj.hpp>
+#include <ra/Cei.hpp>
 
 #endif
